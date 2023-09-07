@@ -30,23 +30,23 @@
    
    <script>
     var map = L.map('map').setView([-3.3184075946385097, 114.59125237641902], 13);
+
     var defaultMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 20,
     attribution: '© OpenStreetMap'
     });
 
     googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
-        
         maxZoom: 19,
         subdomains:['mt0','mt1','mt2','mt3']
-});
+    });
 
     var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        
-        
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
-    Esri_WorldImagery.addTo(map);
+    
+
+defaultMap.addTo(map);
 
 
     //COLORS CONTROL
@@ -69,12 +69,11 @@
         "Esri WorldImagery" : Esri_WorldImagery,
     }
 
-    fetch('http://localhost:8000/geojson/kecamatan.geojson').then(data => data.json()).then(geoJSONFeatures => {
+    fetch('/geojson/kecamatan.geojson').then(data => data.json()).then(geoJSONFeatures => {
 	L.geoJSON(geoJSONFeatures, {
       style: (feature) => {
         return {
           stroke: true,
-          color: 'blue',
           weight: 2,
           opacity: 0.7,
           fill: true,
