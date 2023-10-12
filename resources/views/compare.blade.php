@@ -71,7 +71,7 @@
     </nav>
   </header>
   <div class="content-wrapper">
-    <div class="container">
+    <div class="container-fluid">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
