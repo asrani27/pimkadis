@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Tagging extends Model
 {
     use HasFactory;
+    protected $table = 'tagging';
+    protected $guarded = ['id'];
+    public $timestamps = false;
+    
 }

@@ -7,10 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelurahan extends Model
 {
-    use HasFactory;
-    protected $table = 'kelurahan';
-    protected $guarded = ['id'];
-    public $timestamps = false;
+    use HasFactory;≈
 
     public function kecamatan()
     {

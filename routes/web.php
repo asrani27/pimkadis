@@ -7,6 +7,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TahunController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\TaggingController;
 use App\Http\Controllers\AttributController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\GantiPassController;
@@ -62,6 +63,14 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
         Route::get('attribut/edit/{id}', [AttributController::class, 'edit']);
         Route::post('attribut/edit/{id}', [AttributController::class, 'update']);
         Route::get('attribut/delete/{id}', [AttributController::class, 'delete']);
+
+
+        Route::get('tagging', [TaggingController::class, 'index']);
+        Route::get('tagging/add', [TaggingController::class, 'create']);
+        Route::post('tagging/add', [TaggingController::class, 'store']);
+        Route::get('tagging/edit/{id}', [TaggingController::class, 'edit']);
+        Route::post('tagging/edit/{id}', [TaggingController::class, 'update']);
+        Route::get('tagging/delete/{id}', [TaggingController::class, 'delete']);
     });
     Route::get('/logout', [LogoutController::class, 'logout']);
     Route::get('gantipass', [GantiPassController::class, 'index']);
