@@ -1,6 +1,22 @@
 <?php
 
+use App\Models\Attribut;
+use App\Models\Attribut_Kecamatan;
 use Illuminate\Support\Facades\Auth;
+
+function nilai($attribut_id, $kecamatan_id)
+{
+
+    $data = Attribut_Kecamatan::where('attribut_id', $attribut_id)->where('kecamatan_id', $kecamatan_id)->first();
+    //dd($data);
+    if ($data == null) {
+        $hasil = 0;
+    } else {
+        $hasil = $data->value;
+    }
+
+    return $hasil;
+}
 
 function penyebut($nilai)
 {

@@ -11,10 +11,4 @@ class HomeController extends Controller
     {
         return view('admin.home');
     }
-
-    public function pemohon()
-    {
-        $permohonan = Tpermohonan::orderBy('id', 'DESC')->paginate(15);
-        return view('pemohon.home', compact('permohonan'));
-    }
 }
