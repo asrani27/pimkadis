@@ -21,18 +21,22 @@
                 <tr>
                   <th class="text-center">No</th>
                   <th>Nama Attribut</th>
+                  <th>Deskripsi</th>
                   <th>Satuan</th>
                   <th>Kategori</th>
-                  <th>Tag On Map</th>
+                  <th>Show On Map</th>
+                  <th>Show On Profil</th>
                   <th>Aksi</th>
                 </tr>
                 @foreach ($data as $key => $item)
                 <tr>
                     <td class="text-center">{{$data->firstItem() + $key}}</td>
                     <td>{{$item->nama}}</td>
+                    <td>{{$item->deskripsi}}</td>
                     <td>{{$item->satuan}}</td>
                     <td>{{$item->kategori->nama}}</td>
                     <td>{{$item->tag}}</td>
+                    <td>{{$item->profil}}</td>
                     <td>
                         <a href="/superadmin/attribut/edit/{{$item->id}}" class="btn btn-xs btn-flat  btn-success"><i class="fa fa-edit"></i></a>
                         <a href="/superadmin/attribut/delete/{{$item->id}}"

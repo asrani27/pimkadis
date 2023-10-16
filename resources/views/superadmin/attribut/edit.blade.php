@@ -38,6 +38,12 @@
                     </select>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Deskripsi</label>
+                  <div class="col-sm-10">
+                    <textarea class="form-control" name="deskripsi">{{$data->deskripsi}}</textarea>
+                  </div>
+                </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Nama Attribut</label>
                     <div class="col-sm-10">
@@ -52,11 +58,21 @@
                   </div>
                   
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Tag On Map</label>
+                    <label for="inputEmail3" class="col-sm-2 control-label">Show On Map</label>
                     <div class="col-sm-10">
                       <select name="tag" class="form-control">
                         <option value="T" {{$data->tag == 'T' ? 'selected':''}}>T</option>
                         <option value="Y" {{$data->tag == 'Y' ? 'selected':''}}>Y</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Show On Profil</label>
+                    <div class="col-sm-10">
+                      <select name="profil" class="form-control">
+                        <option value="T" {{$data->profil == 'T' ? 'selected':''}}>T</option>
+                        <option value="Y" {{$data->profil == 'Y' ? 'selected':''}}>Y</option>
                       </select>
                     </div>
                   </div>

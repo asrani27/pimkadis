@@ -118,11 +118,20 @@
             @foreach ($attribut as $item)
               <div class="col-md-4">
                 <div class="box box-success">
-                <div class="box-header">
+                <div class="box-header with-border">
                   <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->attribut->nama)}} </h3>
                 </div>
                 <div class="box-body">
-                  {{$item->value == 0 ? '0' : $item->value}} {{$item->attribut->satuan}}
+                  <div class="col-md-4">
+                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->attribut->deskripsi)}}</h3>
+                    <h1 style="font-weight: bold">{{$item->value == 0 ? '0' : $item->value}} {{$item->attribut->satuan}}</h1>
+                  </div>
+                  <div class="col-md-8">
+                    <img src="/logo/banteng.png">
+                  </div>
+                </div>
+                <div class="box-footer">
+                  Catatan :
                 </div>
                 </div>
               </div>

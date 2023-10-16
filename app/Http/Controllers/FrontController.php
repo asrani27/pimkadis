@@ -39,8 +39,11 @@ class FrontController extends Controller
     public function detailwilayah($id)
     {
         $detail = Kecamatan::find($id);
-        $attribut = Attribut_Kecamatan::where('kecamatan_id', $id)->get();
-        return view('detail_wilayah', compact('detail','attribut'));
+        $attribut_id = Attribut::where('profil', 'Y')->get()->pluck('id');
+
+        $attribut = Attribut_Kecamatan::where('kecamatan_id', $id)->whereIn('attribut_id', $attribut_id)->get();
+
+        return view('detail_wilayah', compact('detail', 'attribut'));
     }
     public function chart()
     {
