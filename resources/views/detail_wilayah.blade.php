@@ -83,37 +83,55 @@
       <!-- Main content -->
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
-      <div class="box box-info">
-        <div class="box-header with-border">
-          <h3 class="box-title">Statistik Wilayah {{$detail->nama}}</h3>
+        <div class="row">
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Statistik Wilayah {{strtoupper($detail->nama)}}</h3>
 
-          <div class="box-tools pull-right">
-           <a href="/profilwilayah" class="btn btn-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
-           <a href="/profilwilayah/{{$detail->id}}/cetak" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Download</a>
-             {{-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> --}}
+              <div class="box-tools pull-right">
+              <a href="/profilwilayah" class="btn btn-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
+              <a href="/profilwilayah/{{$detail->id}}/cetak" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Download</a>
+                {{-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> --}}
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <form method="post" action="/compare/kecamatan">
+              @csrf
+            <div class="box-body no-padding  bg-green-gradient">
+              <div class="row">
+                <div class="col-md-4 text-center">
+                    <h1>{{$detail->nama}}</h1>
+                </div>
+                <div class="col-md-8">
+                    <img src="/logo/map.png" width="100%" height="50%">
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            </form>
           </div>
         </div>
-        <!-- /.box-header -->
-        <form method="post" action="/compare/kecamatan">
-          @csrf
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-4">
-                info
-            </div>
-            <div class="col-md-8">
-                <img src="/logo/map.png" width="100%" height="50%">
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
+        
+        @if ($attribut->count() != 0)
+        <div class="row">
+            @foreach ($attribut as $item)
+              <div class="col-md-4">
+                <div class="box box-success">
+                <div class="box-header">
+                  <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->attribut->nama)}} </h3>
+                </div>
+                <div class="box-body">
+                  {{$item->value == 0 ? '0' : $item->value}} {{$item->attribut->satuan}}
+                </div>
+                </div>
+              </div>
+            @endforeach
         </div>
-        </form>
-      </div>
-
-
-      
-      <!-- /.box -->
+        @else
+            
+        @endif
+        
       </section>
       <!-- /.content -->
     </div>

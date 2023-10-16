@@ -10,4 +10,8 @@ class Attribut_Kecamatan extends Model
     use HasFactory;
     protected $table = 'attribut_kecamatan';
     protected $guarded = ['id'];
+    public function attribut()
+    {
+        return $this->belongsTo(Attribut::class, 'attribut_id');
+    }
 }

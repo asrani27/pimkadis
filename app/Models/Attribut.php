@@ -16,4 +16,9 @@ class Attribut extends Model
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
+
+    public function kecamatan()
+    {
+        return $this->belongsToMany(Kecamatan::class, 'attribut_kecamatan', 'kecamatan_id', 'attribut_id');
+    }
 }

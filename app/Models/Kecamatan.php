@@ -18,6 +18,6 @@ class Kecamatan extends Model
     }
     public function attribut()
     {
-        return $this->hasMany(Attribut::class, 'kecamatan_id');
+        return $this->belongsToMany(Attribut::class, 'attribut_kecamatan', 'kecamatan_id', 'attribut_id');
     }
 }
