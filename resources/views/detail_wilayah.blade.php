@@ -101,6 +101,9 @@
               <div class="row">
                 <div class="col-md-4 text-center">
                     <h1>{{$detail->nama}}</h1>
+                    <img src="/logo/banteng.png">
+                    <h3>JUMLAH PENDUDUK</h3>
+                    <h2>23.435 Jiwa</h2>
                 </div>
                 <div class="col-md-8">
                     <img src="/logo/map.png" width="100%" height="50%">
