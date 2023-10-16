@@ -23,6 +23,7 @@
                   <th>Nama Attribut</th>
                   <th>Satuan</th>
                   <th>Kategori</th>
+                  <th>Tag On Map</th>
                   <th>Aksi</th>
                 </tr>
                 @foreach ($data as $key => $item)
@@ -31,6 +32,7 @@
                     <td>{{$item->nama}}</td>
                     <td>{{$item->satuan}}</td>
                     <td>{{$item->kategori->nama}}</td>
+                    <td>{{$item->tag}}</td>
                     <td>
                         <a href="/superadmin/attribut/edit/{{$item->id}}" class="btn btn-xs btn-flat  btn-success"><i class="fa fa-edit"></i></a>
                         <a href="/superadmin/attribut/delete/{{$item->id}}"

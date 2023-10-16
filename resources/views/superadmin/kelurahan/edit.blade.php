@@ -23,7 +23,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             
-            <form class="form-horizontal" action="/superadmin/kecamatan/edit/{{$data->id}}" method="post">
+            <form class="form-horizontal" action="/superadmin/kelurahan/edit/{{$data->id}}" method="post">
                 @csrf
                 <div class="box-body">
                   
@@ -66,7 +66,7 @@
                     <label for="inputEmail3" class="col-sm-2 control-label"></label>
                     <div class="col-sm-10">
                       <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save"></i> Update</button>
-                      <a href="/superadmin/kecamatan" class="btn bg-gray btn-block"><i class="fa fa-arrow-left"></i> Kembali</a>
+                      <a href="/superadmin/kelurahan" class="btn bg-gray btn-block"><i class="fa fa-arrow-left"></i> Kembali</a>
                     </div>
                   </div>
               </div>

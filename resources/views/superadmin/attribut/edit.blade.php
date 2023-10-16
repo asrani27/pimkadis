@@ -52,6 +52,15 @@
                   </div>
                   
                   <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tag On Map</label>
+                    <div class="col-sm-10">
+                      <select name="tag" class="form-control">
+                        <option value="T" {{$data->tag == 'T' ? 'selected':''}}>T</option>
+                        <option value="Y" {{$data->tag == 'Y' ? 'selected':''}}>Y</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label"></label>
                     <div class="col-sm-10">
                       <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save"></i> Update</button>

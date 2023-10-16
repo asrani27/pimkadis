@@ -28,6 +28,7 @@ class AttributController extends Controller
             $n->kategori_id = $req->kategori_id;
             $n->nama = $req->nama;
             $n->satuan = $req->satuan;
+            $n->tag = $req->tag;
             $n->save();
 
             Session::flash('success', 'Berhasil Di Simpan');
@@ -51,6 +52,7 @@ class AttributController extends Controller
             'kategori_id' => $req->kategori_id,
             'nama' => $req->nama,
             'satuan' => $req->satuan,
+            'tag' => $req->tag,
         ]);
 
         Session::flash('success', 'Berhasil Di update');

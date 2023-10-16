@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribut;
-use App\Models\Attribut_Kecamatan;
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use Illuminate\Http\Request;
+use App\Models\Attribut_Kecamatan;
 
 class FrontController extends Controller
 {
@@ -16,7 +17,10 @@ class FrontController extends Controller
 
     public function webgis()
     {
-        return view('webgis');
+        $kecamatan = Kecamatan::get();
+        $kelurahan = Kelurahan::get();
+        $attribut = Attribut::where('tag', 'Y')->get();
+        return view('webgis', compact('kecamatan', 'kelurahan', 'attribut'));
     }
     public function compare()
     {
@@ -25,6 +29,18 @@ class FrontController extends Controller
         $data = null;
         //dd('d');
         return view('compare', compact('kecamatan', 'compareKecamatan', 'data'));
+    }
+    public function profilwilayah()
+    {
+        $kecamatan = Kecamatan::get();
+
+        return view('profil_wilayah', compact('kecamatan'));
+    }
+    public function detailwilayah($id)
+    {
+        $detail = Kecamatan::find($id);
+
+        return view('detail_wilayah', compact('detail'));
     }
     public function chart()
     {

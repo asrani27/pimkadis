@@ -97,98 +97,22 @@
           @csrf
         <div class="box-body">
           <div class="row">
-            
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Kecamatan</label>
-                <select name="kecamatan_id[]" class="form-control select2" multiple="multiple" data-placeholder="Select kecamatan"
-                        style="width: 100%;">
-                        @foreach ($kecamatan as $item)
-                            <option value="{{$item->id}}">{{$item->nama}}</option>
-                        @endforeach
-                </select>
-              </div>
-              <!-- /.form-group -->
+            <div class="col-md-12 text-center">
+                @foreach ($kecamatan as $item) 
+                <a href="/profilwilayah/{{$item->id}}" class="btn btn-success btn-sm">{{strtoupper($item->nama)}}</a>
+                @endforeach
+                
               
             </div>
             <!-- /.col -->
           </div>
           <!-- /.row -->
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          <button type="submit" class="btn btn-success btn-block">TAMPILKAN</button>
         </div>
         </form>
       </div>
 
 
-      @if ($compareKecamatan != null)
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Hasil</h3>
-        </div>
-        <!-- /.box-header -->
-        
-        <div class="box-body">
-          <div class="row">
-            
-            <div class="col-md-12">
-              
-              <table class="table table-hover">
-                <tbody>
-                <tr>
-                  <th class="text-center">No</th>
-                  <th>Attribut</th>
-                  @foreach ($kecamatan_id as $item)
-                      <th>{{$item->nama}}</th>
-                  @endforeach
-                </tr>
-                @php
-                    $no=1;
-                @endphp
-                @foreach ($data as $key => $item)
-                <tr>
-                    <td class="text-center">{{$no++}}</td>
-                    <td>{{$item->nama}}</td>
-                    @foreach ($item->kecamatan as $item2)
-                        <td>{{nilai($item->id, $item2->id)}} {{$item->satuan}}</td>
-                    @endforeach
-                    
-
-                    
-                </tr>
-                @endforeach
-                
-              </tbody>
-            </table>
-              
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-        </div>
-        
-      </div>
-
-
-      <div class="row">
-        @foreach ($data as $item)
-            
-        <div class="col-md-6">
-          <div class="box box-default">
-          <div class="box-header with-border">
-            <h3 class="box-title">Grafik {{$item->nama}}</h3>
-          </div>
-          <div class="box-body">
-            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-          </div>
-          </div>
-        </div>
-        @endforeach
-      </div>
-
-      @endif
+      
       <!-- /.box -->
       </section>
       <!-- /.content -->

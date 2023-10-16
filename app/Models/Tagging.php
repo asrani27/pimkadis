@@ -11,5 +11,9 @@ class Tagging extends Model
     protected $table = 'tagging';
     protected $guarded = ['id'];
     public $timestamps = false;
-    
+
+    public function attribut()
+    {
+        return $this->belongsTo(Attribut::class, 'attribut_id');
+    }
 }

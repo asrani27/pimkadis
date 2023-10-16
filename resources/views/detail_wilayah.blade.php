@@ -83,13 +83,14 @@
       <!-- Main content -->
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default">
+      <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Profil Wilayah Berdasarkan Kecamatan</h3>
+          <h3 class="box-title">Statistik Wilayah {{$detail->nama}}</h3>
 
           <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+           <a href="/profilwilayah" class="btn btn-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
+           <a href="/profilwilayah/{{$detail->id}}/cetak" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Download</a>
+             {{-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> --}}
           </div>
         </div>
         <!-- /.box-header -->
@@ -97,98 +98,21 @@
           @csrf
         <div class="box-body">
           <div class="row">
-            
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Kecamatan</label>
-                <select name="kecamatan_id[]" class="form-control select2" multiple="multiple" data-placeholder="Select kecamatan"
-                        style="width: 100%;">
-                        @foreach ($kecamatan as $item)
-                            <option value="{{$item->id}}">{{$item->nama}}</option>
-                        @endforeach
-                </select>
-              </div>
-              <!-- /.form-group -->
-              
+            <div class="col-md-4">
+                info
+            </div>
+            <div class="col-md-8">
+                <img src="/logo/map.png" width="100%" height="50%">
             </div>
             <!-- /.col -->
           </div>
           <!-- /.row -->
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          <button type="submit" class="btn btn-success btn-block">TAMPILKAN</button>
         </div>
         </form>
       </div>
 
 
-      @if ($compareKecamatan != null)
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Hasil</h3>
-        </div>
-        <!-- /.box-header -->
-        
-        <div class="box-body">
-          <div class="row">
-            
-            <div class="col-md-12">
-              
-              <table class="table table-hover">
-                <tbody>
-                <tr>
-                  <th class="text-center">No</th>
-                  <th>Attribut</th>
-                  @foreach ($kecamatan_id as $item)
-                      <th>{{$item->nama}}</th>
-                  @endforeach
-                </tr>
-                @php
-                    $no=1;
-                @endphp
-                @foreach ($data as $key => $item)
-                <tr>
-                    <td class="text-center">{{$no++}}</td>
-                    <td>{{$item->nama}}</td>
-                    @foreach ($item->kecamatan as $item2)
-                        <td>{{nilai($item->id, $item2->id)}} {{$item->satuan}}</td>
-                    @endforeach
-                    
-
-                    
-                </tr>
-                @endforeach
-                
-              </tbody>
-            </table>
-              
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-        </div>
-        
-      </div>
-
-
-      <div class="row">
-        @foreach ($data as $item)
-            
-        <div class="col-md-6">
-          <div class="box box-default">
-          <div class="box-header with-border">
-            <h3 class="box-title">Grafik {{$item->nama}}</h3>
-          </div>
-          <div class="box-body">
-            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-          </div>
-          </div>
-        </div>
-        @endforeach
-      </div>
-
-      @endif
+      
       <!-- /.box -->
       </section>
       <!-- /.content -->

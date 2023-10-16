@@ -28,7 +28,7 @@
                 <tr>
                     <td class="text-center">{{$data->firstItem() + $key}}</td>
                     <td>{{$item->nama}}</td>
-                    <td></td>
+                    <td>{{$item->attribut->nama}}</td>
                     <td>
                         <a href="/superadmin/tagging/edit/{{$item->id}}" class="btn btn-xs btn-flat  btn-success"><i class="fa fa-edit"></i></a>
                         <a href="/superadmin/tagging/delete/{{$item->id}}"

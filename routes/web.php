@@ -16,6 +16,8 @@ use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\SuperadminController;
 
 Route::get('/', [FrontController::class, 'index']);
+Route::get('/profilwilayah', [FrontController::class, 'profilwilayah']);
+Route::get('/profilwilayah/{id}', [FrontController::class, 'detailwilayah']);
 Route::get('/webgis', [FrontController::class, 'webgis']);
 Route::get('/compare', [FrontController::class, 'compare']);
 Route::get('/chart', [FrontController::class, 'chart']);

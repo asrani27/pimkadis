@@ -23,23 +23,23 @@
             <!-- /.box-header -->
             <!-- form start -->
             
-            <form class="form-horizontal" action="/superadmin/kecamatan/edit/{{$data->id}}" method="post">
+            <form class="form-horizontal" action="/superadmin/tagging/edit/{{$data->id}}" method="post">
                 @csrf
                 <div class="box-body">
                   
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Nama Kecamatan</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">Attribut</label>
                   <div class="col-sm-10">
                     <select name="kecamatan_id" class="form-control" required>
                       <option value="">-pilih-</option>
-                      @foreach ($kecamatan as $item)
-                      <option value="{{$item->id}}" {{$data->kecamatan_id == $item->id ? 'selected':''}}>{{$item->nama}}</option>
+                      @foreach ($attribut as $item)
+                      <option value="{{$item->id}}" {{$data->attribut_id == $item->id ? 'selected':''}}>{{$item->nama}}</option>
                       @endforeach
                     </select>
                   </div>
                 </div>
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Nama Kelurahan</label>
+                    <label for="inputEmail3" class="col-sm-2 control-label">Nama Tagging</label>
                     <div class="col-sm-10">
                       <input type="text" name="nama" class="form-control" value="{{$data->nama}}" required>
                     </div>

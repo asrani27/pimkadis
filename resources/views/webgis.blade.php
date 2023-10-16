@@ -41,6 +41,9 @@
         height: 100vh; 
         width: 100vw; 
         }
+        .leaflet-control-layers{
+            font-size:12px;
+        }
 </style>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
@@ -68,78 +71,9 @@
       <!-- /.container-fluid -->
     </nav>
   </header>
-  
-  <aside class="control-sidebar control-sidebar-dark control-sidebar-open" style="padding-top:1px;margin-top:100px;margin-right:3px;border-radius:10px;opacity:0.8">
-    <!-- Create the tabs -->
-    
-    <!-- Tab panes -->
-    <div class="tab-content" style="opacity:0.8px;">
-      <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
-        <div>
-            <h4 class="control-sidebar-heading">CONTROL PANEL :</h4>
-        </div>
-        <hr class="mb-2">
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right" id="batasKecamatan" onclick="batasKecamatan()"> Batas Wilayah Kecamatan
-            </label>
-        </div>    
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> Batas Wilayah Kelurahan
-            </label>
-        </div>   
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right" id="myKecamatan" onclick="myKecamatan()" > Kecamatan
-            </label>
-        </div>   
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> SKPD
-            </label>
-        </div> 
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> Wisata
-            </label>
-        </div>   
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> BTS
-            </label>
-        </div>   
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> Puskesmas
-            </label>
-        </div>   
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> Mall
-            </label>
-        </div>   
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> Sekolah
-            </label>
-        </div>  
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> Rumah Sakit
-            </label>
-        </div>  
-        <div class="form-group">
-            <label class="control-sidebar-subheading">
-                <input type="checkbox" data-layout="fixed" class="pull-right"> UMKM Lokal
-            </label>
-        </div>  
-    </div>
-  </aside>
   <div id="map"></div>
   
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery 3 -->
 <script src="/assets/bower_components/jquery/dist/jquery.min.js"></script>
@@ -152,84 +86,135 @@
 <!-- AdminLTE App -->
 <script src="/assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-
-
+<!-- ./wrapper -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
    crossorigin=""></script>
-   
+   <script src="https://bakawan.banjarmasinkota.go.id/plugins/leaflet-groupedlayercontrol/example/exampledata.js"></script>
 <script>
-    var map = L.map('map').setView([-3.3184075946385097, 114.59125237641902], 13);
+    // var map = L.map('map').setView([-3.3184075946385097, 114.59125237641902], 13);
+    // googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+    //     maxZoom: 19,
+    //     subdomains:['mt0','mt1','mt2','mt3']
+    // });
+    // googleStreets.addTo(map);
 
+    // var leaflet = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // });
+    
+
+    // var baseMaps = {
+    //     '&nbsp;Google Street' : googleStreets,
+    //     '&nbsp;OpenstreetMap' : leaflet,
+
+    // }
+
+    // L.control.layers(baseMaps,null,{collapsed:false}).addTo(map);
+
+    var kecamatan = {!!json_encode($kecamatan)!!}
+    var kelurahan = {!!json_encode($kelurahan)!!}
+    var attribut = {!!json_encode($attribut)!!}
+    console.log(attribut)
+    
+ var map = L.map('map').setView([-3.3184075946385097, 114.59125237641902], 13);
     googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
         maxZoom: 19,
         subdomains:['mt0','mt1','mt2','mt3']
+    }).addTo(map);
+var openstreetmap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+
+    let kelurahanLayer = L.geoJson(null);
+    let Kelurahan = L.geoJson(null, {
+        style: function (feature) {
+          return {
+            color: "#000",
+            fill: true,
+            fillOpacity: 0,
+            opacity: 0.3,
+            width: 0.01,
+            clickable: false,
+            riseOnHover: true
+          };
+        },
+    })
+    $.getJSON("/geojson/kelurahan.json", function ( response ) {
+        Kelurahan.addData(response.data)
     });
 
-    googleStreets.addTo(map);
+let kecamatanColors = {"Banjarmasin Barat":"#ffb400",
+        "Banjarmasin Selatan":"#70a1d7",
+        "Banjarmasin Tengah":"#a1de93",
+        "Banjarmasin Timur":"#f47c7c",
+        "Banjarmasin Utara":"#f7f48b"};
 
-
-    //COLORS CONTROL
-    function style(feature) {
-        return {
-            fillColor: getColor(feature.properties.density),
-            weight: 2,
+    //   let kecamatanLayer = L.geoJson(null);
+      let Kecamatan = L.geoJson(null, {
+        style: function (feature) {
+          return {
+            name: Kecamatan,
+            color: "white",
+            fillColor: kecamatanColors[feature.properties.KECAMATAN],
+            fillOpacity: 0.7,
             opacity: 1,
-            color: 'white',
+            width: 1,
             dashArray: '3',
-            fillOpacity: 0.7
-        };
-    }
+            clickable: true,
+            riseOnHover: true
+          };
+        },
+    })
+
+    $.getJSON("/geojson/kecamatan.json", function ( response ) {
+        Kecamatan.addData(response.data)
+    });
+
+var baseMaps = {
+    "Google Streets": googleStreets,
+    "Openstreetmap": openstreetmap,
+};
+
+var overlays ={
+    'Batas Kecamatan': Kecamatan,
+    'Batas Kelurahan': Kelurahan,
+}
+
+
+
+var layerControl = L.control.layers(baseMaps, overlays,{collapsed:false}).addTo(map);
+    let kecamatans = kecamatan.map(kec => {
+        return L.marker([kec.lat, kec.long]).bindPopup(kec.nama)
+    })
     
+    let kelurahans = kelurahan.map(kel => {
+        return L.marker([kel.lat, kel.long]).bindPopup(kel.nama)
+    })
+    var kec = L.layerGroup(kecamatans);
+    var kel = L.layerGroup(kelurahans);
+    layerControl.addOverlay(kec, "Kecamatan");
+    layerControl.addOverlay(kel, "Kelurahan");
+
+    attribut.map(at => {
+        return layerControl.addOverlay(kel, at.nama)
+    })
 
     
-    L.control.layers(baseMaps,null,{collapsed:false}).addTo(map);
-   </script>
 
-   <script>
-    function myKecamatan() {
-        var checkBox = document.getElementById("myKecamatan");
-        if (checkBox.checked == true){
-            // Creating a marker
-            var marker = L.marker([-3.3184075946385097, 114.59125237641902]);
-            console.log(map);
-            map.addLayer(marker);
-            
-            // marker.addTo(map);
-            marker.bindPopup("Banjarmasin Tengah").openPopup();
-        } else {
-            
-            var marker = L.marker([-3.3184075946385097, 114.59125237641902]);
-            map.removeLayer(marker);
-        }
-    }
-    function batasKecamatan() {
-        var checkBox = document.getElementById("batasKecamatan");
-        if (checkBox.checked == true){
-            
-            fetch('/geojson/kecamatan.geojson').then(data => data.json()).then(geoJSONFeatures => {
-            L.geoJSON(geoJSONFeatures, {
-            style: (feature) => {
-                return {
-                stroke: true,
-                weight: 2,
-                opacity: 0.7,
-                fill: true,
-                fillColor: 'aqua',
-                fillOpacity: 0.15,
-                smoothFactor: 0.5,
-                interactive: false
-                };
-            }
-            }).addTo(map);
-        });
-        } else {
-            var layer = L.marker([-3.3184075946385097, 114.59125237641902]).addTo(map);
-            layer.addTo(map);
-            layer.remove();
-        }
-    }
-   </script>
+    console.log(['test',Kecamatan]);
+
+
+
+
+
+    
+    //console.log('kec', Kecamatan)
+
+//layerControl.addOverlay(kecBatas, "Kec Batas Wil");
+    
+</script>
+
 </body>
 
 </html>
