@@ -92,25 +92,6 @@
    crossorigin=""></script>
    <script src="https://bakawan.banjarmasinkota.go.id/plugins/leaflet-groupedlayercontrol/example/exampledata.js"></script>
 <script>
-    // var map = L.map('map').setView([-3.3184075946385097, 114.59125237641902], 13);
-    // googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
-    //     maxZoom: 19,
-    //     subdomains:['mt0','mt1','mt2','mt3']
-    // });
-    // googleStreets.addTo(map);
-
-    // var leaflet = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    // });
-    
-
-    // var baseMaps = {
-    //     '&nbsp;Google Street' : googleStreets,
-    //     '&nbsp;OpenstreetMap' : leaflet,
-
-    // }
-
-    // L.control.layers(baseMaps,null,{collapsed:false}).addTo(map);
 
     var kecamatan = {!!json_encode($kecamatan)!!}
     var kelurahan = {!!json_encode($kelurahan)!!}
@@ -204,14 +185,6 @@ var layerControl = L.control.layers(baseMaps, overlays,{collapsed:false}).addTo(
 
     console.log(['test',Kecamatan]);
 
-
-
-
-
-    
-    //console.log('kec', Kecamatan)
-
-//layerControl.addOverlay(kecBatas, "Kec Batas Wil");
     
 </script>
 
