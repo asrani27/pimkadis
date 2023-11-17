@@ -172,7 +172,7 @@
       </div>
 
 
-      <div class="row">
+      {{-- <div class="row">
         @foreach ($data as $item)
             
         <div class="col-md-6">
@@ -186,7 +186,7 @@
           </div>
         </div>
         @endforeach
-      </div>
+      </div> --}}
 
       @endif
       <!-- /.box -->
