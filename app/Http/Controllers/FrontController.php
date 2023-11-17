@@ -19,7 +19,7 @@ class FrontController extends Controller
     {
         $kecamatan = Kecamatan::get();
         $kelurahan = Kelurahan::get();
-        $attribut = Attribut::where('tag', 'Y')->get();
+        $attribut = Attribut::with('tagging')->where('tag', 'Y')->get();
         return view('webgis', compact('kecamatan', 'kelurahan', 'attribut'));
     }
     public function compare()

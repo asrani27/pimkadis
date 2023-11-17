@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="/assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="https://ish.lol/leaflet-groupedlayercontrol/src/leaflet.groupedlayercontrol.css">
+  
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="/assets/dist/css/skins/_all-skins.min.css">
@@ -44,6 +46,17 @@
         .leaflet-control-layers{
             font-size:12px;
         }
+    .leaflet-div-icon{
+      background-color: transparent;
+      border: none;
+      size: 120px;
+      margin-left: -12px !important;
+      margin-top: -36px !important;
+    }
+    .leaflet-control-layers-group-label{
+      font-weight: bold;
+      color: red;
+    }
 </style>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
@@ -71,6 +84,8 @@
       <!-- /.container-fluid -->
     </nav>
   </header>
+
+
   <div id="map"></div>
   
 </div>
@@ -87,11 +102,33 @@
 <script src="/assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- ./wrapper -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-   crossorigin=""></script>
-   <script src="https://bakawan.banjarmasinkota.go.id/plugins/leaflet-groupedlayercontrol/example/exampledata.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="crossorigin=""></script>
+<script src="https://bakawan.banjarmasinkota.go.id/plugins/leaflet-groupedlayercontrol/example/exampledata.js"></script>
+<script src="https://ish.lol/leaflet-groupedlayercontrol/src/leaflet.groupedlayercontrol.js"></script>
+   
 <script>
+
+function randomRGB() {
+  var x = Math.floor(Math.random() * 256);
+  var y = Math.floor(Math.random() * 256);
+  var z = Math.floor(Math.random() * 256);
+  var RGBColor = "rgb(" + x + "," + y + "," + z + ")";  
+  console.log(RGBColor);
+
+  return RGBColor
+}
+
+function generateIcon(color = 'blue') {
+return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xodm="http://www.corel.com/coreldraw/odm/2003" xml:space="preserve" width="32px" height="32px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 24.68 35.44" fill="${color}">
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="fil0" d="M11.28 0.05c-2.19,0.2 -4.18,0.9 -5.64,1.93 -1.62,1.15 -2.69,2.06 -3.74,3.79 -2.09,3.44 -2.57,7.94 -0.87,12.06 1.95,4.72 7.2,9.17 9.05,13.52 0.46,1.08 1.07,3.52 1.67,3.92 0.46,0.31 1.07,0.16 1.38,-0.14 0.39,-0.38 0.81,-1.99 1.07,-2.69 2.35,-6.38 8.54,-10.24 10.03,-16.29 2.3,-9.31 -4.54,-16.86 -12.95,-16.1zm1.06 5.86c3.61,0 6.54,2.93 6.54,6.54 0,3.61 -2.93,6.54 -6.54,6.54 -3.61,0 -6.54,-2.93 -6.54,-6.54 0,-3.61 2.93,-6.54 6.54,-6.54z"/>
+ </g>
+</svg>`
+}
+
+
+var dynamicIcon = generateIcon()
 
     var kecamatan = {!!json_encode($kecamatan)!!}
     var kelurahan = {!!json_encode($kelurahan)!!}
@@ -122,7 +159,11 @@ var openstreetmap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png'
         },
     })
     $.getJSON("/geojson/kelurahan.json", function ( response ) {
-        Kelurahan.addData(response.data)
+
+      
+      console.log(response.data.features);
+      console.log(response.data.features[0].properties.KELURAHAN);
+        Kelurahan.addData(response.data).bindTooltip('asd');
     });
 
 let kecamatanColors = {"Banjarmasin Barat":"#ffb400",
@@ -162,9 +203,23 @@ var overlays ={
     'Batas Kelurahan': Kelurahan,
 }
 
+var groupedOverlays = {
+  'Batas Wilayah': {
+    'Batas Kecamatan': Kecamatan,
+    'Batas Kelurahan': Kelurahan,
+  },
+  'Attribut': {
+  },
+}
+
+map.addLayer(Kecamatan)
 
 
-var layerControl = L.control.layers(baseMaps, overlays,{collapsed:false}).addTo(map);
+var layerControl = L.control.groupedLayers(baseMaps, groupedOverlays,{collapsed:false}).addTo(map);
+
+
+
+// var layerControl = L.control.layers(baseMaps, overlays,{collapsed:false}).addTo(map);
     let kecamatans = kecamatan.map(kec => {
         return L.marker([kec.lat, kec.long]).bindPopup(kec.nama)
     })
@@ -174,18 +229,29 @@ var layerControl = L.control.layers(baseMaps, overlays,{collapsed:false}).addTo(
     })
     var kec = L.layerGroup(kecamatans);
     var kel = L.layerGroup(kelurahans);
-    layerControl.addOverlay(kec, "Kecamatan");
-    layerControl.addOverlay(kel, "Kelurahan");
+
+    layerControl.addOverlay(kec, "Kecamatan", 'Attribut');
+    layerControl.addOverlay(kel, "Kelurahan", 'Attribut');
+
+
 
     attribut.map(at => {
-        return layerControl.addOverlay(kel, at.nama)
+      const color = randomRGB()
+        const markers = at.tagging.map(tag => {
+          // return L.marker([tag.lat, tag.long]).bindPopup(tag.nama)
+          
+          console.log({color})
+          return L.marker([tag.lat, tag.long], {icon: L.divIcon({
+            html: generateIcon(color),
+            className: `color-${color}`
+          })}).bindPopup(tag.nama)
+
+        })
+
+        const att = L.layerGroup(markers);
+        return layerControl.addOverlay(att, at.nama, 'Attribut')
     })
 
-    
-
-    console.log(['test',Kecamatan]);
-
-    
 </script>
 
 </body>
