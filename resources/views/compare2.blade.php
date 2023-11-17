@@ -83,59 +83,27 @@
       <!-- Main content -->
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
+      
         <div class="row">
-          @foreach ($kecamatan as $item)
-            <div class="col-md-4 text-center">
+            <div class="col-md-6 text-center">
               <div class="box box-success">
-              <div class="box-header with-border">
-                <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->nama)}} </h3>
-              </div>
-              <a href="/profilwilayah/{{$item->id}}">
+              <a href="/compare/bykecamatan">
               <div class="box-body bg-green-gradient text-center">
-                
-                  <img src="/storage/{{$item->image2}}" width="300px" height="250px">
-                
+                <H1>KECAMATAN</H1>
               </div>
               </a>
-              {{-- <div class="box-footer">
-                Catatan :
-              </div> --}}
               </div>
             </div>
-          @endforeach
-        </div>
-
-
-      {{-- <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Profil Wilayah Berdasarkan Kecamatan</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <form method="post" action="/compare/kecamatan">
-          @csrf
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12 text-center">
-                @foreach ($kecamatan as $item) 
-                <a href="/profilwilayah/{{$item->id}}" class="btn btn-success btn-sm">{{strtoupper($item->nama)}}</a>
-                @endforeach
-                
-              
+            <div class="col-md-6 text-center">
+              <div class="box box-success">
+              <a href="/compare/bykelurahan">
+              <div class="box-body bg-green-gradient text-center">
+                <H1>KELURAHAN</H1>
+              </div>
+              </a>
+              </div>
             </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
         </div>
-        </form>
-      </div> --}}
-
-
-      
       <!-- /.box -->
       </section>
       <!-- /.content -->

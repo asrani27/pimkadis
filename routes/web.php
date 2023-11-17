@@ -22,6 +22,9 @@ Route::get('/webgis', [FrontController::class, 'webgis']);
 Route::get('/compare', [FrontController::class, 'compare']);
 Route::get('/chart', [FrontController::class, 'chart']);
 Route::post('/compare/kecamatan', [FrontController::class, 'compareKecamatan']);
+Route::post('/compare/kelurahan', [FrontController::class, 'compareKelurahan']);
+Route::get('/compare/bykecamatan', [FrontController::class, 'byKecamatan']);
+Route::get('/compare/bykelurahan', [FrontController::class, 'byKelurahan']);
 Route::get('/login', [FrontController::class, 'login'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 

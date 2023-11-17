@@ -83,32 +83,9 @@
       <!-- Main content -->
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
-        <div class="row">
-          @foreach ($kecamatan as $item)
-            <div class="col-md-4 text-center">
-              <div class="box box-success">
-              <div class="box-header with-border">
-                <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->nama)}} </h3>
-              </div>
-              <a href="/profilwilayah/{{$item->id}}">
-              <div class="box-body bg-green-gradient text-center">
-                
-                  <img src="/storage/{{$item->image2}}" width="300px" height="250px">
-                
-              </div>
-              </a>
-              {{-- <div class="box-footer">
-                Catatan :
-              </div> --}}
-              </div>
-            </div>
-          @endforeach
-        </div>
-
-
-      {{-- <div class="box box-default">
+      <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Profil Wilayah Berdasarkan Kecamatan</h3>
+          <h3 class="box-title">Profil Wilayah Berdasarkan Kelurahan</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -116,26 +93,102 @@
           </div>
         </div>
         <!-- /.box-header -->
-        <form method="post" action="/compare/kecamatan">
+        <form method="post" action="/compare/kelurahan">
           @csrf
         <div class="box-body">
           <div class="row">
-            <div class="col-md-12 text-center">
-                @foreach ($kecamatan as $item) 
-                <a href="/profilwilayah/{{$item->id}}" class="btn btn-success btn-sm">{{strtoupper($item->nama)}}</a>
-                @endforeach
-                
+            
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Kelurahan</label>
+                <select name="kelurahan_id[]" class="form-control select2" multiple="multiple" data-placeholder="Select Kelurahan"
+                        style="width: 100%;">
+                        @foreach ($kelurahan as $item)
+                            <option value="{{$item->id}}">{{$item->nama}}</option>
+                        @endforeach
+                </select>
+              </div>
+              <!-- /.form-group -->
               
             </div>
             <!-- /.col -->
           </div>
           <!-- /.row -->
         </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <button type="submit" class="btn btn-success btn-block">TAMPILKAN</button>
+        </div>
         </form>
-      </div> --}}
+      </div>
 
 
-      
+      @if ($compareKelurahan != null)
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Hasil</h3>
+        </div>
+        <!-- /.box-header -->
+        
+        <div class="box-body">
+          <div class="row">
+            
+            <div class="col-md-12">
+              
+              <table class="table table-hover">
+                <tbody>
+                <tr>
+                  <th class="text-center">No</th>
+                  <th>Attribut</th>
+                  @foreach ($kelurahan_id as $item)
+                      <th>{{$item->nama}}</th>
+                  @endforeach
+                </tr>
+                @php
+                    $no=1;
+                @endphp
+                @foreach ($data as $key => $item)
+                <tr>
+                    <td class="text-center">{{$no++}}</td>
+                    <td>{{$item->nama}}</td>
+                    @foreach ($item->kelurahan as $item2)
+                        <td>{{nilai($item->id, $item2->id)}} {{$item->satuan}}</td>
+                    @endforeach
+                    
+
+                    
+                </tr>
+                @endforeach
+                
+              </tbody>
+            </table>
+              
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        
+      </div>
+
+
+      <div class="row">
+        @foreach ($data as $item)
+            
+        <div class="col-md-6">
+          <div class="box box-default">
+          <div class="box-header with-border">
+            <h3 class="box-title">Grafik {{$item->nama}}</h3>
+          </div>
+          <div class="box-body">
+            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+          </div>
+          </div>
+        </div>
+        @endforeach
+      </div>
+
+      @endif
       <!-- /.box -->
       </section>
       <!-- /.content -->

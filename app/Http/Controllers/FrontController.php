@@ -28,7 +28,24 @@ class FrontController extends Controller
         $compareKecamatan = null;
         $data = null;
         //dd('d');
-        return view('compare', compact('kecamatan', 'compareKecamatan', 'data'));
+        return view('compare2', compact('kecamatan', 'compareKecamatan', 'data'));
+    }
+    public function byKecamatan()
+    {
+        $kecamatan = Kecamatan::get();
+        $compareKecamatan = null;
+        $data = null;
+        //dd('d');
+        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data'));
+    }
+
+    public function byKelurahan()
+    {
+        $kelurahan = Kelurahan::get();
+        $compareKelurahan = null;
+        $data = null;
+        //dd('d');
+        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data'));
     }
     public function profilwilayah()
     {
@@ -72,6 +89,25 @@ class FrontController extends Controller
         //dd($data);
         $compareKecamatan = 'ok';
         $req->flash();
-        return view('compare', compact('kecamatan', 'compareKecamatan', 'data', 'kecamatan_id'));
+        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'kecamatan_id'));
+    }
+
+    public function compareKelurahan(Request $req)
+    {
+        $id = array();
+        foreach ($req->kelurahan_id as $key => $item) {
+            array_push($id, (int)$item);
+        }
+
+        $kelurahan = Kelurahan::get();
+        $kelurahan_id = Kelurahan::whereIn('id', $id)->get();
+        $data = Attribut::get()->map(function ($item) use ($kelurahan_id) {
+            $item->kelurahan = $kelurahan_id;
+            return $item;
+        });
+        //dd($data);
+        $compareKelurahan = 'ok';
+        $req->flash();
+        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'kelurahan_id'));
     }
 }
