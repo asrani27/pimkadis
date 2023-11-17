@@ -56,9 +56,17 @@ class FrontController extends Controller
     public function detailwilayah($id)
     {
         $detail = Kecamatan::find($id);
-        $attribut_id = Attribut::where('profil', 'Y')->get()->pluck('id');
-
-        $attribut = Attribut_Kecamatan::where('kecamatan_id', $id)->whereIn('attribut_id', $attribut_id)->get();
+        // $attribut_id = Attribut::where('profil', 'Y')->get()->pluck('id');
+        $attribut_id = Attribut::where('profil', 'Y')->get();
+        $attribut = $attribut_id->map(function ($item) use ($id) {
+            $check = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $item->id)->first();
+            if ($check == null) {
+                $item->value = 0;
+            } else {
+                $item->value = $check->value;
+            }
+            return $item;
+        });
 
         return view('detail_wilayah', compact('detail', 'attribut'));
     }
