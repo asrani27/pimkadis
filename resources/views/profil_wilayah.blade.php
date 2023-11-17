@@ -83,7 +83,30 @@
       <!-- Main content -->
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default">
+        <div class="row">
+          @foreach ($kecamatan as $item)
+            <div class="col-md-4 text-center">
+              <div class="box box-success">
+              <div class="box-header with-border">
+                <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->nama)}} </h3>
+              </div>
+              <a href="/profilwilayah/{{$item->id}}">
+              <div class="box-body bg-green-gradient text-center">
+                
+                  <img src="/storage/{{$item->image2}}" width="50%" >
+                
+              </div>
+              </a>
+              {{-- <div class="box-footer">
+                Catatan :
+              </div> --}}
+              </div>
+            </div>
+          @endforeach
+      </div>
+
+
+      {{-- <div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Profil Wilayah Berdasarkan Kecamatan</h3>
 
@@ -109,7 +132,7 @@
           <!-- /.row -->
         </div>
         </form>
-      </div>
+      </div> --}}
 
 
       
