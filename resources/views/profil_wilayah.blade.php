@@ -93,7 +93,7 @@
               <a href="/profilwilayah/{{$item->id}}">
               <div class="box-body bg-green-gradient text-center">
                 
-                  <img src="/storage/{{$item->image2}}" width="50%" >
+                  <img src="/storage/{{$item->image2}}" width="300px" height="250px">
                 
               </div>
               </a>
