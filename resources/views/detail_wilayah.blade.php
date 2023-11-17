@@ -84,58 +84,69 @@
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
         <div class="row">
-          <div class="box box-info">
-            <div class="box-header with-border">
+          <div class="col-md-4">
+          <div class="box">
+            {{-- <div class="box-header with-border">
               <h3 class="box-title">Statistik Wilayah {{strtoupper($detail->nama)}}</h3>
 
               <div class="box-tools pull-right">
               <a href="/profilwilayah" class="btn btn-danger btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
               <a href="/profilwilayah/{{$detail->id}}/cetak" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Download</a>
-                {{-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> --}}
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
               </div>
-            </div>
+            </div> --}}
             <!-- /.box-header -->
             <form method="post" action="/compare/kecamatan">
               @csrf
-            <div class="box-body no-padding  bg-green-gradient">
-              <div class="row">
-                <div class="col-md-4 text-center">
+            <div class="box-body no-padding ">  
+                <div class="col-md-12 text-center bg-green-gradient">
                     <h1>{{$detail->nama}}</h1>
-                    <img src="/logo/banteng.png">
+                    <img src="/storage/{{$detail->image2}}" width="60%" >
                     <h3>JUMLAH PENDUDUK</h3>
                     <h2>23.435 Jiwa</h2>
                 </div>
-                <div class="col-md-8">
-                    <img src="/logo/map.png" width="100%" height="50%">
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
             </div>
             </form>
           </div>
+          </div>
+          <div class="col-md-8">
+            <div class="box">
+              <!-- /.box-header -->
+              <form method="post" action="/compare/kecamatan">
+                @csrf
+              <div class="box-body no-padding">
+                  
+                  <div class="col-md-12 text-center">
+                      <img src="/storage/{{$detail->image1}}" width="100%">
+                  </div>
+                  <!-- /.col -->
+                <!-- /.row -->
+              </div>
+              </form>
+            </div>
+            </div>
         </div>
         
         @if ($attribut->count() != 0)
         <div class="row">
             @foreach ($attribut as $item)
-              <div class="col-md-4">
+              <div class="col-md-4 ">
                 <div class="box box-success">
                 <div class="box-header with-border">
                   <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->attribut->nama)}} </h3>
                 </div>
-                <div class="box-body">
-                  <div class="col-md-4">
+                <div class="box-body bg-green-gradient">
+                  <div class="col-md-7">
                     <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->attribut->deskripsi)}}</h3>
                     <h1 style="font-weight: bold">{{$item->value == 0 ? '0' : $item->value}} {{$item->attribut->satuan}}</h1>
                   </div>
-                  <div class="col-md-8">
-                    <img src="/logo/banteng.png">
+                  <div class="col-md-5 text-right">
+                    <img src="/storage/{{$detail->image2}}" width="100%" >
                   </div>
                 </div>
-                <div class="box-footer">
+                {{-- <div class="box-footer">
                   Catatan :
-                </div>
+                </div> --}}
                 </div>
               </div>
             @endforeach

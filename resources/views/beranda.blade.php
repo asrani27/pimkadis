@@ -65,7 +65,7 @@
           <li><a class="nav-link scrollto" href="/compare">Bandingkan Data</a></li>
           <li><a class="nav-link scrollto" href="/chart">Grafik</a></li>
           <li><a class="nav-link scrollto" href="/webgis">SIG</a></li>
-          <li><a class="nav-link scrollto" href="/login">Masuk</a></li>
+          {{-- <li><a class="nav-link scrollto" href="/login">Masuk</a></li> --}}
           
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

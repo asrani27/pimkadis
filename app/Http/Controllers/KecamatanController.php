@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribut;
-use App\Models\Attribut_Kecamatan;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
+use App\Models\Attribut_Kecamatan;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class KecamatanController extends Controller
 {
@@ -22,12 +23,40 @@ class KecamatanController extends Controller
     }
     public function store(Request $req)
     {
+        $validator = Validator::make($req->all(), [
+            'image1' => 'mimes:png,jpg,jpeg|max:2048',
+            'image2' => 'mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            toastr()->error('File Harus Gambar Dan Max 2MB');
+            return back();
+        }
+
+        if ($req->hasFile('image1')) {
+            $filename1 = $req->image1->getClientOriginalName();
+            $filename1 = date('d-m-Y-') . rand(1, 9999) . $filename1;
+            $req->image1->storeAs('/public', $filename1);
+        } else {
+            $filename1 = null;
+        }
+
+        if ($req->hasFile('image2')) {
+            $filename2 = $req->image2->getClientOriginalName();
+            $filename2 = date('d-m-Y-') . rand(1, 9999) . $filename2;
+            $req->image2->storeAs('/public', $filename2);
+        } else {
+            $filename2 = null;
+        }
+
         $check = Kecamatan::where('nama', $req->kecamatan)->first();
         if ($check == null) {
             $n = new Kecamatan;
             $n->nama = $req->nama;
             $n->lat = $req->lat;
             $n->long = $req->long;
+            $n->image1 = $filename1;
+            $n->image2 = $filename2;
             $n->save();
 
             Session::flash('success', 'Berhasil Di Simpan');
@@ -92,11 +121,40 @@ class KecamatanController extends Controller
     }
     public function update(Request $req, $id)
     {
+
         $kecamatan = Kecamatan::find($id);
+        $validator = Validator::make($req->all(), [
+            'image1' => 'mimes:png,jpg,jpeg|max:2048',
+            'image2' => 'mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            toastr()->error('File Harus Gambar Dan Max 2MB');
+            return back();
+        }
+
+        if ($req->hasFile('image1')) {
+            $filename1 = $req->image1->getClientOriginalName();
+            $filename1 = date('d-m-Y-') . rand(1, 9999) . $filename1;
+            $req->image1->storeAs('/public', $filename1);
+        } else {
+            $filename1 = $kecamatan->image1;
+        }
+
+        if ($req->hasFile('image2')) {
+            $filename2 = $req->image2->getClientOriginalName();
+            $filename2 = date('d-m-Y-') . rand(1, 9999) . $filename2;
+            $req->image2->storeAs('/public', $filename2);
+        } else {
+            $filename2 = $kecamatan->image2;
+        }
+
         $kecamatan->update([
             'nama' => $req->nama,
             'lat' => $req->lat,
             'long' => $req->long,
+            'image1' => $filename1,
+            'image2' => $filename2,
         ]);
 
         Session::flash('success', 'Berhasil Di update');

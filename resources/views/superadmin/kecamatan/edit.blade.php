@@ -23,7 +23,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             
-            <form class="form-horizontal" action="/superadmin/kecamatan/edit/{{$data->id}}" method="post">
+            <form class="form-horizontal" action="/superadmin/kecamatan/edit/{{$data->id}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
                   <div class="form-group">
@@ -48,6 +48,20 @@
                     <label for="inputEmail3" class="col-sm-2 control-label">Longitude</label>
                     <div class="col-sm-10">
                       <input type="text" name="long" id="long" value="{{$data->long}}" class="form-control" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Map Picture</label>
+                    <div class="col-sm-10">
+                      <input type="file" name="image1" class="form-control">
+                      <img src="/storage/{{$data->image1}}" width="200px">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Map Picture small</label>
+                    <div class="col-sm-10">
+                      <input type="file" name="image2" class="form-control">
+                      <img src="/storage/{{$data->image2}}" width="200px">
                     </div>
                   </div>
                   <div class="form-group">

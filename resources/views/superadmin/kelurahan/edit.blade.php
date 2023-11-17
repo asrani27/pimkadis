@@ -53,13 +53,13 @@
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Latitude </label>
                     <div class="col-sm-10">
-                      <input type="text" name="lat" id="lat" value="{{$data->lat}}" class="form-control" readonly>
+                      <input type="text" name="lat" id="lat" value="{{$data->lat}}" class="form-control">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Longitude</label>
                     <div class="col-sm-10">
-                      <input type="text" name="long" id="long" value="{{$data->long}}" class="form-control" readonly>
+                      <input type="text" name="long" id="long" value="{{$data->long}}" class="form-control">
                     </div>
                   </div>
                   <div class="form-group">
