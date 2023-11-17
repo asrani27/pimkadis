@@ -15,7 +15,7 @@ function nilai($attribut_id, $kecamatan_id)
         $hasil = $data->value;
     }
 
-    return $hasil;
+    return number_format($hasil);
 }
 
 function penyebut($nilai)
