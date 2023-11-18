@@ -220,12 +220,42 @@ var layerControl = L.control.groupedLayers(baseMaps, groupedOverlays,{collapsed:
 
 
 // var layerControl = L.control.layers(baseMaps, overlays,{collapsed:false}).addTo(map);
+var greenIcon = L.icon({
+    iconUrl: '/icon/green.png',
+    //shadowUrl: 'leaf-shadow.png',
+
+    iconSize:     [38, 42], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+var blueIcon = L.icon({
+    iconUrl: '/icon/blue.png',
+    //shadowUrl: 'leaf-shadow.png',
+
+    iconSize:     [38, 42], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+var redIcon = L.icon({
+    iconUrl: '/icon/red.png',
+    //shadowUrl: 'leaf-shadow.png',
+
+    iconSize:     [38, 42], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
     let kecamatans = kecamatan.map(kec => {
-        return L.marker([kec.lat, kec.long]).bindPopup(kec.nama)
+        return L.marker([kec.lat, kec.long], {icon: blueIcon}).bindPopup(kec.nama)
     })
     
     let kelurahans = kelurahan.map(kel => {
-        return L.marker([kel.lat, kel.long]).bindPopup(kel.nama)
+        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup(kel.nama)
     })
     var kec = L.layerGroup(kecamatans);
     var kel = L.layerGroup(kelurahans);
