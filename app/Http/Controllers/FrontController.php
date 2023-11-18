@@ -71,17 +71,28 @@ class FrontController extends Controller
     }
     public function chart()
     {
-        $attribut_id = Attribut::where('profil', 'Y')->get();
-        $attribut = $attribut_id->map(function ($item) use ($id) {
-            $check = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $item->id)->first();
-            if ($check == null) {
-                $item->value = 0;
-            } else {
-                $item->value = $check->value;
-            }
+
+        $data = array();
+        $attribut = Attribut::where('profil', 'Y')->get()->map(function ($item) {
+            $item->grafik = collect(Kecamatan::get()->toArray())->map(function ($item2) use ($item) {
+                $data['label'] = $item2['nama'];
+                $data['x'] = 0;
+                $data['y'] = Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
+                return $data;
+            })->toArray();
             return $item;
         });
-        return view('chart',compact('attribut'));
+
+        // $attribut = $attribut_id->map(function ($item) use ($id) {
+        //     $check = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $item->id)->first();
+        //     if ($check == null) {
+        //         $item->value = 0;
+        //     } else {
+        //         $item->value = $check->value;
+        //     }
+        //     return $item;
+        // });
+        return view('chart', compact('attribut'));
     }
     public function login()
     {

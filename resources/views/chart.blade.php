@@ -84,37 +84,19 @@
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
           <div class="row">
+            @foreach ($attribut as $item)
+            <div class="col-md-4">
+              <div class="box box-default">
+              <div class="box-header with-border">
+                <h3 class="box-title">Grafik {{$item->nama}}</h3>
+              </div>
+              <div class="box-body">
+                <div id="chartContainer{{$item->id}}" style="height: 300px; width: 100%;"></div>
+              </div>
+              </div>
+            </div>
+            @endforeach
             
-            <div class="col-md-4">
-              <div class="box box-default">
-              <div class="box-header with-border">
-                <h3 class="box-title">Grafik Luas Wilayah</h3>
-              </div>
-              <div class="box-body">
-                <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
-              </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="box box-default">
-              <div class="box-header with-border">
-                <h3 class="box-title">Grafik Jumlah Penduduk</h3>
-              </div>
-              <div class="box-body">
-                <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
-              </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="box box-default">
-              <div class="box-header with-border">
-                <h3 class="box-title">Grafik Jumlah RT</h3>
-              </div>
-              <div class="box-body">
-                <div id="chartContainer3" style="height: 300px; width: 100%;"></div>
-              </div>
-              </div>
-            </div>
             <!-- /.col -->
           </div>
           
@@ -152,58 +134,24 @@
     $('.select2').select2()
   });
 
-
-  var chart = new CanvasJS.Chart("chartContainer1", {
-    animationEnabled: true,
-    data: [{
-      type: "pie",
-      startAngle: 240,
-      percentFormatString: "#0.##",
-      indexLabel: "{label} {y} m2",
-      dataPoints: [
-        {y: 12432, label: "Banjarmasin Tengah"},
-        {y: 23543, label: "Banjarmasin Timur"},
-        {y: 12342, label: "Banjarmasin Selatan"},
-        {y: 33212, label: "Banjarmasin Utara"},
-        {y: 11992, label: "Banjarmasin Barat"}
-      ]
-    }]
+  var attribut = {!!json_encode($attribut)!!}
+  attribut.forEach(element => {
+      // console.log(["chartContainer"+element.id])
+      var chart = new CanvasJS.Chart("chartContainer"+element.id, {
+      animationEnabled: true,
+      data: [{
+        type: "pie",
+        startAngle: 240,
+        percentFormatString: "#0.##",
+        indexLabel: "{label} {y} "+ element.satuan,
+        dataPoints: element.grafik
+      }]
+    });
+    chart.render()
   });
+  console.log(attribut)
+  
 
-  var chart2 = new CanvasJS.Chart("chartContainer2", {
-    animationEnabled: true,
-    data: [{
-      type: "pie",
-      startAngle: 240,
-      indexLabel: "{label} {y} Jiwa",
-      dataPoints: [
-        {y: 32432, label: "Banjarmasin Tengah"},
-        {y: 13543, label: "Banjarmasin Timur"},
-        {y: 42342, label: "Banjarmasin Selatan"},
-        {y: 23212, label: "Banjarmasin Utara"},
-        {y: 31992, label: "Banjarmasin Barat"}
-      ]
-    }]
-  });
-
-  var chart3 = new CanvasJS.Chart("chartContainer3", {
-    animationEnabled: true,
-    data: [{
-      type: "pie",
-      startAngle: 240,
-      indexLabel: "{label} {y} RT",
-      dataPoints: [
-        {y: 12, label: "Banjarmasin Tengah"},
-        {y: 23, label: "Banjarmasin Timur"},
-        {y: 16, label: "Banjarmasin Selatan"},
-        {y: 17, label: "Banjarmasin Utara"},
-        {y: 18, label: "Banjarmasin Barat"}
-      ]
-    }]
-  });
-  chart.render();
-  chart2.render();
-  chart3.render();
 </script>
 <script>
   
