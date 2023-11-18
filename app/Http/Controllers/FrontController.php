@@ -56,7 +56,6 @@ class FrontController extends Controller
     public function detailwilayah($id)
     {
         $detail = Kecamatan::find($id);
-        // $attribut_id = Attribut::where('profil', 'Y')->get()->pluck('id');
         $attribut_id = Attribut::where('profil', 'Y')->get();
         $attribut = $attribut_id->map(function ($item) use ($id) {
             $check = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $item->id)->first();
@@ -72,7 +71,17 @@ class FrontController extends Controller
     }
     public function chart()
     {
-        return view('chart');
+        $attribut_id = Attribut::where('profil', 'Y')->get();
+        $attribut = $attribut_id->map(function ($item) use ($id) {
+            $check = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $item->id)->first();
+            if ($check == null) {
+                $item->value = 0;
+            } else {
+                $item->value = $check->value;
+            }
+            return $item;
+        });
+        return view('chart',compact('attribut'));
     }
     public function login()
     {
