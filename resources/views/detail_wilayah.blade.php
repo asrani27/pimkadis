@@ -103,7 +103,7 @@
                     <h1>{{$detail->nama}}</h1>
                     <img src="/storage/{{$detail->image2}}" width="60%" >
                     <h3>JUMLAH PENDUDUK</h3>
-                    <h2>23.435 Jiwa</h2>
+                    <h2>{{number_format($attribut->where('nama','Jumlah Penduduk')->first()->value)}}</h2>
                 </div>
             </div>
             </form>
