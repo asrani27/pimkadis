@@ -251,11 +251,11 @@ var redIcon = L.icon({
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
     let kecamatans = kecamatan.map(kec => {
-        return L.marker([kec.lat, kec.long], {icon: blueIcon}).bindPopup('Kecamatan '+kec.nama)
+        return L.marker([kec.lat, kec.long], {icon: blueIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px"></p>')
     })
     
     let kelurahans = kelurahan.map(kel => {
-        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('Kelurahan '+kel.nama)
+        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5>')
     })
     var kec = L.layerGroup(kecamatans);
     var kel = L.layerGroup(kelurahans);
