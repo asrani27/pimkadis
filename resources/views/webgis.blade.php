@@ -274,7 +274,7 @@ var redIcon = L.icon({
           return L.marker([tag.lat, tag.long], {icon: L.divIcon({
             html: generateIcon(color),
             className: `color-${color}`
-          })}).bindPopup(tag.nama)
+          })}).bindPopup('<h5>'+tag.nama+'</h5>')
 
         })
 
