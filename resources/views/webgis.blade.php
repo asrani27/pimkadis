@@ -255,7 +255,7 @@ var redIcon = L.icon({
     })
     
     let kelurahans = kelurahan.map(kel => {
-        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5>')
+        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px"></p>')
     })
     var kec = L.layerGroup(kecamatans);
     var kel = L.layerGroup(kelurahans);
