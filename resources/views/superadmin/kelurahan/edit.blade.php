@@ -23,7 +23,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             
-            <form class="form-horizontal" action="/superadmin/kelurahan/edit/{{$data->id}}" method="post">
+            <form class="form-horizontal" action="/superadmin/kelurahan/edit/{{$data->id}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
                   

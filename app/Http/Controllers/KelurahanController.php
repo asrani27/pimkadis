@@ -68,7 +68,7 @@ class KelurahanController extends Controller
 
         if ($validator->fails()) {
             $req->flash();
-            Session::flash('error', 'File harus scan PDF dan Maks 1MB');
+            Session::flash('error', 'File harus Gambar dan Maks 1MB');
             return back();
         }
 
@@ -82,12 +82,13 @@ class KelurahanController extends Controller
             $filename = 'tagging' . uniqid() . '.' . $ext;
             $file->move($path, $filename);
         }
-        
+
         $kelurahan->update([
             'kecamatan_id' => $req->kecamatan_id,
             'nama' => $req->nama,
             'lat' => $req->lat,
             'long' => $req->long,
+            'file' => $filename,
         ]);
 
         Session::flash('success', 'Berhasil Di update');

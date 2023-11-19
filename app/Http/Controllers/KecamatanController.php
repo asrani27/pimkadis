@@ -125,7 +125,7 @@ class KecamatanController extends Controller
         $kecamatan = Kecamatan::find($id);
         $validator = Validator::make($req->all(), [
             'image1' => 'mimes:png,jpg,jpeg|max:2048',
-            'image2' => 'mimes:png,jpg,jpeg|max:2048'
+            'image2' => 'mimes:png,jpg,jpeg|max:2048',
             'file' => 'mimes:png,jpg,jpeg|max:1024'
         ]);
 
@@ -153,7 +153,7 @@ class KecamatanController extends Controller
         if ($req->hasFile('file')) {
             $filename3 = $req->file->getClientOriginalName();
             $filename3 = date('d-m-Y-') . rand(1, 9999) . $filename3;
-            $req->image3->storeAs('/public', $filename3);
+            $req->file->storeAs('/public/tagging', $filename3);
         } else {
             $filename3 = $kecamatan->file;
         }
