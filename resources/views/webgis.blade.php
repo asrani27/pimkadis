@@ -251,11 +251,21 @@ var redIcon = L.icon({
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
     let kecamatans = kecamatan.map(kec => {
-        return L.marker([kec.lat, kec.long], {icon: blueIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px"></p>')
+      
+// console.log([kec,'testset']);
+      if(kec.file === null){
+        return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kec.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
+      }else{
+        return L.marker([kec.lat, kec.long], {icon: blueIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="/storage/tagging/'+kec.file+'" / width="200px" height="150px"></p>')
+      }
     })
     
     let kelurahans = kelurahan.map(kel => {
-        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px"></p>')
+      if(kel.file === null){
+        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
+      }else{
+        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="/storage/tagging/'+kel.file+'" / width="200px" height="150px"></p>')
+      }
     })
     var kec = L.layerGroup(kecamatans);
     var kel = L.layerGroup(kelurahans);
@@ -264,14 +274,16 @@ var redIcon = L.icon({
     layerControl.addOverlay(kel, "Kelurahan", 'Attribut');
 
 
-
+    var noimage = 'https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg'
     attribut.map(at => {
       const color = randomRGB()
         const markers = at.tagging.map(tag => {
-          // return L.marker([tag.lat, tag.long]).bindPopup(tag.nama)
-          
-          console.log({color})
-          return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>'+tag.nama+'</h5>')
+              
+          if(tag.file === null){
+            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>Kelurahan '+tag.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
+          }else{
+            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>Kelurahan '+tag.nama+'</h5><p><img src="/storage/tagging/'+tag.file+'" / width="200px" height="150px"></p>')
+          }
 
         })
 

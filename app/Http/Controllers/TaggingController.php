@@ -62,8 +62,11 @@ class TaggingController extends Controller
 
     public function update(Request $req, $id)
     {
+
+        $tagging = Tagging::find($id);
+
         $validator = Validator::make($req->all(), [
-            'file'  => 'mimes:pdf|max:1024',
+            'file'  => 'mimes:jpg,png,jpeg|max:1024',
         ]);
 
         if ($validator->fails()) {
@@ -75,19 +78,19 @@ class TaggingController extends Controller
         $path = public_path('storage') . '/tagging';
 
         if ($req->file == null) {
-            $filename = Auth::user()->pegawai->file;
+            $filename = $tagging->file;
         } else {
             $file = $req->file('file');
             $ext = $req->file->getClientOriginalExtension();
-            $filename = 'rekening' . uniqid() . '.' . $ext;
+            $filename = 'tagging' . uniqid() . '.' . $ext;
             $file->move($path, $filename);
         }
 
-        $kecamatan = Tagging::find($id);
-        $kecamatan->update([
+        $tagging->update([
             'nama' => $req->nama,
             'lat' => $req->lat,
             'long' => $req->long,
+            'file' => $filename,
         ]);
 
         Session::flash('success', 'Berhasil Di update');
