@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribut;
-use App\Models\Attribut_Kelurahan;
 use App\Models\Kategori;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
+use App\Models\DataKelurahan;
+use App\Models\Attribut_Kelurahan;
 use Illuminate\Support\Facades\Session;
 
 class AttributController extends Controller
@@ -73,7 +74,7 @@ class AttributController extends Controller
     public function kelurahan($id)
     {
         $kelurahan = Kelurahan::get()->map(function ($item) use ($id) {
-            $check = Attribut_Kelurahan::where('attribut_id', $id)->where('kelurahan_id', $item->id)->first();
+            $check = DataKelurahan::where('attribut_id', $id)->where('kelurahan_id', $item->id)->first();
             if ($check == null) {
                 $item->value = 0;
             } else {
