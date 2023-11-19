@@ -254,7 +254,7 @@ var redIcon = L.icon({
       
 // console.log([kec,'testset']);
       if(kec.file === null){
-        return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kec.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
+        return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
       }else{
         return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="/storage/tagging/'+kec.file+'" / width="200px" height="150px"></p>')
       }
@@ -280,9 +280,9 @@ var redIcon = L.icon({
         const markers = at.tagging.map(tag => {
               
           if(tag.file === null){
-            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>Kelurahan '+tag.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
+            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>'+tag.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
           }else{
-            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>Kelurahan '+tag.nama+'</h5><p><img src="/storage/tagging/'+tag.file+'" / width="200px" height="150px"></p>')
+            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>'+tag.nama+'</h5><p><img src="/storage/tagging/'+tag.file+'" / width="200px" height="150px"></p>')
           }
 
         })
