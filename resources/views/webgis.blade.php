@@ -256,15 +256,15 @@ var redIcon = L.icon({
       if(kec.file === null){
         return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kec.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
       }else{
-        return L.marker([kec.lat, kec.long], {icon: blueIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="/storage/tagging/'+kec.file+'" / width="200px" height="150px"></p>')
+        return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="/storage/tagging/'+kec.file+'" / width="200px" height="150px"></p>')
       }
     })
     
     let kelurahans = kelurahan.map(kel => {
       if(kel.file === null){
-        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
+        return L.marker([kel.lat, kel.long], {icon: blueIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"></p>')
       }else{
-        return L.marker([kel.lat, kel.long], {icon: redIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="/storage/tagging/'+kel.file+'" / width="200px" height="150px"></p>')
+        return L.marker([kel.lat, kel.long], {icon: blueIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="/storage/tagging/'+kel.file+'" / width="200px" height="150px"></p>')
       }
     })
     var kec = L.layerGroup(kecamatans);
