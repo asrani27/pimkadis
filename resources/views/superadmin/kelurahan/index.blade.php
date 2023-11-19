@@ -20,6 +20,7 @@
                 <tbody>
                 <tr>
                   <th class="text-center">No</th>
+                  <th>Foto</th>
                   <th>kelurahan</th>
                   <th>kecamatan</th>
                   <th>Aksi</th>
@@ -27,6 +28,7 @@
                 @foreach ($data as $key => $item)
                 <tr>
                     <td class="text-center">{{$data->firstItem() + $key}}</td>
+                    <td><img src="/storage/tagging/{{$item->file}}" width="70px" height="70px"></td>
                     <td>{{$item->nama}}</td>
                     <td>{{$item->kecamatan->nama}}</td>
                     <td>

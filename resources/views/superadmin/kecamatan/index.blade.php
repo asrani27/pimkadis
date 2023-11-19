@@ -20,12 +20,14 @@
                 <tbody>
                 <tr>
                   <th class="text-center">No</th>
+                  <th>Foto</th>
                   <th>kecamatan</th>
                   <th>Aksi</th>
                 </tr>
                 @foreach ($data as $key => $item)
                 <tr>
                     <td class="text-center">{{$data->firstItem() + $key}}</td>
+                    <td><img src="/storage/tagging/{{$item->file}}" width="70px" height="70px"></td>
                     <td>{{$item->nama}}</td>
                     <td>
                       <a href="/superadmin/kecamatan/attribut/{{$item->id}}" class="btn btn-xs  btn-success"><i class="fa fa-edit"></i> Nilai Attribut</a>
