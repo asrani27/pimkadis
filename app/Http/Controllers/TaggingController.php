@@ -60,6 +60,27 @@ class TaggingController extends Controller
 
     public function update(Request $req, $id)
     {
+        $validator = Validator::make($req->all(), [
+            'file'  => 'mimes:pdf|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            $req->flash();
+            Session::flash('error', 'File harus scan PDF dan Maks 2MB');
+            return back();
+        }
+
+        $path = public_path('storage') . '/tagging';
+
+        if ($req->file == null) {
+            $filename = Auth::user()->pegawai->file;
+        } else {
+            $file = $req->file('file');
+            $ext = $req->file->getClientOriginalExtension();
+            $filename = 'rekening' . uniqid() . '.' . $ext;
+            $file->move($path, $filename);
+        }
+
         $kecamatan = Tagging::find($id);
         $kecamatan->update([
             'nama' => $req->nama,

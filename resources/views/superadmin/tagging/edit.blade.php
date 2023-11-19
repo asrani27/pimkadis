@@ -23,7 +23,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             
-            <form class="form-horizontal" action="/superadmin/tagging/edit/{{$data->id}}" method="post">
+            <form class="form-horizontal" action="/superadmin/tagging/edit/{{$data->id}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
                   
@@ -60,6 +60,13 @@
                     <label for="inputEmail3" class="col-sm-2 control-label">Longitude</label>
                     <div class="col-sm-10">
                       <input type="text" name="long" id="long" value="{{$data->long}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Gambar</label>
+                    <div class="col-sm-10">
+                      <input type="file" name="file">
+                      <img src="/storage/tagging/{{$data->file}}" width="100px">
                     </div>
                   </div>
                   <div class="form-group">
