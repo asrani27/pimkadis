@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribut;
+use App\Models\Attribut_Kelurahan;
 use App\Models\Kategori;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
@@ -71,9 +72,44 @@ class AttributController extends Controller
     }
     public function kelurahan($id)
     {
-        $kelurahan = Kelurahan::get();
+        $kelurahan = Kelurahan::get()->map(function ($item) use ($id) {
+            $check = Attribut_Kelurahan::where('attribut_id', $id)->where('kelurahan_id', $item->id)->first();
+            if ($check == null) {
+                $item->value = 0;
+            } else {
+                $item->value = $check->value;
+            }
+            return $item;
+        });
+
         $data = Attribut::find($id);
 
         return view('superadmin.attribut.kelurahan', compact('data', 'kelurahan'));
+    }
+
+    public function storeKelurahan(Request $req, $id)
+    {
+        $kelurahan = $req->kelurahan;
+        $nilai = $req->nilai;
+        //dd($kelurahan, $nilai);
+        foreach ($kelurahan as $key => $item) {
+
+            $check = Attribut_Kelurahan::where('kelurahan_id', $item)->where('attribut_id', $id)->first();
+            if ($check == null) {
+                //new
+                $n = new Attribut_Kelurahan;
+                $n->kelurahan_id = $item;
+                $n->attribut_id = $id;
+                $n->value = $nilai[$key];
+                $n->save();
+            } else {
+                $u = $check;
+                $u->value = $nilai[$key];
+                $u->save();
+            }
+        }
+
+        Session::flash('success', 'Berhasil Di simpan');
+        return redirect('/superadmin/attribut');
     }
 }

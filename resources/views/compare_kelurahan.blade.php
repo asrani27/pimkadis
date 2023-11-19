@@ -151,8 +151,9 @@
                 <tr>
                     <td class="text-center">{{$no++}}</td>
                     <td>{{$item->nama}}</td>
-                    @foreach ($item->kelurahan as $item2)
-                        <td>{{nilai($item->id, $item2->id)}} {{$item->satuan}}</td>
+                    @foreach ($item->kelurahan as $key => $item2)
+                  
+                        <td>{{nilai2($item->id, $item2->id)}} {{$item->satuan}}</td>
                     @endforeach
                     
 

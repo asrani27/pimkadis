@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Attribut;
+use App\Models\Kelurahan;
 use App\Models\Attribut_Kecamatan;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,19 @@ function nilai($attribut_id, $kecamatan_id)
 
     return number_format($hasil);
 }
+function nilai2($attribut_id, $kecamatan_id)
+{
 
+    $data = Attribut_Kelurahan::where('attribut_id', $attribut_id)->where('kelurahan_id', $kelurahan_id)->first();
+    //dd($data);
+    if ($data == null) {
+        $hasil = 0;
+    } else {
+        $hasil = $data->value;
+    }
+
+    return number_format($hasil);
+}
 function penyebut($nilai)
 {
     $nilai = abs($nilai);

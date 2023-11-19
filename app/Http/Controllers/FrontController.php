@@ -133,9 +133,11 @@ class FrontController extends Controller
             $item->kelurahan = $kelurahan_id;
             return $item;
         });
-        //dd($data);
+        //dd($data, $kelurahan, $kelurahan_id);
         $compareKelurahan = 'ok';
         $req->flash();
+
+
         return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'kelurahan_id'));
     }
 }

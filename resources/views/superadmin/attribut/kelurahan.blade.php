@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <div class="box box">
             <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-clipboard"></i> Edit</h3>
+              <h3 class="box-title"><i class="fa fa-clipboard"></i> Edit {{$data->nama}}</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -23,11 +23,13 @@
                 @csrf
                 <div class="box-body">
                   <div class="form-group">
+                    
                     @foreach ($kelurahan as $item)
                         
                     <label for="inputEmail3" class="col-sm-2 control-label">Kel : {{$item->nama}}</label>
                     <div class="col-sm-10">
-                      <input type="text" name="kelurahan" class="form-control" value="{{$item->nama}}" required>
+                      <input type="hidden" name="kelurahan[]" class="form-control" value="{{$item->id}}" required>
+                      <input type="text" name="nilai[]" class="form-control" value="{{$item->value}}" required>
                     </div>
                     @endforeach
                   </div>
