@@ -42,6 +42,7 @@
                         <a href="/superadmin/attribut/delete/{{$item->id}}"
                             onclick="return confirm('Yakin ingin di hapus');"
                             class="btn btn-xs btn-flat  btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="/superadmin/attribut/kelurahan/{{$item->id}}" class="btn btn-xs btn-flat  btn-success"><i class="fa fa-building"></i> Kelurahan</a>
                     </td>
                 </tr>
                 @endforeach

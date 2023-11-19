@@ -16,4 +16,8 @@ class Kelurahan extends Model
     {
         return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
     }
+    public function attribut()
+    {
+        return $this->belongsToMany(Attribut::class, 'attribut_kelurahan', 'kelurahan_id', 'attribut_id');
+    }
 }

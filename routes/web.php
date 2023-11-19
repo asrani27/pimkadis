@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
         Route::get('attribut/edit/{id}', [AttributController::class, 'edit']);
         Route::post('attribut/edit/{id}', [AttributController::class, 'update']);
         Route::get('attribut/delete/{id}', [AttributController::class, 'delete']);
+        Route::get('attribut/kelurahan/{id}', [AttributController::class, 'kelurahan']);
 
 
         Route::get('tagging', [TaggingController::class, 'index']);

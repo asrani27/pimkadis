@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attribut;
 use App\Models\Kategori;
+use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -67,5 +68,12 @@ class AttributController extends Controller
         Attribut::find($id)->delete();
         Session::flash('success', 'Berhasil Di hapus');
         return back();
+    }
+    public function kelurahan($id)
+    {
+        $kelurahan = Kelurahan::get();
+        $data = Attribut::find($id);
+
+        return view('superadmin.attribut.kelurahan', compact('data', 'kelurahan'));
     }
 }
