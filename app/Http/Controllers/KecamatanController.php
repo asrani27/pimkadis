@@ -126,6 +126,7 @@ class KecamatanController extends Controller
         $validator = Validator::make($req->all(), [
             'image1' => 'mimes:png,jpg,jpeg|max:2048',
             'image2' => 'mimes:png,jpg,jpeg|max:2048'
+            'file' => 'mimes:png,jpg,jpeg|max:1024'
         ]);
 
         if ($validator->fails()) {
@@ -149,12 +150,21 @@ class KecamatanController extends Controller
             $filename2 = $kecamatan->image2;
         }
 
+        if ($req->hasFile('file')) {
+            $filename3 = $req->file->getClientOriginalName();
+            $filename3 = date('d-m-Y-') . rand(1, 9999) . $filename3;
+            $req->image3->storeAs('/public', $filename3);
+        } else {
+            $filename3 = $kecamatan->file;
+        }
+
         $kecamatan->update([
             'nama' => $req->nama,
             'lat' => $req->lat,
             'long' => $req->long,
             'image1' => $filename1,
             'image2' => $filename2,
+            'file' => $filename3,
         ]);
 
         Session::flash('success', 'Berhasil Di update');

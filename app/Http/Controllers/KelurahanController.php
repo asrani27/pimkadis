@@ -6,6 +6,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class KelurahanController extends Controller
 {
@@ -60,6 +61,28 @@ class KelurahanController extends Controller
     public function update(Request $req, $id)
     {
         $kelurahan = Kelurahan::find($id);
+
+        $validator = Validator::make($req->all(), [
+            'file'  => 'mimes:jpg,png,jpeg|max:1024',
+        ]);
+
+        if ($validator->fails()) {
+            $req->flash();
+            Session::flash('error', 'File harus scan PDF dan Maks 1MB');
+            return back();
+        }
+
+        $path = public_path('storage') . '/tagging';
+
+        if ($req->file == null) {
+            $filename = $kelurahan->file;
+        } else {
+            $file = $req->file('file');
+            $ext = $req->file->getClientOriginalExtension();
+            $filename = 'tagging' . uniqid() . '.' . $ext;
+            $file->move($path, $filename);
+        }
+        
         $kelurahan->update([
             'kecamatan_id' => $req->kecamatan_id,
             'nama' => $req->nama,
