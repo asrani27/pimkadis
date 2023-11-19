@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Tagging;
 use App\Models\Attribut;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class TaggingController extends Controller
 {
@@ -61,12 +63,12 @@ class TaggingController extends Controller
     public function update(Request $req, $id)
     {
         $validator = Validator::make($req->all(), [
-            'file'  => 'mimes:pdf|max:2048',
+            'file'  => 'mimes:pdf|max:1024',
         ]);
 
         if ($validator->fails()) {
             $req->flash();
-            Session::flash('error', 'File harus scan PDF dan Maks 2MB');
+            Session::flash('error', 'File harus scan PDF dan Maks 1MB');
             return back();
         }
 
