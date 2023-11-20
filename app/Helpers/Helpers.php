@@ -2,6 +2,7 @@
 
 use App\Models\Attribut;
 use App\Models\Kelurahan;
+use App\Models\DataKelurahan;
 use App\Models\Attribut_Kecamatan;
 use App\Models\Attribut_Kelurahan;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ function nilai($attribut_id, $kecamatan_id)
 function nilai2($attribut_id, $kelurahan_id)
 {
 
-    $data = Attribut_Kelurahan::where('attribut_id', $attribut_id)->where('kelurahan_id', $kelurahan_id)->first();
+    $data = DataKelurahan::where('attribut_id', $attribut_id)->where('kelurahan_id', $kelurahan_id)->first();
     //dd($data);
     if ($data == null) {
         $hasil = 0;
