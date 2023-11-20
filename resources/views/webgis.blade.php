@@ -163,7 +163,7 @@ var openstreetmap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png'
       
       console.log(response.data.features);
       console.log(response.data.features[0].properties.KELURAHAN);
-        Kelurahan.addData(response.data).bindTooltip(response.data.features[0].properties.KELURAHAN);
+        // Kelurahan.addData(response.data).bindTooltip(response.data.features[0].properties.KELURAHAN);
     });
 
 let kecamatanColors = {"Banjarmasin Barat":"#ffb400",
