@@ -7,7 +7,6 @@ use App\Models\Kategori;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 use App\Models\DataKelurahan;
-use App\Models\DataKelurahan;
 use Illuminate\Support\Facades\Session;
 
 class AttributController extends Controller
