@@ -7,7 +7,7 @@ use App\Models\Kategori;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 use App\Models\DataKelurahan;
-use App\Models\Attribut_Kelurahan;
+use App\Models\DataKelurahan;
 use Illuminate\Support\Facades\Session;
 
 class AttributController extends Controller
@@ -95,10 +95,10 @@ class AttributController extends Controller
         //dd($kelurahan, $nilai);
         foreach ($kelurahan as $key => $item) {
 
-            $check = Attribut_Kelurahan::where('kelurahan_id', $item)->where('attribut_id', $id)->first();
+            $check = DataKelurahan::where('kelurahan_id', $item)->where('attribut_id', $id)->first();
             if ($check == null) {
                 //new
-                $n = new Attribut_Kelurahan;
+                $n = new DataKelurahan;
                 $n->kelurahan_id = $item;
                 $n->attribut_id = $id;
                 $n->value = $nilai[$key];
