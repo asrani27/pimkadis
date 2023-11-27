@@ -136,7 +136,7 @@
         @if ($attribut->count() != 0)
         <div class="row">
             @foreach ($attribut as $item)
-              <div class="col-md-4 ">
+              <div class="col-md-4">
                 <div class="box box-success">
                 <div class="box-header with-border">
                   <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->nama)}} </h3>
