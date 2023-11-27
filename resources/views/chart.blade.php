@@ -77,6 +77,8 @@
         <h1>
           Grafik Data
         </h1>
+        <a href="#" class="btn btn-success">PIE Chart</a>
+        <a href="#" class="btn btn-success">BAR Chart</a>
         
       </section>
 
