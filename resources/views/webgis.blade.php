@@ -42,6 +42,7 @@
     #map { 
         height: 100vh; 
         width: 100vw; 
+        background: #fff;
         }
         .leaflet-control-layers{
             font-size:12px;
@@ -139,7 +140,8 @@ var dynamicIcon = generateIcon()
     googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
         maxZoom: 19,
         subdomains:['mt0','mt1','mt2','mt3']
-    }).addTo(map);
+    });
+    //.addTo(map);
 var openstreetmap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
@@ -159,8 +161,6 @@ var openstreetmap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png'
         },
     })
     $.getJSON("/geojson/kelurahan.json", function ( response ) {
-
-      
       console.log(response.data.features);
       console.log(response.data.features[0].properties.KELURAHAN);
         Kelurahan.addData(response.data);
@@ -194,6 +194,11 @@ let kecamatanColors = {"Banjarmasin Barat":"#ffb400",
         Kecamatan.addData(response.data)
     });
 
+    //geojson banjarmasin barat
+    // $.getJSON("/geojson/bjmbarat.json", function ( response ) {
+    //     //Kecamatan.addData(response.data)
+    // });
+
 var baseMaps = {
     "Google Streets": googleStreets,
     "Openstreetmap": openstreetmap,
@@ -202,6 +207,7 @@ var baseMaps = {
 var overlays ={
     'Batas Kecamatan': Kecamatan,
     'Batas Kelurahan': Kelurahan,
+    //'Batas Banjarmasin Barat': BjmBarat,
 }
 
 var groupedOverlays = {

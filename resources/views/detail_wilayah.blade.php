@@ -142,21 +142,16 @@
                   <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->nama)}} </h3>
                 </div>
                 <div class="box-body bg-green-gradient">
-                  <div class="col-md-7">
-                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->deskripsi)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h3>
+                  <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->deskripsi)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h3>
+
+                  <img src="/storage/{{$detail->image2}}" width="100%" >
+                  {{-- <div class="col-md-7"> --}}
                     {{-- <h1 style="font-weight: bold">{{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h1> --}}
-                    <table>
-                    @foreach ($kelurahan as $item)
-                    <tr>
-                      <td>> {{$item->nama}}</td> 
-                      <td>: 0</td>   
-                    </tr>
-                    @endforeach
-                  </table>
-                  </div>
+                   
+                    
+                  {{-- </div>
                   <div class="col-md-5 text-right">
-                    <img src="/storage/{{$detail->image2}}" width="100%" >
-                  </div>
+                  </div> --}}
                 </div>
                 {{-- <div class="box-footer">
                   Catatan :
