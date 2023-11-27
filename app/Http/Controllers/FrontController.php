@@ -67,7 +67,9 @@ class FrontController extends Controller
             return $item;
         });
 
-        return view('detail_wilayah', compact('detail', 'attribut'));
+        $kelurahan = $detail->kelurahan;
+
+        return view('detail_wilayah', compact('detail', 'attribut', 'kelurahan'));
     }
     public function chart()
     {
