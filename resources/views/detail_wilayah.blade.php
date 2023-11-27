@@ -103,8 +103,11 @@
                     <h1>{{$detail->nama}}</h1>
                     <img src="/storage/{{$detail->image2}}" width="60%" >
                     <h3>JUMLAH PENDUDUK</h3>
-                    
+                    @if ($jumlah_penduduk->value == null)
+                        <h2>0</h2>
+                    @else
                     <h2>{{number_format((int)$jumlah_penduduk->value)}}</h2>
+                    @endif
                     <h4>
                     Laki-Laki : 0 Jiwa, Perempuan : 0 Jiwa<br/>
                     Kepadatan Penduduk : 0 %<br/>
