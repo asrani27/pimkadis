@@ -143,7 +143,7 @@
                 </div>
                 <div class="box-body bg-green-gradient">
                   <div class="col-md-7">
-                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->deskripsi)}}</h3>
+                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->deskripsi)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h3>
                     {{-- <h1 style="font-weight: bold">{{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h1> --}}
                     <table>
                     @foreach ($kelurahan as $item)
