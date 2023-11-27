@@ -123,7 +123,7 @@
               <div class="box-body no-padding">
                   
                   <div class="col-md-12 text-center">
-                      <img src="/storage/{{$detail->image1}}" width="100%">
+                      <img src="/storage/{{$detail->image1}}" width="100%" height="250px">
                   </div>
                   <!-- /.col -->
                 <!-- /.row -->
