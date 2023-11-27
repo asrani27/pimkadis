@@ -103,11 +103,11 @@
                     <h1>{{$detail->nama}}</h1>
                     <img src="/storage/{{$detail->image2}}" width="60%" >
                     <h3>JUMLAH PENDUDUK</h3>
-                    {{dd($jumlah_penduduk)}}
-                    @if ($jumlah_penduduk->value == null)
+                    
+                    @if ($jumlah_penduduk == null)
                         <h2>0</h2>
                     @else
-                    <h2>{{number_format((int)$jumlah_penduduk->value)}}</h2>
+                        <h2>{{number_format((int)$jumlah_penduduk->value)}}</h2>
                     @endif
                     <h4>
                     Laki-Laki : 0 Jiwa, Perempuan : 0 Jiwa<br/>

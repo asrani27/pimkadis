@@ -68,7 +68,7 @@ class FrontController extends Controller
         });
 
         $kelurahan = $detail->kelurahan;
-        $jumlah_penduduk = $attribut->where('nama', 'Jumlah Penduduk')->first();
+        $jumlah_penduduk = Attribut::where('nama', 'Jumlah Penduduk')->first();
 
         return view('detail_wilayah', compact('detail', 'attribut', 'kelurahan', 'jumlah_penduduk'));
     }
