@@ -99,7 +99,7 @@
             <form method="post" action="/compare/kecamatan">
               @csrf
             <div class="box-body no-padding ">  
-                <div class="col-md-12 text-center bg-green-gradient">
+                <div class="col-md-12 text-center bg-orange-gradient">
                     <h1>{{$detail->nama}}</h1>
                     <img src="/storage/{{$detail->image2}}" width="60%" >
                     <h3>JUMLAH PENDUDUK</h3>
