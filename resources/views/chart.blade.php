@@ -135,6 +135,7 @@
   });
 
   var attribut = {!!json_encode($attribut)!!}
+  console.log(attribut);
   attribut.forEach(element => {
       // console.log(["chartContainer"+element.id])
       var chart = new CanvasJS.Chart("chartContainer"+element.id, {
