@@ -103,6 +103,7 @@
                     <h1>{{$detail->nama}}</h1>
                     <img src="/storage/{{$detail->image2}}" width="60%" >
                     <h3>JUMLAH PENDUDUK</h3>
+                    {{dd($jumlah_penduduk)}}
                     @if ($jumlah_penduduk->value == null)
                         <h2>0</h2>
                     @else
