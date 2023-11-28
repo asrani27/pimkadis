@@ -38,7 +38,6 @@
       }
 
     #mapkecamatan { 
-        background: red;
         height: 500px; 
         width: 100%; 
       }
