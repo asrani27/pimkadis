@@ -292,7 +292,7 @@ crossorigin=""></script>
       const name = feature.properties.KECAMATAN
       const findData = selectedKecamatan.find(k => k.nama === name)
       let text = name
-      if (findData) text = `${findData.value} ${name}`
+      if (findData) text = `<h5>${name} <br/> ${findData.value}</h5> `
       layer.bindPopup(text);
     }
   }).addTo(mapkec);
