@@ -270,7 +270,7 @@ crossorigin=""></script>
 
  L.geoJson(jsonkec.data,{
           onEachFeature:function(feature, layer){
-            layer.bindPopup('0 Buah');
+            layer.bindPopup('feature.properties.Nama');
           }
         }).addTo(mapkec);
   

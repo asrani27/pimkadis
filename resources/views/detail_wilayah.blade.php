@@ -302,7 +302,7 @@ crossorigin=""></script>
     {
       name: "Banjarmasin Tengah",
       view: [-3.318060, 114.589410],
-      zoom: 13,
+      zoom: 14,
       geojson: "/geojson/bjmtengah.json"
     },
     {
