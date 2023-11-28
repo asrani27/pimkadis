@@ -108,6 +108,14 @@
                         @endforeach
                 </select>
               </div>
+              <div class="form-group">
+                <label>Data Yang Di Bandingkan</label>
+                <select name="jenis" class="form-control select2">
+                        @foreach ($jenis as $item)
+                            <option value="{{$item->id}}">{{$item->nama}}</option>
+                        @endforeach
+                </select>
+              </div>
               <!-- /.form-group -->
               
             </div>

@@ -298,6 +298,7 @@ crossorigin=""></script>
     subdomains: 'abcd',
     accessToken: 'eRFCsGIiHUoMtLKDSNdmhI2pONyzAYl0mH7qe2PtDlC6gYUR3teEbt9GaQCHjq1r'
   }).addTo(mapkec);
+  
   dataAttribut.forEach(element => {
     
   if(kecamatan.nama === 'Banjarmasin Tengah'){

@@ -42,7 +42,7 @@
     #map { 
         height: 100vh; 
         width: 100vw; 
-        background: #fff;
+        
         }
         .leaflet-control-layers{
             font-size:12px;
@@ -140,8 +140,7 @@ var dynamicIcon = generateIcon()
     googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
         maxZoom: 19,
         subdomains:['mt0','mt1','mt2','mt3']
-    });
-    //.addTo(map);
+    }).addTo(map);
 var openstreetmap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
@@ -188,6 +187,9 @@ let kecamatanColors = {"Banjarmasin Barat":"#ffb400",
             riseOnHover: true
           };
         },
+        onEachFeature:function(feature, layer){
+            layer.bindPopup('<h5>'+feature.properties.KECAMATAN+'</h5>');
+        }
     })
 
     $.getJSON("/geojson/kecamatan.json", function ( response ) {

@@ -36,8 +36,9 @@ class FrontController extends Controller
         $kecamatan = Kecamatan::get();
         $compareKecamatan = null;
         $data = null;
-        //dd('d');
-        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data'));
+        $jenis = Attribut::get();
+
+        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'jenis'));
     }
 
     public function byKelurahan()
@@ -45,8 +46,9 @@ class FrontController extends Controller
         $kelurahan = Kelurahan::get();
         $compareKelurahan = null;
         $data = null;
+        $jenis = Attribut::get();
         //dd('d');
-        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data'));
+        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'jenis'));
     }
     public function profilwilayah()
     {
@@ -133,7 +135,8 @@ class FrontController extends Controller
         //dd($data);
         $compareKecamatan = 'ok';
         $req->flash();
-        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'kecamatan_id'));
+        $jenis = Attribut::get();
+        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'kecamatan_id', 'jenis'));
     }
 
     public function compareKelurahan(Request $req)
