@@ -16,18 +16,9 @@
   <link rel="stylesheet" href="/assets/bower_components/select2/dist/css/select2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/assets/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  
   <link rel="stylesheet" href="/assets/dist/css/skins/_all-skins.min.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- Google Font -->
+  
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -39,9 +30,9 @@
         margin: 0;
         padding: 0;
     }
-    #map { 
-        height: 100vh; 
-        width: 100vw; 
+    .map { 
+        height: 350px; 
+        width: 100%; 
         }
 </style>
 </head>
@@ -140,7 +131,7 @@
         
         @if ($attribut->count() != 0)
         <div class="row">
-            @foreach ($attribut as $item)
+            @foreach ($attribut as $key => $item)
               <div class="col-md-4">
                 <div class="box box-success">
                 <div class="box-header with-border">
@@ -148,8 +139,7 @@
                 </div>
                 <div class="box-body text-center">
                   <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->deskripsi)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h3>
-
-                  <img src="/storage/{{$detail->image2}}" width="60%" height="200px">
+                  <div id="map{{$item->id}}" class="map"></div>
                   {{-- <div class="col-md-7"> --}}
                     {{-- <h1 style="font-weight: bold">{{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h1> --}}
                    
@@ -195,34 +185,63 @@
 
 <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""></script>
+
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
   });
-</script>
-<script>
- 
-  var chart = new CanvasJS.Chart("chartContainer", {
-    animationEnabled: true,
-    data: [{
-      type: "pie",
-      startAngle: 240,
-      
-      indexLabel: "{label} {y}",
-      dataPoints: [
-        {y: 5, label: "Banjarmasin Tengah"},
-        {y: 7, label: "Banjarmasin Timur"},
-        {y: 6, label: "Banjarmasin Selatan"},
-        {y: 4, label: "Banjarmasin Utara"},
-        {y: 7, label: "Banjarmasin Barat"}
-      ]
-    }]
+
+  var dataAttribut = {!!json_encode($attribut)!!}
+  var kecamatan = {!!json_encode($detail)!!}
+  
+  
+
+  dataAttribut.forEach(element => {
+    
+    
+  
+  if(kecamatan.nama === 'Banjarmasin Tengah'){
+    var map = L.map('map'+element.id).setView([-3.318060, 114.589410], 13);
+    var json = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
+  }
+
+  if(kecamatan.nama === 'Banjarmasin Timur'){
+    var map = L.map('map'+element.id).setView([-3.323640, 114.623513], 13);
+    var json = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
+  }
+
+  if(kecamatan.nama === 'Banjarmasin Barat'){
+    var map = L.map('map'+element.id).setView([-3.317251, 114.573746], 13);
+    var json = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText); 
+  }
+
+  if(kecamatan.nama === 'Banjarmasin Selatan'){
+    var map = L.map('map'+element.id).setView([-3.349848, 114.594969], 13);
+    var json = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
+  }
+
+  if(kecamatan.nama === 'Banjarmasin Utara'){
+    var map = L.map('map'+element.id).setView([-3.288316, 114.590731], 13);
+    var json = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
+  }
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 16,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   });
-  chart.render();
+        L.geoJson(json,{
+          onEachFeature:function(feature, layer){
+            layer.bindPopup(feature.properties.Nama);
+          }
+        }).addTo(map);
+  });
   
-  
-  </script>
+      
+    
+</script>
 </body>
 
 </html>

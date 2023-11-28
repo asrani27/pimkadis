@@ -166,7 +166,7 @@ var openstreetmap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png'
         Kelurahan.addData(response.data);
         //.bindTooltip(response.data.features[0].properties.KELURAHAN);
     });
-
+ 
 let kecamatanColors = {"Banjarmasin Barat":"#ffb400",
         "Banjarmasin Selatan":"#70a1d7",
         "Banjarmasin Tengah":"#a1de93",
