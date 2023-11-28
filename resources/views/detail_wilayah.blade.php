@@ -238,6 +238,7 @@ crossorigin=""></script>
   var dataAttribut = {!!json_encode($attribut)!!}
   var kecamatan = {!!json_encode($detail)!!}
   var kelurahan = {!!json_encode($kelurahan)!!}
+  var jumlah_penduduk = Number({!!json_encode($jumlah_penduduk->value)!!})
 
   if(kecamatan.nama === 'Banjarmasin Tengah'){
     var mapkec = L.map('mapkecamatan').setView([-3.318060, 114.589410], 14);
@@ -265,30 +266,38 @@ crossorigin=""></script>
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
   }
 
-  console.log(kelurahan);
   const features = jsonkec?.features || []
-   features.map(f => {
+  features.map(f => {
     const findKelurahan = kelurahan.find(k => k.nama == f.properties.Nama)
     if (findKelurahan) f.properties.kelurahan = findKelurahan
-   })
+  })
 
-   jsonkec.features = features
+  jsonkec.features = features
 
   L.geoJson(jsonkec,{
-          onEachFeature:function(feature, layer){
-            layer.bindPopup(feature.properties.Nama);
-          }
-        }).addTo(mapkec);
+    onEachFeature:function(feature, layer){
+      layer.bindPopup(feature.properties.Nama);
+    }
+  }).addTo(mapkec);
 
-        // console.log([kelurahan, jsonkec]);
   L.geoJson(jsonkec,{
-          onEachFeature:function(feature, layer){
-            const title = feature.properties.Nama
-            const value = Number.parseFloat(feature.properties?.kelurahan?.jumlahpenduduk).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-            
-            layer.bindPopup(`${title} <br/>${value} Jiwa`);
-          }
-        }).addTo(mapkec2);
+    style:function(feature){
+      const value = feature.properties?.kelurahan?.jumlahpenduduk
+      const percentage = value / jumlah_penduduk
+
+      return{
+        fillOpacity: percentage,
+        weight: .5
+      }
+    },
+    onEachFeature:function(feature, layer){
+      const title = feature.properties.Nama
+      const value = feature.properties?.kelurahan?.jumlahpenduduk
+      const stringValue = Number.parseFloat(value).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+
+      layer.bindPopup(`${title} <br/>${stringValue} Jiwa`);
+    }
+  }).addTo(mapkec2);
 
   var layerMapkec = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
     attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -302,7 +311,7 @@ crossorigin=""></script>
     {
       name: "Banjarmasin Tengah",
       view: [-3.318060, 114.589410],
-      zoom: 14,
+    zoom: 14,
       geojson: "/geojson/bjmtengah.json"
     },
     {
@@ -331,19 +340,44 @@ crossorigin=""></script>
     }
   ]
 
+  const attributTotal = {}
+
   dataAttribut.forEach(data => {
-    console.log({data});
+    attributTotal[data.deskripsi] = 0
+
+    // console.log({data});
+
     const element = elements.find(e => e.name === kecamatan.nama)
     const map = L.map('map'+data.id).setView(element.view, element.zoom);
     const json = JSON.parse($.ajax({'url': element.geojson, 'async': false}).responseText); 
+
+
     const features = json.features
     features.map(f => {
       const findKelurahan = kelurahan.find(k => k.nama === f.properties.Nama)
+      const count = findKelurahan ? findKelurahan[data.deskripsi] || 0 : 0
+
+      if (!attributTotal[data.deskripsi]) attributTotal[data.deskripsi] = 0
+      attributTotal[data.deskripsi] += count || 0
+
       f.properties.kelurahan = findKelurahan
     })
     json.features = features
+    
 
     L.geoJson(json,{
+      style:function(feature){
+
+        const dataKelurahan = feature.properties?.kelurahan || {}
+        const count = dataKelurahan[data.deskripsi] || 0
+        const total = attributTotal[data.deskripsi]
+        const percentage = (count / total) || 0
+
+        return{
+          fillOpacity: percentage,
+          weight: .5
+        }
+      },
       onEachFeature:function(feature, layer){
         const dataKelurahan = feature.properties?.kelurahan || {}
         const count = dataKelurahan[data.deskripsi] || 0
@@ -351,6 +385,7 @@ crossorigin=""></script>
       }
     }).addTo(map);
   })
+
 </script>
 </body>
 

@@ -14,4 +14,8 @@ class AttributKelurahan extends Model
     {
         return $this->belongsTo(Attribut::class, 'attribut_id');
     }
+    public function kelurahan()
+    {
+        return $this->belongsTo(Kelurahan::class, 'kelurahan_id');
+    }
 }

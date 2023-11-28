@@ -38,8 +38,9 @@ class FrontController extends Controller
         $data = null;
         $attribut = Attribut::get();
         $oldkecamatan = null;
+        $kecamatan_id = [];
 
-        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'attribut', 'oldkecamatan'));
+        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'attribut', 'oldkecamatan', 'kecamatan_id'));
     }
 
     public function byKelurahan()
@@ -61,17 +62,18 @@ class FrontController extends Controller
     {
         $detail = Kecamatan::find($id);
         $attribut_id = Attribut::where('profil', 'Y')->get();
-        $attribut = $attribut_id->map(function ($item) use ($id) {
-            $check = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $item->id)->first();
-            if ($check == null) {
-                $item->value = 0;
-            } else {
-                $item->value = $check->value;
-            }
+        $kelurahan_id = $detail->kelurahan->pluck('id');
+        // dd($kelurahan_id);
+        $attribut = $attribut_id->map(function ($item) use ($id, $kelurahan_id) {
+            $item->value = AttributKelurahan::whereIn('kelurahan_id', $kelurahan_id)->where('attribut_id', $item->id)->sum('value');
 
+            // ->map(function ($item2) {
+            //     $item2->namaKel = $item2->kelurahan == null ? '' : $item2->kelurahan->nama;
+            //     return $item2->only(['value', 'namaKel']);
+            // })->toArray();
             return $item;
         });
-
+        //dd($attribut);
         $kelurahan = $detail->kelurahan;
         $attribut_id = Attribut::where('nama', 'Jumlah Penduduk')->first()->id;
         $sekolah_id = Attribut::where('nama', 'Jumlah Sekolah')->first()->id;
@@ -134,7 +136,7 @@ class FrontController extends Controller
             }
             return $item;
         });
-        //dd($kelurahan);
+        //dd($kelurahan, $attribut);
         return view('detail_wilayah', compact('detail', 'attribut', 'kelurahan', 'jumlah_penduduk'));
     }
     public function chart()
@@ -180,13 +182,11 @@ class FrontController extends Controller
 
         $kecamatan = Kecamatan::get();
         $kecamatan_id = Kecamatan::whereIn('id', $id)->get();
-        // $data = Kecamatan::whereIn('id', $id)->get()->map(function ($item) use ($kecamatan_id) {
-        //     $item->kecamatan = $kecamatan_id;
-        //     return $item;
-        // });
-
         $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kecamatan_id) {
-            $item->kecamatan = $kecamatan_id;
+            $item->kecamatan = $kecamatan_id->map(function ($item2) use ($item) {
+                $item2->value = Attribut_Kecamatan::where('kecamatan_id', $item2->id)->where('attribut_id', $item->id)->first()->value;
+                return $item2;
+            });
             return $item;
         });
 

@@ -101,7 +101,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Kecamatan</label>
-                <select name="kecamatan_id[]" class="form-control select2" multiple="multiple" data-placeholder="Select kecamatan"
+                <select id="selected-kecamatan" name="kecamatan_id[]" class="form-control select2" multiple="multiple" data-placeholder="Select kecamatan"
                         style="width: 100%;" required>
                         @if ($oldkecamatan == null)
                         @foreach ($kecamatan as $item)
@@ -271,12 +271,31 @@ crossorigin=""></script>
     accessToken: 'eRFCsGIiHUoMtLKDSNdmhI2pONyzAYl0mH7qe2PtDlC6gYUR3teEbt9GaQCHjq1r'
   }).addTo(mapkec);
 
- L.geoJson(jsonkec.data,{
-          onEachFeature:function(feature, layer){
-            layer.bindPopup(feature.properties.Nama);
-          }
-        }).addTo(mapkec);
+
+  const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
+
+  const data = {!!json_encode($data)!!}
+  console.log({data, selectedKecamatan});
   
+  L.geoJson(jsonkec.data,{
+    //jika ada kecamatan yang dipilih warnanya putih
+    
+    style:function(feature){
+      const name = feature.properties.KECAMATAN
+      const findData = selectedKecamatan.find(k => k.nama === name)
+
+      return{
+        fillColor:findData ? 'red' : 'white'
+      }
+    },
+    onEachFeature:function(feature, layer){
+      const name = feature.properties.KECAMATAN
+      const findData = selectedKecamatan.find(k => k.nama === name)
+      let text = name
+      if (findData) text = `${findData.value} ${name}`
+      layer.bindPopup(text);
+    }
+  }).addTo(mapkec);
   </script>
 </body>
 
