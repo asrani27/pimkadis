@@ -143,16 +143,6 @@
 
 
       @if ($compareKecamatan != null)
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Geospasial</h3>
-        </div>
-        <div class="box-body">
-          <div class="row">
-            <div id="map"></div>
-          </div>
-        </div>
-      </div>
 
       <div class="box box-default">
         <div class="box-header with-border">
@@ -200,6 +190,19 @@
         </div>
         
       </div>
+
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Geospasial</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div id="map"></div>
+          </div>
+        </div>
+      </div>
+
+     
 
 
       {{-- <div class="row">

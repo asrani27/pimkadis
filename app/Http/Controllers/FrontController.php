@@ -180,7 +180,12 @@ class FrontController extends Controller
 
         $kecamatan = Kecamatan::get();
         $kecamatan_id = Kecamatan::whereIn('id', $id)->get();
-        $data = Attribut::get()->map(function ($item) use ($kecamatan_id) {
+        // $data = Kecamatan::whereIn('id', $id)->get()->map(function ($item) use ($kecamatan_id) {
+        //     $item->kecamatan = $kecamatan_id;
+        //     return $item;
+        // });
+
+        $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kecamatan_id) {
             $item->kecamatan = $kecamatan_id;
             return $item;
         });
