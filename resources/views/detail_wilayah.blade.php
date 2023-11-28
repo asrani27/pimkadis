@@ -31,6 +31,7 @@
         padding: 0;
     }
     .map { 
+        background: #fff;
         height: 350px; 
         width: 100%; 
         }
@@ -202,10 +203,8 @@ crossorigin=""></script>
 
   dataAttribut.forEach(element => {
     
-    
-  
   if(kecamatan.nama === 'Banjarmasin Tengah'){
-    var map = L.map('map'+element.id).setView([-3.318060, 114.589410], 13);
+    var map = L.map('map'+element.id).setView([-3.318060, 114.589410], 14);
     var json = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
   }
 
@@ -220,12 +219,12 @@ crossorigin=""></script>
   }
 
   if(kecamatan.nama === 'Banjarmasin Selatan'){
-    var map = L.map('map'+element.id).setView([-3.349848, 114.594969], 13);
+    var map = L.map('map'+element.id).setView([-3.346411, 114.583815], 12);
     var json = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
   }
 
   if(kecamatan.nama === 'Banjarmasin Utara'){
-    var map = L.map('map'+element.id).setView([-3.288316, 114.590731], 13);
+    var map = L.map('map'+element.id).setView([-3.291572, 114.598542], 13);
     var json = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
   }
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
