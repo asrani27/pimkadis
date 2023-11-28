@@ -17,6 +17,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/assets/dist/css/AdminLTE.min.css">
   
+<script src="https://ebrelsford.github.io/Leaflet.snogylop/src/leaflet.snogylop.js"></script>
   <link rel="stylesheet" href="/assets/dist/css/skins/_all-skins.min.css">
   
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -37,6 +38,7 @@
       }
 
     #mapkecamatan { 
+        background: red;
         height: 500px; 
         width: 100%; 
       }
@@ -145,20 +147,48 @@
         <div class="row">
             @foreach ($attribut as $key => $item)
               <div class="col-md-4">
-                <div class="box box-success">
+                <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->nama)}} </h3>
                 </div>
                 <div class="box-body text-center">
                   <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->deskripsi)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h3>
                   <div id="map{{$item->id}}" class="map"></div>
-                  {{-- <div class="col-md-7"> --}}
-                    {{-- <h1 style="font-weight: bold">{{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h1> --}}
-                   
-                    
-                  {{-- </div>
-                  <div class="col-md-5 text-right">
-                  </div> --}}
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <!-- Progress bars -->
+                      <div class="clearfix">
+                        <span class="pull-left">0-25%</span>
+                      </div>
+                      <div class="progress xs" style="margin-bottom: 0px;">
+                        <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
+                      </div>
+    
+                      <div class="clearfix">
+                        <span class="pull-left">26-50%</span>
+                      </div>
+                      <div class="progress xs" style="margin-bottom: 0px;">
+                        <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-6">
+                      <div class="clearfix">
+                        <span class="pull-left">51-75%</span>
+                      </div>
+                      <div class="progress xs" style="margin-bottom: 0px;">
+                        <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
+                      </div>
+    
+                      <div class="clearfix">
+                        <span class="pull-left">76-100%</span>
+                      </div>
+                      <div class="progress xs" style="margin-bottom: 0px;">
+                        <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
                 </div>
                 {{-- <div class="box-footer">
                   Catatan :
@@ -200,7 +230,6 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 crossorigin=""></script>
-
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -249,14 +278,17 @@ crossorigin=""></script>
             layer.bindPopup(feature.properties.Nama);
           }
         }).addTo(mapkec2);
-  L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
+
+
+        
+        
+  var layerMapkec = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
     attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     minZoom: 0,
     maxZoom: 22,
     subdomains: 'abcd',
     accessToken: 'eRFCsGIiHUoMtLKDSNdmhI2pONyzAYl0mH7qe2PtDlC6gYUR3teEbt9GaQCHjq1r'
   }).addTo(mapkec);
-
   dataAttribut.forEach(element => {
     
   if(kecamatan.nama === 'Banjarmasin Tengah'){
