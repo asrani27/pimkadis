@@ -160,14 +160,14 @@
                         <span class="pull-left">0-25%</span>
                       </div>
                       <div class="progress xs" style="margin-bottom: 0px;">
-                        <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
+                        <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.25"></div>
                       </div>
     
                       <div class="clearfix">
                         <span class="pull-left">26-50%</span>
                       </div>
                       <div class="progress xs" style="margin-bottom: 0px;">
-                        <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
+                        <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.50"></div>
                       </div>
                     </div>
                     <!-- /.col -->
@@ -176,7 +176,7 @@
                         <span class="pull-left">51-75%</span>
                       </div>
                       <div class="progress xs" style="margin-bottom: 0px;">
-                        <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
+                        <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.75"></div>
                       </div>
     
                       <div class="clearfix">
