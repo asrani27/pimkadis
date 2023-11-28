@@ -151,7 +151,7 @@
                   <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->nama)}} </h3>
                 </div>
                 <div class="box-body text-center">
-                  <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->deskripsi)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h3>
+                  <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->nama)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h3>
                   <div id="map{{$item->id}}" class="map"></div>
                   <div class="row">
                     <div class="col-sm-6">
