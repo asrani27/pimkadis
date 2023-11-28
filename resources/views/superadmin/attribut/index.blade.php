@@ -34,7 +34,7 @@
                     <td>{{$item->nama}}</td>
                     <td>{{$item->deskripsi}}</td>
                     <td>{{$item->satuan}}</td>
-                    <td>{{$item->kategori->nama}}</td>
+                    <td>{{$item->kategori == null ? null : $item->kategori->nama}}</td>
                     <td>{{$item->tag}}</td>
                     <td>{{$item->profil}}</td>
                     <td>

@@ -239,8 +239,6 @@ crossorigin=""></script>
   var kecamatan = {!!json_encode($detail)!!}
   var kelurahan = {!!json_encode($kelurahan)!!}
 
-  
-
   if(kecamatan.nama === 'Banjarmasin Tengah'){
     var mapkec = L.map('mapkecamatan').setView([-3.318060, 114.589410], 14);
     var mapkec2 = L.map('mapkecamatan2').setView([-3.318060, 114.589410], 14);
@@ -267,6 +265,7 @@ crossorigin=""></script>
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
   }
 
+  console.log(kelurahan);
   const features = jsonkec?.features || []
    features.map(f => {
     const findKelurahan = kelurahan.find(k => k.nama == f.properties.Nama)
@@ -286,7 +285,7 @@ crossorigin=""></script>
           onEachFeature:function(feature, layer){
             const title = feature.properties.Nama
             const value = Number.parseFloat(feature.properties?.kelurahan?.jumlahpenduduk).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-            console.log({title});
+            
             layer.bindPopup(`${title} <br/>${value} Jiwa`);
           }
         }).addTo(mapkec2);
@@ -299,39 +298,93 @@ crossorigin=""></script>
     accessToken: 'eRFCsGIiHUoMtLKDSNdmhI2pONyzAYl0mH7qe2PtDlC6gYUR3teEbt9GaQCHjq1r'
   }).addTo(mapkec);
   
-  dataAttribut.forEach(element => {
-    
-  if(kecamatan.nama === 'Banjarmasin Tengah'){
-    var map = L.map('map'+element.id).setView([-3.318060, 114.589410], 14);
-    var json = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
-  }
+  const elements = [
+    {
+      name: "Banjarmasin Tengah",
+      view: [-3.318060, 114.589410],
+      zoom: 13,
+      geojson: "/geojson/bjmtengah.json"
+    },
+    {
+      name: "Banjarmasin Timur",
+      view: [-3.323640, 114.623513],
+      zoom: 13,
+      geojson: "/geojson/bjmtimur.json"
+    },
+    {
+      name: "Banjarmasin Barat",
+      view: [-3.317251, 114.573746],
+      zoom: 13,
+      geojson: "/geojson/bjmbarat.json"
+    },
+    {
+      name: "Banjarmasin Selatan",
+      view: [-3.346411, 114.583815],
+      zoom: 13,
+      geojson: "/geojson/bjmselatan.json"
+    },
+    {
+      name: "Banjarmasin Utara",
+      view: [-3.291572, 114.598542],
+      zoom: 13,
+      geojson: "/geojson/bjmutara.json"
+    }
+  ]
 
-  if(kecamatan.nama === 'Banjarmasin Timur'){
-    var map = L.map('map'+element.id).setView([-3.323640, 114.623513], 13);
-    var json = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
-  }
+  dataAttribut.forEach(data => {
+    console.log({data});
+    const element = elements.find(e => e.name === kecamatan.nama)
+    const map = L.map('map'+data.id).setView(element.view, element.zoom);
+    const json = JSON.parse($.ajax({'url': element.geojson, 'async': false}).responseText); 
+    const features = json.features
+    features.map(f => {
+      const findKelurahan = kelurahan.find(k => k.nama === f.properties.Nama)
+      f.properties.kelurahan = findKelurahan
+    })
+    json.features = features
 
-  if(kecamatan.nama === 'Banjarmasin Barat'){
-    var map = L.map('map'+element.id).setView([-3.317251, 114.573746], 13);
-    var json = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText); 
-  }
+    L.geoJson(json,{
+      onEachFeature:function(feature, layer){
+        const dataKelurahan = feature.properties?.kelurahan || {}
+        const count = dataKelurahan[data.deskripsi] || 0
+        layer.bindPopup(`${count} ${feature.properties.Nama}`);
+      }
+    }).addTo(map);
+  })
+  
+  // dataAttribut.forEach(element => {
 
-  if(kecamatan.nama === 'Banjarmasin Selatan'){
-    var map = L.map('map'+element.id).setView([-3.346411, 114.583815], 12);
-    var json = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
-  }
+  //   if(kecamatan.nama === 'Banjarmasin Tengah'){
+  //     var map = L.map('map'+element.id).setView([-3.318060, 114.589410], 14);
+  //     var json = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
+  //   }
 
-  if(kecamatan.nama === 'Banjarmasin Utara'){
-    var map = L.map('map'+element.id).setView([-3.291572, 114.598542], 13);
-    var json = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
-  }
- 
-        L.geoJson(json,{
-          onEachFeature:function(feature, layer){
-            layer.bindPopup(feature.properties.Nama);
-          }
-        }).addTo(map);
-  });
+  //   if(kecamatan.nama === 'Banjarmasin Timur'){
+  //     var map = L.map('map'+element.id).setView([-3.323640, 114.623513], 13);
+  //     var json = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
+  //   }
+
+  //   if(kecamatan.nama === 'Banjarmasin Barat'){
+  //     var map = L.map('map'+element.id).setView([-3.317251, 114.573746], 13);
+  //     var json = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText); 
+  //   }
+
+  //   if(kecamatan.nama === 'Banjarmasin Selatan'){
+  //     var map = L.map('map'+element.id).setView([-3.346411, 114.583815], 12);
+  //     var json = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
+  //   }
+
+  //   if(kecamatan.nama === 'Banjarmasin Utara'){
+  //     var map = L.map('map'+element.id).setView([-3.291572, 114.598542], 13);
+  //     var json = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
+  //   }
+
+  //   L.geoJson(json,{
+  //     onEachFeature:function(feature, layer){
+  //       layer.bindPopup(feature.properties.Nama);
+  //     }
+  //   }).addTo(map);
+  // });
   
       
     
