@@ -40,7 +40,7 @@
         padding: 0;
     }
     #map { 
-        height: 500px; 
+        height: 600px; 
         width: 100%; 
         }
 </style>
@@ -260,7 +260,7 @@ crossorigin=""></script>
 </script>
 <script>
  
- var mapkec = L.map('map').setView([-3.318060, 114.589410], 12);
+ var mapkec = L.map('map').setView([-3.318060, 114.589410], 13);
  var jsonkec = JSON.parse($.ajax({'url': "/geojson/kecamatan.json", 'async': false}).responseText); 
 
  var layerMapkec = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
@@ -273,7 +273,7 @@ crossorigin=""></script>
 
  L.geoJson(jsonkec.data,{
           onEachFeature:function(feature, layer){
-            layer.bindPopup('feature.properties.Nama');
+            layer.bindPopup(feature.properties.Nama);
           }
         }).addTo(mapkec);
   
