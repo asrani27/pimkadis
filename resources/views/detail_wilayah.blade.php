@@ -40,6 +40,12 @@
         height: 500px; 
         width: 100%; 
       }
+
+    #mapkecamatan2 { 
+        background: #fff;
+        height: 350px; 
+        width: 100%; 
+      }
 </style>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
@@ -81,7 +87,7 @@
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-5">
           <div class="box">
             {{-- <div class="box-header with-border">
               <h3 class="box-title">Statistik Wilayah {{strtoupper($detail->nama)}}</h3>
@@ -98,7 +104,7 @@
             <div class="box-body no-padding ">  
                 <div class="col-md-12 text-center bg-orange-gradient">
                     <h1>{{$detail->nama}}</h1>
-                    <img src="/storage/{{$detail->image2}}" width="60%" >
+                    <div id="mapkecamatan2"></div>
                     <h3>JUMLAH PENDUDUK</h3>
                     
                     @if ($jumlah_penduduk == null)
@@ -117,7 +123,7 @@
             </form>
           </div>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-7">
             <div class="box">
               <!-- /.box-header -->
               <form method="post" action="/compare/kecamatan">
@@ -208,22 +214,27 @@ crossorigin=""></script>
 
   if(kecamatan.nama === 'Banjarmasin Tengah'){
     var mapkec = L.map('mapkecamatan').setView([-3.318060, 114.589410], 14);
+    var mapkec2 = L.map('mapkecamatan2').setView([-3.318060, 114.589410], 14);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
   }
   if(kecamatan.nama === 'Banjarmasin Timur'){
     var mapkec = L.map('mapkecamatan').setView([-3.323640, 114.623513], 13);
+    var mapkec2 = L.map('mapkecamatan2').setView([-3.323640, 114.623513], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
   }
   if(kecamatan.nama === 'Banjarmasin Barat'){
     var mapkec = L.map('mapkecamatan').setView([-3.317251, 114.573746], 13);
+    var mapkec2 = L.map('mapkecamatan2').setView([-3.317251, 114.573746], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText); 
   }
   if(kecamatan.nama === 'Banjarmasin Selatan'){
     var mapkec = L.map('mapkecamatan').setView([-3.346411, 114.583815], 13);
+    var mapkec2 = L.map('mapkecamatan2').setView([-3.346411, 114.583815], 12);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
   }
   if(kecamatan.nama === 'Banjarmasin Utara'){
     var mapkec = L.map('mapkecamatan').setView([-3.291572, 114.598542], 13);
+    var mapkec2 = L.map('mapkecamatan2').setView([-3.291572, 114.598542], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
   }
 
@@ -232,6 +243,12 @@ crossorigin=""></script>
             layer.bindPopup(feature.properties.Nama);
           }
         }).addTo(mapkec);
+
+  L.geoJson(jsonkec,{
+          onEachFeature:function(feature, layer){
+            layer.bindPopup(feature.properties.Nama);
+          }
+        }).addTo(mapkec2);
   L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
     attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     minZoom: 0,
