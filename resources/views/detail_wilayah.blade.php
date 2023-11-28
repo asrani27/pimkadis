@@ -207,7 +207,7 @@ crossorigin=""></script>
   
 
   if(kecamatan.nama === 'Banjarmasin Tengah'){
-    var mapkec = L.map('mapkecamatan').setView([-3.318060, 114.589410], 13);
+    var mapkec = L.map('mapkecamatan').setView([-3.318060, 114.589410], 14);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
   }
   if(kecamatan.nama === 'Banjarmasin Timur'){
