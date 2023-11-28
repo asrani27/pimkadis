@@ -237,7 +237,8 @@ crossorigin=""></script>
 
   var dataAttribut = {!!json_encode($attribut)!!}
   var kecamatan = {!!json_encode($detail)!!}
-  
+  var kelurahan = {!!json_encode($kelurahan)!!}
+
   
 
   if(kecamatan.nama === 'Banjarmasin Tengah'){
@@ -266,21 +267,30 @@ crossorigin=""></script>
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
   }
 
+  const features = jsonkec?.features || []
+   features.map(f => {
+    const findKelurahan = kelurahan.find(k => k.nama == f.properties.Nama)
+    if (findKelurahan) f.properties.kelurahan = findKelurahan
+   })
+
+   jsonkec.features = features
+
   L.geoJson(jsonkec,{
           onEachFeature:function(feature, layer){
             layer.bindPopup(feature.properties.Nama);
           }
         }).addTo(mapkec);
 
+        // console.log([kelurahan, jsonkec]);
   L.geoJson(jsonkec,{
           onEachFeature:function(feature, layer){
-            layer.bindPopup(feature.properties.Nama);
+            const title = feature.properties.Nama
+            const value = Number.parseFloat(feature.properties?.kelurahan?.jumlahpenduduk).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            console.log({title});
+            layer.bindPopup(`${title} <br/>${value} Jiwa`);
           }
         }).addTo(mapkec2);
 
-
-        
-        
   var layerMapkec = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
     attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     minZoom: 0,

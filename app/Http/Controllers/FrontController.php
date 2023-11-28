@@ -7,6 +7,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 use App\Models\Attribut_Kecamatan;
+use App\Models\Attribut_Kelurahan;
 
 class FrontController extends Controller
 {
@@ -70,7 +71,18 @@ class FrontController extends Controller
         $kelurahan = $detail->kelurahan;
         $attribut_id = Attribut::where('nama', 'Jumlah Penduduk')->first()->id;
         $jumlah_penduduk = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $attribut_id)->first();
-        //dd($jumlah_penduduk);
+        $kelurahan_id = $kelurahan->pluck('id')->toArray();
+
+        $kelurahan->map(function ($item) use ($attribut_id) {
+            $checkjumlahpenduduk = Attribut_Kelurahan::where('kelurahan_id', $item->id)->where('attribut_id', $attribut_id)->first();
+            if ($checkjumlahpenduduk == null) {
+                $item->jumlahpenduduk = 0;
+            } else {
+                $item->jumlahpenduduk = (int)$checkjumlahpenduduk->value;
+            }
+            return $item;
+        });
+
         return view('detail_wilayah', compact('detail', 'attribut', 'kelurahan', 'jumlah_penduduk'));
     }
     public function chart()
