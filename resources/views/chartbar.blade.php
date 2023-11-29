@@ -182,7 +182,6 @@
         type: "column",  
         showInLegend: true, 
         legendMarkerColor: "grey",
-        legendText: "MMbbl = one million barrels",
         dataPoints: element.grafik
       }]
     });
