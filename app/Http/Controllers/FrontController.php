@@ -182,7 +182,7 @@ class FrontController extends Controller
 
             $attribut = Kategori::find($kategori_id)->attribut->map(function ($item) {
                 $item->grafik = collect(Kecamatan::get()->toArray())->map(function ($item2) use ($item) {
-                    $data['y'] = Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
+                    $data['y'] = Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : (int)Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
                     $data['label'] = $item2['nama'];
                     return $data;
                 })->toArray();

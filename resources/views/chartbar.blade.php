@@ -163,14 +163,26 @@
 
   var attribut = {!!json_encode($attribut)!!}
   
-  
+  var coba = [      
+			{ y: 300878, label: "Venezuela" },
+			{ y: 266455,  label: "Saudi" },
+			{ y: 169709,  label: "Canada" },
+			{ y: 158400,  label: "Iran" },
+			{ y: 142503,  label: "Iraq" },
+			{ y: 101500, label: "Kuwait" },
+			{ y: 97800,  label: "UAE" },
+			{ y: 80000,  label: "Russia" }
+		];
+    console.log(coba);
   attribut.forEach(element => {
-      console.log(['ter',element.grafik]);
+      console.log(element.grafik);
       var chart = new CanvasJS.Chart("chartContainer"+element.id, {
       animationEnabled: true,
       data: [{
-        type: "column",
-        indexLabel: "{label} {y} "+ element.satuan,
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: "MMbbl = one million barrels",
         dataPoints: element.grafik
       }]
     });
