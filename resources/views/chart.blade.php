@@ -100,8 +100,8 @@
               <div class="form-group">
                 <label>Jenis Chart</label>
                 <select name="jenis" class="form-control select2">
-                  <option value="pie">Pie Chart</option>
-                  <option value="bar">Bar Chart</option>
+                  <option value="pie" {{old('jenis') == 'pie' ? 'selected':''}}>Pie Chart</option>
+                  <option value="bar" {{old('jenis') == 'bar' ? 'selected':''}}>Bar Chart</option>
                 </select>
               </div>
               <button type="submit" class='btn btn-success btn-block'>TAMPILKAN</button>
