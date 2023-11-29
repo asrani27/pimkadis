@@ -49,9 +49,11 @@ class FrontController extends Controller
         $kelurahan = Kelurahan::get();
         $compareKelurahan = null;
         $data = null;
-        $jenis = Attribut::get();
+        $attribut = Attribut::get();
+        $oldkelurahan = null;
+        $kelurahan_id = [];
         //dd('d');
-        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'jenis'));
+        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'attribut', 'kelurahan_id', 'oldkelurahan'));
     }
     public function profilwilayah()
     {
@@ -241,18 +243,28 @@ class FrontController extends Controller
         foreach ($req->kelurahan_id as $key => $item) {
             array_push($id, (int)$item);
         }
-
+        //dd($req->all(), $id);
+        $oldkelurahan = collect($id);
         $kelurahan = Kelurahan::get();
         $kelurahan_id = Kelurahan::whereIn('id', $id)->get();
-        $data = Attribut::get()->map(function ($item) use ($kelurahan_id) {
-            $item->kelurahan = $kelurahan_id;
+        // $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kelurahan_id) {
+        //     $item->kelurahan = $kelurahan_id;
+        //     return $item;
+        // });
+        $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kelurahan_id) {
+            $item->kelurahan = $kelurahan_id->map(function ($item2) use ($item) {
+                $item2->value = AttributKelurahan::where('kelurahan_id', $item2->id)->where('attribut_id', $item->id)->first()->value;
+                return $item2;
+            });
             return $item;
         });
+
         //dd($data, $kelurahan, $kelurahan_id);
         $compareKelurahan = 'ok';
         $req->flash();
+        $attribut = Attribut::get();
 
 
-        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'kelurahan_id'));
+        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'kelurahan_id', 'oldkelurahan', 'attribut'));
     }
 }

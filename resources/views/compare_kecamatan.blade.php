@@ -103,7 +103,7 @@
                 <label>Kecamatan</label>
                 <select id="selected-kecamatan" name="kecamatan_id[]" class="form-control select2" multiple="multiple" data-placeholder="Select kecamatan"
                         style="width: 100%;" required>
-                        @if ($oldkecamatan == null)
+                      @if ($oldkecamatan == null)
                         @foreach ($kecamatan as $item)
                         <option value="{{$item->id}}">{{$item->nama}}</option>
                         @endforeach
@@ -269,7 +269,8 @@ crossorigin=""></script>
     maxZoom: 22,
     subdomains: 'abcd',
     accessToken: 'eRFCsGIiHUoMtLKDSNdmhI2pONyzAYl0mH7qe2PtDlC6gYUR3teEbt9GaQCHjq1r'
-  }).addTo(mapkec);
+  });
+  //.addTo(mapkec);
 
 
   const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
@@ -285,7 +286,9 @@ crossorigin=""></script>
       const findData = selectedKecamatan.find(k => k.nama === name)
 
       return{
-        fillColor:findData ? 'red' : 'white'
+        fillColor:findData ? 'red' : 'white',
+        fillOpacity:.7,
+        weight:1
       }
     },
     onEachFeature:function(feature, layer){

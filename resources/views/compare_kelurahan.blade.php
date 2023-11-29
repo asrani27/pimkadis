@@ -40,8 +40,8 @@
         padding: 0;
     }
     #map { 
-        height: 100vh; 
-        width: 100vw; 
+        height: 550px; 
+        width: 100%; 
         }
 </style>
 </head>
@@ -103,8 +103,22 @@
                 <label>Kelurahan</label>
                 <select name="kelurahan_id[]" class="form-control select2" multiple="multiple" data-placeholder="Select Kelurahan"
                         style="width: 100%;">
+                        @if ($oldkelurahan == null)
                         @foreach ($kelurahan as $item)
-                            <option value="{{$item->id}}">{{$item->nama}}</option>
+                        <option value="{{$item->id}}">{{$item->nama}} - ({{$item->kecamatan->nama}})</option>
+                        @endforeach
+                      @else
+                        @foreach ($kelurahan as $item)
+                        <option value="{{$item->id}}" {{$oldkelurahan->contains($item->id) == true ? 'selected':''}}>{{$item->nama}} - ({{$item->kecamatan->nama}})</option>
+                        @endforeach 
+                      @endif
+                      
+                </select>
+              </div> <div class="form-group">
+                <label>Data Yang Di Bandingkan</label>
+                <select name="jenis" class="form-control select2">
+                        @foreach ($attribut as $item)
+                            <option value="{{$item->id}}" {{$item->id == old('jenis') ? 'selected':''}}>{{$item->nama}}</option>
                         @endforeach
                 </select>
               </div>
@@ -141,7 +155,7 @@
                   <th class="text-center">No</th>
                   <th>Attribut</th>
                   @foreach ($kelurahan_id as $item)
-                      <th>{{$item->nama}}</th>
+                      <th>{{$item->nama}} </th>
                   @endforeach
                 </tr>
                 @php
@@ -172,6 +186,16 @@
         
       </div>
 
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Geospasial</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div id="map"></div>
+          </div>
+        </div>
+      </div>
 
       {{-- <div class="row">
         @foreach ($data as $item)
@@ -217,34 +241,58 @@
 
 <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""></script>
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
   });
 </script>
+
 <script>
  
-  var chart = new CanvasJS.Chart("chartContainer", {
-    animationEnabled: true,
-    data: [{
-      type: "pie",
-      startAngle: 240,
-      
-      indexLabel: "{label} {y}",
-      dataPoints: [
-        {y: 5, label: "Banjarmasin Tengah"},
-        {y: 7, label: "Banjarmasin Timur"},
-        {y: 6, label: "Banjarmasin Selatan"},
-        {y: 4, label: "Banjarmasin Utara"},
-        {y: 7, label: "Banjarmasin Barat"}
-      ]
-    }]
-  });
-  chart.render();
-  
-  
-  </script>
+  var mapkec = L.map('map').setView([-3.318060, 114.589410], 12);
+  var jsonkec = JSON.parse($.ajax({'url': "/geojson/kelurahan.json", 'async': false}).responseText); 
+ 
+  var layerMapkec = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
+     attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+     minZoom: 0,
+     maxZoom: 22,
+     subdomains: 'abcd',
+     accessToken: 'eRFCsGIiHUoMtLKDSNdmhI2pONyzAYl0mH7qe2PtDlC6gYUR3teEbt9GaQCHjq1r'
+   });
+   //.addTo(mapkec);
+ 
+ 
+   const selectedKelurahan = {!!json_encode($kelurahan_id)!!}
+ 
+   const data = {!!json_encode($data)!!}
+   console.log({data, selectedKelurahan});
+   
+   L.geoJson(jsonkec.data,{
+     //jika ada Kelurahan yang dipilih warnanya putih
+     
+     style:function(feature){
+       const name = feature.properties.KELURAHAN
+       const findData = selectedKelurahan.find(k => k.nama === name)
+ 
+       return{
+         fillColor:findData ? 'red' : 'white',
+         fillOpacity:1,
+        weight: .5
+       }
+     },
+     onEachFeature:function(feature, layer){
+       const name = feature.properties.KELURAHAN
+       const findData = selectedKelurahan.find(k => k.nama === name)
+       let text = name
+       if (findData) text = `<center><h5>${name} <br/> ${findData.value}</h5> </center>`
+       layer.bindPopup(text);
+     }
+   }).addTo(mapkec);
+</script>
 </body>
 
 </html>
