@@ -100,8 +100,8 @@
               <div class="form-group">
                 <label>Jenis Chart</label>
                 <select name="jenis" class="form-control select2">
-                  <option value="pie">Pie Chart</option>
-                  <option value="bar">Bar Chart</option>
+                  <option value="pie" {{old('jenis') == 'pie' ? 'selceted':''}}>Pie Chart</option>
+                  <option value="bar" {{old('jenis') == 'bar' ? 'selceted':''}}>Bar Chart</option>
                 </select>
               </div>
               <button type="submit" class='btn btn-success btn-block'>TAMPILKAN</button>
@@ -162,22 +162,21 @@
   });
 
   var attribut = {!!json_encode($attribut)!!}
-  console.log(attribut);
+  
+  
   attribut.forEach(element => {
-      // console.log(["chartContainer"+element.id])
+      console.log(['ter',element.grafik]);
       var chart = new CanvasJS.Chart("chartContainer"+element.id, {
       animationEnabled: true,
       data: [{
-        type: "pie",
-        startAngle: 240,
-        percentFormatString: "#0.##",
+        type: "column",
         indexLabel: "{label} {y} "+ element.satuan,
         dataPoints: element.grafik
       }]
     });
     chart.render()
   });
-  console.log(attribut)
+  
   
 
 </script>

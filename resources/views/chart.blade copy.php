@@ -77,41 +77,14 @@
         <h1>
           Grafik Data
         </h1>
+        <a href="#" class="btn btn-success">PIE Chart</a>
+        <a href="#" class="btn btn-success">BAR Chart</a>
         
       </section>
 
       <!-- Main content -->
       <section class="content">
         <!-- SELECT2 EXAMPLE -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="box box-default">
-            <div class="box-body">
-              <form method="get" action="/chart/grafik">
-                @csrf
-              <div class="form-group">
-                <label>Kategori</label>
-                <select name="kategori" class="form-control select2">
-                        @foreach ($kategori as $item)
-                            <option value="{{$item->id}}" {{$item->id == old('kategori') ? 'selected':''}}>{{$item->nama}}</option>
-                        @endforeach
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Jenis Chart</label>
-                <select name="jenis" class="form-control select2">
-                  <option value="pie">Pie Chart</option>
-                  <option value="bar">Bar Chart</option>
-                </select>
-              </div>
-              <button type="submit" class='btn btn-success btn-block'>TAMPILKAN</button>
-
-              </form>
-            </div>
-            </div>
-          </div>
-          
-        </div>
           <div class="row">
             @foreach ($attribut as $item)
             <div class="col-md-4">
@@ -125,6 +98,8 @@
               </div>
             </div>
             @endforeach
+            
+            <!-- /.col -->
           </div>
           
           

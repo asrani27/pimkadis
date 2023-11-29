@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribut;
+use App\Models\Kategori;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
-use App\Models\Attribut_Kecamatan;
 use App\Models\AttributKelurahan;
+use App\Models\Attribut_Kecamatan;
 
 class FrontController extends Controller
 {
@@ -152,17 +153,44 @@ class FrontController extends Controller
             })->toArray();
             return $item;
         });
+        $kategori = Kategori::get();
+        return view('chart', compact('attribut', 'kategori'));
+    }
 
-        // $attribut = $attribut_id->map(function ($item) use ($id) {
-        //     $check = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $item->id)->first();
-        //     if ($check == null) {
-        //         $item->value = 0;
-        //     } else {
-        //         $item->value = $check->value;
-        //     }
-        //     return $item;
-        // });
-        return view('chart', compact('attribut'));
+    public function tampilkanChart()
+    {
+        $kategori_id = request()->get('kategori');
+        $jenis = request()->get('jenis');
+
+
+        $kategori = Kategori::get();
+        request()->flash();
+
+        if ($jenis == 'pie') {
+
+            $attribut = Kategori::find($kategori_id)->attribut->map(function ($item) {
+                $item->grafik = collect(Kecamatan::get()->toArray())->map(function ($item2) use ($item) {
+                    $data['label'] = $item2['nama'];
+                    $data['x'] = 0;
+                    $data['y'] = Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
+                    return $data;
+                })->toArray();
+                return $item;
+            });
+            return view('chart', compact('attribut', 'kategori'));
+        } else {
+
+            $attribut = Kategori::find($kategori_id)->attribut->map(function ($item) {
+                $item->grafik = collect(Kecamatan::get()->toArray())->map(function ($item2) use ($item) {
+                    $data['y'] = Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
+                    $data['label'] = $item2['nama'];
+                    return $data;
+                })->toArray();
+                return $item;
+            });
+
+            return view('chartbar', compact('attribut', 'kategori'));
+        }
     }
     public function login()
     {

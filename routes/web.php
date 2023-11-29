@@ -21,6 +21,7 @@ Route::get('/profilwilayah/{id}', [FrontController::class, 'detailwilayah']);
 Route::get('/webgis', [FrontController::class, 'webgis']);
 Route::get('/compare', [FrontController::class, 'compare']);
 Route::get('/chart', [FrontController::class, 'chart']);
+Route::get('/chart/grafik', [FrontController::class, 'tampilkanChart']);
 Route::get('/compare/kecamatan', function () {
     return redirect('/compare/bykecamatan');
 });
