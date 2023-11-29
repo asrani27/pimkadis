@@ -175,13 +175,15 @@
 		];
     console.log(coba);
   attribut.forEach(element => {
-      console.log(element.grafik);
+      console.log(element.satuan);
       var chart = new CanvasJS.Chart("chartContainer"+element.id, {
       animationEnabled: true,
       data: [{
         type: "column",  
+        toolTipContent: "<b>{label}</b><br>{y} "+element.satuan+"<br>",
         showInLegend: true, 
         legendMarkerColor: "grey",
+        legendText: "Data",
         dataPoints: element.grafik
       }]
     });
