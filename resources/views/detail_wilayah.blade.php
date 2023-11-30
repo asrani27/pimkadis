@@ -114,7 +114,7 @@
                         <h2>{{number_format((int)$jumlah_penduduk->value)}}</h2>
                     @endif
                     <h4>
-                    Laki-Laki : 0 Jiwa, Perempuan : 0 Jiwa<br/>
+                    Laki-Laki : {{$jml_laki == null ? 0: $jml_laki->value}} Jiwa, Perempuan :  {{$jml_perempuan == null ? 0: $jml_perempuan->value}} Jiwa<br/>
                     Kepadatan Penduduk : 0 %<br/>
                     Luas Wilayah : 0 m2<br/>
 

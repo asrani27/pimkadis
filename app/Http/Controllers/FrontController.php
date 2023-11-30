@@ -86,8 +86,11 @@ class FrontController extends Controller
         $tps_id = Attribut::where('nama', 'Jumlah Tempat Pembuangan Sampah (TPS)')->first()->id;
         $rtlh_id = Attribut::where('nama', 'Rumah Tidak Layak huni')->first()->id;
 
+        $laki_id = Attribut::where('nama', 'Jumlah Laki')->first()->id;
+        $perempuan_id = Attribut::where('nama', 'Jumlah Perempuan')->first()->id;
 
-
+        $jml_laki  = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $laki_id)->first();
+        $jml_perempuan = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $perempuan_id)->first();
 
         $jumlah_penduduk = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $attribut_id)->first();
         $kelurahan_id = $kelurahan->pluck('id')->toArray();
@@ -140,7 +143,7 @@ class FrontController extends Controller
             return $item;
         });
         //dd($kelurahan, $attribut);
-        return view('detail_wilayah', compact('detail', 'attribut', 'kelurahan', 'jumlah_penduduk'));
+        return view('detail_wilayah', compact('detail', 'attribut', 'kelurahan', 'jumlah_penduduk', 'jml_laki', 'jml_perempuan'));
     }
     public function chart()
     {
