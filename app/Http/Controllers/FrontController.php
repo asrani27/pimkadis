@@ -214,7 +214,12 @@ class FrontController extends Controller
         $kecamatan_id = Kecamatan::whereIn('id', $id)->get();
         $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kecamatan_id) {
             $item->kecamatan = $kecamatan_id->map(function ($item2) use ($item) {
-                $item2->value = Attribut_Kecamatan::where('kecamatan_id', $item2->id)->where('attribut_id', $item->id)->first()->value;
+                $checkValue = Attribut_Kecamatan::where('kecamatan_id', $item2->id)->where('attribut_id', $item->id)->first();
+                if ($checkValue == null) {
+                    $item2->value = 0;
+                } else {
+                    $item2->value = $checkValue->value;
+                }
                 return $item2;
             });
             return $item;
