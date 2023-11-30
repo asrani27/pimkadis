@@ -88,9 +88,13 @@ class FrontController extends Controller
 
         $laki_id = Attribut::where('nama', 'Jumlah Laki')->first()->id;
         $perempuan_id = Attribut::where('nama', 'Jumlah Perempuan')->first()->id;
+        $kepadatan_id = Attribut::where('nama', 'Kepadatan Penduduk')->first()->id;
+        $luas_id = Attribut::where('nama', 'Luas Wilayah')->first()->id;
 
         $jml_laki  = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $laki_id)->first();
         $jml_perempuan = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $perempuan_id)->first();
+        $jml_kepadatan = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $kepadatan_id)->first();
+        $jml_luas = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $luas_id)->first();
 
         $jumlah_penduduk = Attribut_Kecamatan::where('kecamatan_id', $id)->where('attribut_id', $attribut_id)->first();
         $kelurahan_id = $kelurahan->pluck('id')->toArray();
@@ -143,7 +147,7 @@ class FrontController extends Controller
             return $item;
         });
         //dd($kelurahan, $attribut);
-        return view('detail_wilayah', compact('detail', 'attribut', 'kelurahan', 'jumlah_penduduk', 'jml_laki', 'jml_perempuan'));
+        return view('detail_wilayah', compact('detail', 'attribut', 'kelurahan', 'jumlah_penduduk', 'jml_laki', 'jml_perempuan', 'jml_kepadatan', 'jml_luas'));
     }
     public function chart()
     {
