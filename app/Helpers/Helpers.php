@@ -17,8 +17,10 @@ function nilai($attribut_id, $kecamatan_id)
     } else {
         $hasil = $data->value;
     }
-
-    return number_format($hasil);
+    if ($hasil > 1000) {
+        return number_format($hasil);
+    }
+    return $hasil;
 }
 function nilai2($attribut_id, $kelurahan_id)
 {

@@ -277,17 +277,23 @@ crossorigin=""></script>
 
   const data = {!!json_encode($data)!!}
   console.log({data, selectedKecamatan});
-  
+
+  // let total = 0;
+  const total = selectedKecamatan.reduce((current, newData) => current += Number(newData?.value || 0), 0)
+  console.log({total});
   L.geoJson(jsonkec.data,{
     //jika ada kecamatan yang dipilih warnanya putih
     
     style:function(feature){
       const name = feature.properties.KECAMATAN
       const findData = selectedKecamatan.find(k => k.nama === name)
+      const value = Number(findData?.value||1);
+      const opacity = value/total;
 
+      console.log({value, opacity});
       return{
         fillColor:findData ? 'red' : 'white',
-        fillOpacity:.7,
+        fillOpacity:opacity,
         weight:1
       }
     },
