@@ -271,16 +271,20 @@ crossorigin=""></script>
    const data = {!!json_encode($data)!!}
    console.log({data, selectedKelurahan});
    
+  const total = selectedKecamatan.reduce((current, newData) => current += Number(newData?.value || 0), 0)
    L.geoJson(jsonkec.data,{
      //jika ada Kelurahan yang dipilih warnanya putih
      
      style:function(feature){
        const name = feature.properties.KELURAHAN
        const findData = selectedKelurahan.find(k => k.nama === name)
+      const value = Number(findData?.value||1);
+      const opacity = value/total;
+
  
        return{
          fillColor:findData ? 'red' : 'white',
-         fillOpacity:1,
+         fillOpacity:opacity,
         weight: .5
        }
      },
