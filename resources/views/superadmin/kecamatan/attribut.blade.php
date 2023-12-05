@@ -35,7 +35,7 @@
                     <td>{{$item->nama}}</td>
                     <td>
                       <input type="hidden" name="attribut_id[]" value="{{$item->id}}">
-                      <input type="text" class="form-control" name="value[]" value="{{$item->value}}" onkeypress="return hanyaAngka(event)"/>
+                      <input type="text" class="form-control" name="value[]" value="{{$item->value}}">
                     </td>
                     <td>
                       <input type="text" class="form-control" value="{{$item->satuan}}" readonly>
