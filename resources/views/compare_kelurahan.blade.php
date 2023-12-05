@@ -271,7 +271,7 @@ crossorigin=""></script>
    const data = {!!json_encode($data)!!}
    console.log({data, selectedKelurahan});
    
-  const total = selectedKecamatan.reduce((current, newData) => current += Number(newData?.value || 0), 0)
+  const total = selectedKelurahan.reduce((current, newData) => current += Number(newData?.value || 0), 0)
    L.geoJson(jsonkec.data,{
      //jika ada Kelurahan yang dipilih warnanya putih
      
