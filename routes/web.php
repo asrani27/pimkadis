@@ -18,6 +18,7 @@ use App\Http\Controllers\SuperadminController;
 Route::get('/', [FrontController::class, 'index']);
 Route::get('/profilwilayah', [FrontController::class, 'profilwilayah']);
 Route::get('/profilwilayah/{id}', [FrontController::class, 'detailwilayah']);
+Route::get('/profilwilayah/{id}/pdf', [FrontController::class, 'pdf']);
 Route::get('/webgis', [FrontController::class, 'webgis']);
 Route::get('/compare', [FrontController::class, 'compare']);
 Route::get('/chart', [FrontController::class, 'chart']);

@@ -168,6 +168,7 @@ return [
 
         Mews\Captcha\CaptchaServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

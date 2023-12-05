@@ -133,8 +133,7 @@
                   
                   <div class="col-md-12 text-center">
                     <div id="mapkecamatan"></div>
-                    <br/>
-                    <a href="/profilwilayah/{{$id}}/pdf" class='btn btn-danger btn-md btn-block' target="_blank"><i class="fa fa-print"></i> Print</a><br/>
+                    
                   </div>
                   <!-- /.col -->
                 <!-- /.row -->
@@ -389,6 +388,14 @@ crossorigin=""></script>
   })
 
 </script>
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+      window.print();
+  });
+  
+  </script>
 </body>
 
 </html>
