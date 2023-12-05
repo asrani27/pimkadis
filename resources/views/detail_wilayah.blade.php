@@ -116,7 +116,7 @@
                     <h4>
                     Laki-Laki : {{$jml_laki == null ? 0: $jml_laki->value}} Jiwa, Perempuan :  {{$jml_perempuan == null ? 0: $jml_perempuan->value}} Jiwa<br/>
                     Kepadatan Penduduk : {{$jml_kepadatan == null ? 0: $jml_kepadatan->value}} jiwa/Km2<br/>
-                    Luas Wilayah : {{$jml_luas == null ? 0: $jml_luas->value}} m2<br/>
+                    Luas Wilayah : {{$jml_luas == null ? 0: $jml_luas->value}} Km2<br/>
 
                   </h4>
                 </div>
