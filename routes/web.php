@@ -9,6 +9,7 @@ use App\Http\Controllers\TahunController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\TaggingController;
 use App\Http\Controllers\AttributController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\GantiPassController;
 use App\Http\Controllers\KecamatanController;
@@ -22,6 +23,7 @@ Route::get('/profilwilayah/{id}/pdf', [FrontController::class, 'pdf']);
 Route::get('/webgis', [FrontController::class, 'webgis']);
 Route::get('/compare', [FrontController::class, 'compare']);
 Route::get('/chart', [FrontController::class, 'chart']);
+Route::get('/faq', [FrontController::class, 'faq']);
 Route::get('/chart/grafik', [FrontController::class, 'tampilkanChart']);
 Route::get('/compare/kecamatan', function () {
     return redirect('/compare/bykecamatan');
@@ -86,6 +88,14 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
         Route::get('tagging/edit/{id}', [TaggingController::class, 'edit']);
         Route::post('tagging/edit/{id}', [TaggingController::class, 'update']);
         Route::get('tagging/delete/{id}', [TaggingController::class, 'delete']);
+
+
+        Route::get('faq', [FaqController::class, 'index']);
+        Route::get('faq/add', [FaqController::class, 'create']);
+        Route::post('faq/add', [FaqController::class, 'store']);
+        Route::get('faq/edit/{id}', [FaqController::class, 'edit']);
+        Route::post('faq/edit/{id}', [FaqController::class, 'update']);
+        Route::get('faq/delete/{id}', [FaqController::class, 'delete']);
     });
     Route::get('/logout', [LogoutController::class, 'logout']);
     Route::get('gantipass', [GantiPassController::class, 'index']);

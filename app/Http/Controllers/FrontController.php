@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\Attribut;
 use App\Models\Kategori;
 use App\Models\Kecamatan;
@@ -15,6 +16,12 @@ class FrontController extends Controller
     public function index()
     {
         return view('beranda');
+    }
+
+    public function faq()
+    {
+        $data = Faq::get();
+        return view('faq', compact('data'));
     }
 
     public function webgis()

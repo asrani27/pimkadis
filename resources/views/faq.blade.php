@@ -75,35 +75,31 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Grafik Data
+          FAQ tentang TDB
         </h1>
-        <a href="#" class="btn btn-success">PIE Chart</a>
-        <a href="#" class="btn btn-success">BAR Chart</a>
         
       </section>
 
       <!-- Main content -->
       <section class="content">
-        <!-- SELECT2 EXAMPLE -->
-          <div class="row">
-            @foreach ($attribut as $item)
-            <div class="col-md-4">
-              <div class="box box-default">
-              <div class="box-header with-border">
-                <h3 class="box-title">Grafik {{$item->nama}}</h3>
-              </div>
-              <div class="box-body">
-                <div id="chartContainer{{$item->id}}" style="height: 300px; width: 100%;"></div>
-              </div>
-              </div>
+        <div class="text-center">
+        <h4>PERTANYAAN YANG SERING DIAJUKAN<br/>
+        (FREQUENT ASK QUESTION /FAQ)<br/>
+        TENTANG TDB</h4>
+        </div>
+        <div class="row">
+          @foreach ($data as $item)
+          <div class="col-md-12">
+            <div class="box">
+            <div class="box-body">
+              <strong>Q : {{$item->pertanyaan}}</strong><br/>
+              <strong>A : </strong>{{$item->jawaban}} 
             </div>
-            @endforeach
-            
-            <!-- /.col -->
+            </div>
           </div>
+          @endforeach
           
-          
-      <!-- /.box -->
+        </div>
       </section>
       <!-- /.content -->
     </div>
@@ -136,23 +132,7 @@
     $('.select2').select2()
   });
 
-  var attribut = {!!json_encode($attribut)!!}
-  console.log(attribut);
-  attribut.forEach(element => {
-      // console.log(["chartContainer"+element.id])
-      var chart = new CanvasJS.Chart("chartContainer"+element.id, {
-      animationEnabled: true,
-      data: [{
-        type: "pie",
-        startAngle: 240,
-        percentFormatString: "#0.##",
-        indexLabel: "{label} {y} "+ element.satuan,
-        dataPoints: element.grafik
-      }]
-    });
-    chart.render()
-  });
-  console.log(attribut)
+  
   
 
 </script>
