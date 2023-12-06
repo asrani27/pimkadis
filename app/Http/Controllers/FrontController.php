@@ -82,11 +82,13 @@ class FrontController extends Controller
                 return $data;
             })->toArray();
             $item->max = max($item->grafik);
-            //dd($item);
+            $item->total = 0;
+            foreach ($item->grafik as $key => $n) {
+                $item->total += $n['y'];
+            }
+            $item->persen = $item->max['y'] / $item->total  * 100;
             return $item;
         });
-
-        // dd($attribut);
 
         $kelurahan = $detail->kelurahan;
         $attribut_id = Attribut::where('nama', 'Jumlah Penduduk')->first()->id;

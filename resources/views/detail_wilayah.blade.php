@@ -195,10 +195,10 @@
                     </div>
                   </div>
                   <div class="col-md-5 text-left">
-                    PERSENTASE {{strtoupper($item->nama)}} DI KELURAHAN<br/>
-                    <strong style="font-size:16px;">25% {{strtoupper($item->max['label'])}} <br/>{{strtoupper($item->max['y'])}} {{strtoupper($item->nama)}}</strong>
+                    PERSENTASE {{strtoupper($item->singkatan)}} DI KELURAHAN<br/>
+                    <strong style="font-size:14px;">{{number_format($item->persen)}}% {{strtoupper($item->max['label'])}} <br/>{{strtoupper($item->max['y'])}} {{strtoupper($item->singkatan)}}</strong>
                     <hr style="border:2px solid black">
-                    RINCIAN {{strtoupper($item->nama)}}
+                    RINCIAN {{strtoupper($item->singkatan)}}
                   <div id="chartContainer{{$item->id}}" style="height: 200px; width: 100%;">
                   </div>
                   
