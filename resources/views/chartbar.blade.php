@@ -163,17 +163,6 @@
 
   var attribut = {!!json_encode($attribut)!!}
   
-  var coba = [      
-			{ y: 300878, label: "Venezuela" },
-			{ y: 266455,  label: "Saudi" },
-			{ y: 169709,  label: "Canada" },
-			{ y: 158400,  label: "Iran" },
-			{ y: 142503,  label: "Iraq" },
-			{ y: 101500, label: "Kuwait" },
-			{ y: 97800,  label: "UAE" },
-			{ y: 80000,  label: "Russia" }
-		];
-    console.log(coba);
   attribut.forEach(element => {
       console.log(element.satuan);
       var chart = new CanvasJS.Chart("chartContainer"+element.id, {

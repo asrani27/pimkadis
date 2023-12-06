@@ -160,8 +160,8 @@ var openstreetmap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png'
         },
     })
     $.getJSON("/geojson/kelurahan.json", function ( response ) {
-      console.log(response.data.features);
-      console.log(response.data.features[0].properties.KELURAHAN);
+      //console.log(response.data.features);
+      //console.log(response.data.features[0].properties.KELURAHAN);
         Kelurahan.addData(response.data);
         //.bindTooltip(response.data.features[0].properties.KELURAHAN);
     });
@@ -263,17 +263,18 @@ var redIcon = L.icon({
       
 // console.log([kec,'testset']);
       if(kec.file === null){
-        return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"><br/> ALAMAT : <br/> TELP :</p>')
+        return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"><table><tr><td>ALAMAT</td><td>:'+kec.alamat+'</td></tr><tr><td>TELP</td><td>:'+kec.telp+'</td></tr></table></p>')
       }else{
-        return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="/storage/tagging/'+kec.file+'" / width="200px" height="150px"><br/>  ALAMAT : <br/> TELP :</p>')
+        return L.marker([kec.lat, kec.long], {icon: redIcon}).bindPopup('<h5>Kecamatan '+kec.nama+'</h5><p><img src="/storage/tagging/'+kec.file+'" / width="200px" height="150px"><table><tr><td>ALAMAT</td><td>:'+kec.alamat+'</td></tr><tr><td>TELP</td><td>:'+kec.telp+'</td></tr></table></p>')
       }
     })
     
     let kelurahans = kelurahan.map(kel => {
+      //console.log(['kel:',kel]);
       if(kel.file === null){
-        return L.marker([kel.lat, kel.long], {icon: blueIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"><br/> ALAMAT : <br/> TELP :</p>')
+        return L.marker([kel.lat, kel.long], {icon: blueIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"><table><tr><td>ALAMAT</td><td>:'+kel.alamat+'</td></tr><tr><td>TELP</td><td>:'+kel.telp+'</td></tr></table></p>')
       }else{
-        return L.marker([kel.lat, kel.long], {icon: blueIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="/storage/tagging/'+kel.file+'" / width="200px" height="150px"><br/> ALAMAT : <br/> TELP :</p>')
+        return L.marker([kel.lat, kel.long], {icon: blueIcon}).bindPopup('<h5>Kelurahan '+kel.nama+'</h5><p><img src="/storage/tagging/'+kel.file+'" / width="200px" height="150px"><table><tr><td>ALAMAT</td><td>:'+kel.alamat+'</td></tr><tr><td>TELP</td><td>:'+kel.telp+'</td></tr></table></p>')
       }
     })
     var kec = L.layerGroup(kecamatans);
@@ -289,9 +290,9 @@ var redIcon = L.icon({
         const markers = at.tagging.map(tag => {
               
           if(tag.file === null){
-            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>'+tag.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"><br/> ALAMAT : <br/> TELP :</p>')
+            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>'+tag.nama+'</h5><p><img src="https://borisbecker.ae/assets/uploads/media-uploader/noimage1688562406.jpg" / width="200px" height="150px"><table><tr><td>ALAMAT</td><td>:'+tag.alamat+'</td></tr><tr><td>TELP</td><td>:'+tag.telp+'</td></tr></table></p>')
           }else{
-            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>'+tag.nama+'</h5><p><img src="/storage/tagging/'+tag.file+'" / width="200px" height="150px"><br/> ALAMAT : <br/> TELP :</p>')
+            return L.marker([tag.lat, tag.long], {icon: greenIcon}).bindPopup('<h5>'+tag.nama+'</h5><p><img src="/storage/tagging/'+tag.file+'" / width="200px" height="150px"><table><tr><td>ALAMAT</td><td>:'+tag.alamat+'</td></tr><tr><td>TELP</td><td>:'+tag.telp+'</td></tr></table></p>')
           }
 
         })

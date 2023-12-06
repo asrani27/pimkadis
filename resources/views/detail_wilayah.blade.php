@@ -33,7 +33,7 @@
     }
     .map { 
         background: #fff;
-        height: 350px; 
+        height: 250px; 
         width: 100%; 
       }
 
@@ -150,45 +150,59 @@
               <div class="col-md-4">
                 <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">{{strtoupper($item->nama)}} </h3>
+                  <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">{{strtoupper($item->nama)}} </h3>
                 </div>
                 <div class="box-body text-center">
-                  <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{strtoupper($item->nama)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{$item->satuan}}</h3>
-                  <div id="map{{$item->id}}" class="map"></div>
                   <div class="row">
-                    <div class="col-sm-6">
-                      <!-- Progress bars -->
-                      <div class="clearfix">
-                        <span class="pull-left">0-25%</span>
+                  <div class="col-md-7">
+
+                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:14px;font-weight:bold;">{{strtoupper($item->nama)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{strtoupper($item->satuan)}}</h3>
+                    <div id="map{{$item->id}}" class="map"></div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <!-- Progress bars -->
+                        <div class="clearfix">
+                          <span class="pull-left">0-25%</span>
+                        </div>
+                        <div class="progress xs" style="margin-bottom: 0px;">
+                          <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.25"></div>
+                        </div>
+      
+                        <div class="clearfix">
+                          <span class="pull-left">26-50%</span>
+                        </div>
+                        <div class="progress xs" style="margin-bottom: 0px;">
+                          <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.50"></div>
+                        </div>
                       </div>
-                      <div class="progress xs" style="margin-bottom: 0px;">
-                        <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.25"></div>
+                      <!-- /.col -->
+                      <div class="col-sm-6">
+                        <div class="clearfix">
+                          <span class="pull-left">51-75%</span>
+                        </div>
+                        <div class="progress xs" style="margin-bottom: 0px;">
+                          <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.75"></div>
+                        </div>
+      
+                        <div class="clearfix">
+                          <span class="pull-left">76-100%</span>
+                        </div>
+                        <div class="progress xs" style="margin-bottom: 0px;">
+                          <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
+                        </div>
                       </div>
-    
-                      <div class="clearfix">
-                        <span class="pull-left">26-50%</span>
-                      </div>
-                      <div class="progress xs" style="margin-bottom: 0px;">
-                        <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.50"></div>
-                      </div>
+                      <!-- /.col -->
                     </div>
-                    <!-- /.col -->
-                    <div class="col-sm-6">
-                      <div class="clearfix">
-                        <span class="pull-left">51-75%</span>
-                      </div>
-                      <div class="progress xs" style="margin-bottom: 0px;">
-                        <div class="progress-bar progress-bar-blue" style="width: 100%; opacity:0.75"></div>
-                      </div>
-    
-                      <div class="clearfix">
-                        <span class="pull-left">76-100%</span>
-                      </div>
-                      <div class="progress xs" style="margin-bottom: 0px;">
-                        <div class="progress-bar progress-bar-blue" style="width: 100%;"></div>
-                      </div>
-                    </div>
-                    <!-- /.col -->
+                  </div>
+                  <div class="col-md-5 text-left">
+                    PERSENTASE {{strtoupper($item->nama)}} DI KELURAHAN<br/>
+                    <strong style="font-size:16px;">25% {{strtoupper($item->max['label'])}} <br/>{{strtoupper($item->max['y'])}} {{strtoupper($item->nama)}}</strong>
+                    <hr style="border:2px solid black">
+                    RINCIAN {{strtoupper($item->nama)}}
+                  <div id="chartContainer{{$item->id}}" style="height: 200px; width: 100%;">
+                  </div>
+                  
+                  </div>
                   </div>
                 </div>
                 {{-- <div class="box-footer">
@@ -227,7 +241,27 @@
 <!-- AdminLTE for demo purposes -->
 
 <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script type="text/javascript">
 
+var attribut = {!!json_encode($attribut)!!}
+  
+  attribut.forEach(element => {
+      console.log(element);
+      var chart = new CanvasJS.Chart("chartContainer"+element.id, {
+      animationEnabled: true,
+      data: [{
+        type: "column",  
+        toolTipContent: "<b>{label}</b><br>{y} "+element.satuan+"<br>",
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: "Data",
+        dataPoints: element.grafik
+      }]
+    });
+    chart.render()
+  });
+  
+  </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 crossorigin=""></script>
@@ -313,31 +347,31 @@ crossorigin=""></script>
     {
       name: "Banjarmasin Tengah",
       view: [-3.318060, 114.589410],
-    zoom: 14,
+    zoom: 13,
       geojson: "/geojson/bjmtengah.json"
     },
     {
       name: "Banjarmasin Timur",
       view: [-3.323640, 114.623513],
-      zoom: 13,
+      zoom: 12,
       geojson: "/geojson/bjmtimur.json"
     },
     {
       name: "Banjarmasin Barat",
       view: [-3.317251, 114.573746],
-      zoom: 13,
+      zoom: 12,
       geojson: "/geojson/bjmbarat.json"
     },
     {
       name: "Banjarmasin Selatan",
       view: [-3.346411, 114.583815],
-      zoom: 13,
+      zoom: 12,
       geojson: "/geojson/bjmselatan.json"
     },
     {
       name: "Banjarmasin Utara",
       view: [-3.291572, 114.598542],
-      zoom: 13,
+      zoom: 12,
       geojson: "/geojson/bjmutara.json"
     }
   ]

@@ -58,6 +58,12 @@
                   </div>
                   
                   <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Singkatan</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="singkatan" class="form-control" value="{{$data->singkatan}}" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Show On Map</label>
                     <div class="col-sm-10">
                       <select name="tag" class="form-control">

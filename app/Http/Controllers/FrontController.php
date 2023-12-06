@@ -76,8 +76,17 @@ class FrontController extends Controller
 
         $attribut = $attribut_id->map(function ($item) use ($id, $kelurahan_id) {
             $item->value = AttributKelurahan::whereIn('kelurahan_id', $kelurahan_id)->where('attribut_id', $item->id)->sum('value');
+            $item->grafik = collect(Kelurahan::find($kelurahan_id)->toArray())->map(function ($item2) use ($item) {
+                $data['y'] = AttributKelurahan::where('kelurahan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : (int)AttributKelurahan::where('kelurahan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
+                $data['label'] = $item2['nama'];
+                return $data;
+            })->toArray();
+            $item->max = max($item->grafik);
+            //dd($item);
             return $item;
         });
+
+        // dd($attribut);
 
         $kelurahan = $detail->kelurahan;
         $attribut_id = Attribut::where('nama', 'Jumlah Penduduk')->first()->id;
