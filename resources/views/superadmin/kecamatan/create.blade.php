@@ -28,6 +28,18 @@ crossorigin="" />
                     <input type="text" name="nama" class="form-control" required>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="alamat" class="form-control" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Telp</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="telp" class="form-control" required>
+                  </div>
+                </div>
 
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Tagging</label>

@@ -45,6 +45,18 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="alamat" class="form-control" value="{{$data->alamat}}" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Telp</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="telp" class="form-control" value="{{$data->telp}}" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Tagging</label>
                     <div class="col-sm-10">
                       <div id="mapid"></div>
