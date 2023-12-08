@@ -280,11 +280,13 @@ crossorigin=""></script>
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.318060, 114.589410], 14);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.318060, 114.589410], 14);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
+    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Timur'){
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.323640, 114.623513], 13);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.323640, 114.623513], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
+    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Barat'){
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.317251, 114.573746], 13);
@@ -297,11 +299,13 @@ crossorigin=""></script>
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.346411, 114.583815], 13);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.346411, 114.583815], 12);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
+    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Utara'){
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.291572, 114.598542], 13);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.291572, 114.598542], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
+    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data;
   }
 
   const features = jsonkec?.features || []
@@ -323,7 +327,7 @@ crossorigin=""></script>
       layer.bindPopup(feature.properties.Nama);
     }
   }).addTo(mapkec2);
-  
+
   L.geoJson(jsonkec,{
     style:function(feature){
       return{
