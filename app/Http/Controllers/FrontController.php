@@ -86,7 +86,11 @@ class FrontController extends Controller
             foreach ($item->grafik as $key => $n) {
                 $item->total += $n['y'];
             }
-            $item->persen = $item->max['y'] / $item->total  * 100;
+            if ($item->max['y'] == 0) {
+                $item->persen = 0;
+            } else {
+                $item->persen = $item->max['y'] / $item->total  * 100;
+            }
             return $item;
         });
 
