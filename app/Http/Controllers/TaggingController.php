@@ -93,8 +93,8 @@ class TaggingController extends Controller
             'lat' => $req->lat,
             'long' => $req->long,
             'file' => $filename,
-            'alamat' => $alamat,
-            'telp' => $telp,
+            'alamat' => $req->alamat,
+            'telp' => $req->telp,
         ]);
 
         Session::flash('success', 'Berhasil Di update');
