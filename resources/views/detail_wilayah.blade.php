@@ -104,7 +104,12 @@
               @csrf
             <div class="box-body no-padding ">  
                 <div class="col-md-12 text-center bg-orange-gradient">
-                    <h1>{{$detail->nama}}</h1>
+                  <br/>
+                  <img src="/logo/sungai2.png" width="120px">
+                  <img src="/logo/asn.png" width="120px">
+                  <img src="/logo/pemko.png" height="50px">
+                  <hr style="border: 1px solid black">
+                    <h1>{{strtoupper($detail->nama)}}</h1>
                     <div id="mapkecamatan2"></div>
                     <h3>JUMLAH PENDUDUK</h3>
                     
@@ -327,6 +332,7 @@ crossorigin=""></script>
       layer.bindPopup(feature.properties.Nama);
     }
   }).addTo(mapkec2);
+  
 
   L.geoJson(jsonkec,{
     style:function(feature){
@@ -433,7 +439,17 @@ crossorigin=""></script>
     })
     json.features = features
     
-
+    L.geoJson(jsonkecline,{
+      style:function(feature){
+        return{
+          fillOpacity:0,
+          weight:3
+        }
+      },
+      onEachFeature:function(feature, layer){
+        layer.bindPopup(feature.properties.Nama);
+      }
+    }).addTo(map);
     L.geoJson(json,{
       style:function(feature){
 
