@@ -15,7 +15,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "mews/captcha": "^3.2",
-        "phpoffice/phpword": "^1.1"
+        "phpoffice/phpword": "^1.1",
+        "spatie/browsershot": "^3.60"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

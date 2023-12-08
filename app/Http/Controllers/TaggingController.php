@@ -28,6 +28,8 @@ class TaggingController extends Controller
         if ($check == null) {
             $n = new Tagging;
             $n->attribut_id = $req->attribut_id;
+            $n->alamat = $req->alamat;
+            $n->telp = $req->telp;
             $n->nama = $req->nama;
             $n->lat = $req->lat;
             $n->long = $req->long;
@@ -91,6 +93,8 @@ class TaggingController extends Controller
             'lat' => $req->lat,
             'long' => $req->long,
             'file' => $filename,
+            'alamat' => $alamat,
+            'telp' => $telp,
         ]);
 
         Session::flash('success', 'Berhasil Di update');

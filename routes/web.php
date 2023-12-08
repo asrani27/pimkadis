@@ -14,6 +14,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\GantiPassController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
+use App\Http\Controllers\ScreenshotController;
 use App\Http\Controllers\SuperadminController;
 
 Route::get('/', [FrontController::class, 'index']);
@@ -31,6 +32,9 @@ Route::get('/compare/kecamatan', function () {
 Route::get('/compare/kelurahan', function () {
     return redirect('/compare/bykelurahan');
 });
+
+Route::get('screenshot', [ScreenshotController::class, 'index']);
+
 Route::post('/compare/kecamatan', [FrontController::class, 'compareKecamatan']);
 Route::post('/compare/kelurahan', [FrontController::class, 'compareKelurahan']);
 Route::get('/compare/bykecamatan', [FrontController::class, 'byKecamatan']);
