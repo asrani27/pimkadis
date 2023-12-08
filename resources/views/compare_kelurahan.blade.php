@@ -40,8 +40,9 @@
         padding: 0;
     }
     #map { 
-        height: 550px; 
-        width: 100%; 
+        background: #fff;
+        height: 400px; 
+        width: 90%; 
         }
 </style>
 </head>
@@ -191,7 +192,7 @@
           <h3 class="box-title">Geospasial</h3>
         </div>
         <div class="box-body">
-          <div class="row">
+          <div class="col-md-12 text-center">
             <div id="map"></div>
           </div>
         </div>
@@ -253,7 +254,7 @@ crossorigin=""></script>
 
 <script>
  
-  var mapkec = L.map('map').setView([-3.318060, 114.589410], 12);
+  var mapkec = L.map('map', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 12);
   var jsonkec = JSON.parse($.ajax({'url': "/geojson/kelurahan.json", 'async': false}).responseText); 
  
   var layerMapkec = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
