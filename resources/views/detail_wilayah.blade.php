@@ -282,33 +282,33 @@ crossorigin=""></script>
   var jumlah_penduduk = Number({!!json_encode($jumlah_penduduk->value)!!})
 
   if(kecamatan.nama === 'Banjarmasin Tengah'){
-    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.318060, 114.589410], 14);
-    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.318060, 114.589410], 14);
+    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
+    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
     var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Timur'){
-    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.323640, 114.623513], 13);
-    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.323640, 114.623513], 13);
+    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
+    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
     var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Barat'){
-    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.317251, 114.573746], 13);
-    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.317251, 114.573746], 13);
+    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
+    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText);
     var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText).data;
     //console.log(['batas',jsonkec, jsonkecline]); 
   }
   if(kecamatan.nama === 'Banjarmasin Selatan'){
-    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.346411, 114.583815], 13);
-    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.346411, 114.583815], 12);
+    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 13);
+    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
     var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Utara'){
-    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.291572, 114.598542], 13);
-    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false}).setView([-3.291572, 114.598542], 13);
+    var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
+    var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
     var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data;
   }
@@ -379,7 +379,8 @@ crossorigin=""></script>
       zoom: 13,
       geojson: "/geojson/bjmtengah.json",
       scrollWheelZoom: false,
-      zoomControl: false
+      zoomControl: false,
+      doubleClickZoom: false
     },
     {
       name: "Banjarmasin Timur",
@@ -387,7 +388,8 @@ crossorigin=""></script>
       zoom: 12,
       geojson: "/geojson/bjmtimur.json",
       scrollWheelZoom: false,
-      zoomControl: false
+      zoomControl: false,
+      doubleClickZoom: false
     },
     {
       name: "Banjarmasin Barat",
@@ -395,7 +397,8 @@ crossorigin=""></script>
       zoom: 12,
       geojson: "/geojson/bjmbarat.json",
       scrollWheelZoom: false,
-      zoomControl: false
+      zoomControl: false,
+      doubleClickZoom: false
     },
     {
       name: "Banjarmasin Selatan",
@@ -403,7 +406,8 @@ crossorigin=""></script>
       zoom: 12,
       geojson: "/geojson/bjmselatan.json",
       scrollWheelZoom: false,
-      zoomControl: false
+      zoomControl: false,
+      doubleClickZoom: false
     },
     {
       name: "Banjarmasin Utara",
@@ -411,7 +415,8 @@ crossorigin=""></script>
       zoom: 12,
       geojson: "/geojson/bjmutara.json",
       scrollWheelZoom: false,
-      zoomControl: false
+      zoomControl: false,
+      doubleClickZoom: false
     }
   ]
 
@@ -423,7 +428,7 @@ crossorigin=""></script>
     // console.log({data});
 
     const element = elements.find(e => e.name === kecamatan.nama)
-    const map = L.map('map'+data.id, {scrollWheelZoom: false ,zoomControl: false}).setView(element.view, element.zoom);
+    const map = L.map('map'+data.id, {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView(element.view, element.zoom);
     const json = JSON.parse($.ajax({'url': element.geojson, 'async': false}).responseText); 
 
 
