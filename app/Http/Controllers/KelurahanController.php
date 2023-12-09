@@ -88,6 +88,8 @@ class KelurahanController extends Controller
             'nama' => $req->nama,
             'lat' => $req->lat,
             'long' => $req->long,
+            'alamat' => $req->alamat,
+            'telp' => $req->telp,
             'file' => $filename,
         ]);
 

@@ -162,6 +162,8 @@ class KecamatanController extends Controller
             'nama' => $req->nama,
             'lat' => $req->lat,
             'long' => $req->long,
+            'alamat' => $req->alamat,
+            'telp' => $req->telp,
             'image1' => $filename1,
             'image2' => $filename2,
             'file' => $filename3,
