@@ -155,7 +155,7 @@
               <div class="col-md-4">
                 <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">{{strtoupper($item->nama)}} </h3>
+                  <h3 class="box-title" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><img src="/logo/{{$item->foto}}" width="60px;"> &nbsp;{{strtoupper($item->nama)}} </h3>
                 </div>
                 <div class="box-body text-center">
                   <div class="row">

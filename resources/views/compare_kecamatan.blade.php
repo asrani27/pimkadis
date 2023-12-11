@@ -191,7 +191,21 @@
         </div>
         
       </div>
-
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Perbandingan Data</h3>
+        </div>
+        <div class="box-body text-center">
+          <div class="row">
+            <div class="col-md-6 text-center">
+              Peta 1
+            </div>
+            <div class="col-md-6 text-center">
+              Peta 2
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Geospasial</h3>
