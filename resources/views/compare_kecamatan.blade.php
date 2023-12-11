@@ -353,18 +353,7 @@ crossorigin=""></script>
       chart.render()
       chart2.render()
     });
-    
-</script>
-@endif
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-  });
-</script>
-<script>
- 
- const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
+    const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
 var peta1 = selectedKecamatan[0].nama;
 var peta2 = selectedKecamatan[1].nama;
  if(peta1 === 'Banjarmasin Tengah'){
@@ -430,7 +419,20 @@ var peta2 = selectedKecamatan[1].nama;
       }
     }
   }).addTo(mapkec2);
-console.log(selectedKecamatan[0].nama);
+</script>
+@endif
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+  });
+</script>
+<script>
+ 
+ const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
+ 
+  
+  
  var mapkec = L.map('map', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
  var jsonkec = JSON.parse($.ajax({'url': "/geojson/kecamatan.json", 'async': false}).responseText); 
 
