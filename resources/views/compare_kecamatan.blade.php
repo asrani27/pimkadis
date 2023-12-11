@@ -353,7 +353,19 @@ crossorigin=""></script>
       chart.render()
       chart2.render()
     });
-    const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
+   
+    
+</script>
+@endif
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+  });
+</script>
+<script>
+ 
+ const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
 var peta1 = selectedKecamatan[0].nama;
 var peta2 = selectedKecamatan[1].nama;
  if(peta1 === 'Banjarmasin Tengah'){
@@ -398,8 +410,6 @@ var peta2 = selectedKecamatan[1].nama;
     var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data; 
   }
 
-  console.log(jsonkec1);
-  console.log(jsonkec2);
   L.geoJson(jsonkec1,{
     style:function(feature){
       return{
@@ -419,18 +429,6 @@ var peta2 = selectedKecamatan[1].nama;
       }
     }
   }).addTo(mapkec2);
-</script>
-@endif
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-  });
-</script>
-<script>
- 
- const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
- 
   
   
  var mapkec = L.map('map', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);

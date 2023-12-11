@@ -62,8 +62,8 @@ class FrontController extends Controller
         $attribut = Attribut::get();
         $oldkelurahan = null;
         $kelurahan_id = [];
-        //dd('d');
-        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'attribut', 'kelurahan_id', 'oldkelurahan'));
+        $grafik1 = null;
+        return view('compare_kelurahan', compact('grafik1', 'kelurahan', 'compareKelurahan', 'data', 'attribut', 'kelurahan_id', 'oldkelurahan'));
     }
     public function profilwilayah()
     {
@@ -76,7 +76,6 @@ class FrontController extends Controller
         $detail = Kecamatan::find($id);
         $attribut_id = Attribut::where('profil', 'Y')->get();
         $kelurahan_id = $detail->kelurahan->pluck('id');
-
         $attribut = $attribut_id->map(function ($item) use ($id, $kelurahan_id) {
             $item->value = AttributKelurahan::whereIn('kelurahan_id', $kelurahan_id)->where('attribut_id', $item->id)->sum('value');
             $item->grafik = collect(Kelurahan::find($kelurahan_id)->toArray())->map(function ($item2) use ($item) {
@@ -249,7 +248,7 @@ class FrontController extends Controller
 
         $oldkecamatan = collect($id);
         if (count($id) != 2) {
-            Session::flash('error', 'hanya bisa membandingkan 2 data');
+            Session::flash('info', 'hanya bisa membandingkan 2 data');
             return back();
         } else {
             $kecamatan = Kecamatan::get();
@@ -315,28 +314,37 @@ class FrontController extends Controller
         foreach ($req->kelurahan_id as $key => $item) {
             array_push($id, (int)$item);
         }
-        //dd($req->all(), $id);
-        $oldkelurahan = collect($id);
-        $kelurahan = Kelurahan::get();
-        $kelurahan_id = Kelurahan::whereIn('id', $id)->get();
-        // $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kelurahan_id) {
-        //     $item->kelurahan = $kelurahan_id;
-        //     return $item;
-        // });
-        $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kelurahan_id) {
-            $item->kelurahan = $kelurahan_id->map(function ($item2) use ($item) {
-                $item2->value = AttributKelurahan::where('kelurahan_id', $item2->id)->where('attribut_id', $item->id)->first()->value;
-                return $item2;
+
+        if (count($id) != 2) {
+            Session::flash('info', 'hanya bisa membandingkan 2 data');
+            return back();
+        } else {
+            $oldkelurahan = collect($id);
+            $kelurahan = Kelurahan::get();
+            $kelurahan_id = Kelurahan::whereIn('id', $id)->get()->map(function ($item) {
+                $item->kecamatan = $item->kecamatan->nama;
+                return $item;
             });
-            return $item;
-        });
+            // $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kelurahan_id) {
+            //     $item->kelurahan = $kelurahan_id;
+            //     return $item;
+            // });
+            $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kelurahan_id) {
+                $item->kelurahan = $kelurahan_id->map(function ($item2) use ($item) {
+                    $item2->value = AttributKelurahan::where('kelurahan_id', $item2->id)->where('attribut_id', $item->id)->first()->value;
+                    return $item2;
+                });
+                return $item;
+            });
 
-        //dd($data, $kelurahan, $kelurahan_id);
-        $compareKelurahan = 'ok';
-        $req->flash();
-        $attribut = Attribut::get();
+            //dd($data, $kelurahan, $kelurahan_id);
+            $compareKelurahan = 'ok';
+            $req->flash();
+            $attribut = Attribut::get();
 
 
-        return view('compare_kelurahan', compact('kelurahan', 'compareKelurahan', 'data', 'kelurahan_id', 'oldkelurahan', 'attribut'));
+            $datayangdibandingkan = Attribut::find($req->jenis)->nama;
+            return view('compare_kelurahan', compact('datayangdibandingkan', 'kelurahan', 'compareKelurahan', 'data', 'kelurahan_id', 'oldkelurahan', 'attribut'));
+        }
     }
 }

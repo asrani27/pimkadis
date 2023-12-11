@@ -30,6 +30,9 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+<!-- IziToast -->
+<link rel="stylesheet" href="/notif/dist/css/iziToast.min.css">
+<script src="/notif/dist/js/iziToast.min.js" type="text/javascript"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
   crossorigin=""/>
@@ -41,8 +44,20 @@
     }
     #map { 
         background: #fff;
+        height: 700px; 
+        width: 100%; 
+        }
+
+    #map1 { 
+      background: #fff;
+        border:"1px solid black";
         height: 400px; 
-        width: 90%; 
+        width: 100%; 
+        }
+    #map2 { 
+      background: #fff;
+        height: 400px; 
+        width: 100%; 
         }
 </style>
 </head>
@@ -103,7 +118,7 @@
               <div class="form-group">
                 <label>Kelurahan</label>
                 <select name="kelurahan_id[]" class="form-control select2" multiple="multiple" data-placeholder="Select Kelurahan"
-                        style="width: 100%;">
+                        style="width: 100%;" required>
                         @if ($oldkelurahan == null)
                         @foreach ($kelurahan as $item)
                         <option value="{{$item->id}}">{{$item->nama}} - ({{$item->kecamatan->nama}})</option>
@@ -187,6 +202,50 @@
         
       </div>
 
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title" style="font-size: 24px; font-weight:bold">{{strtoupper($kelurahan_id[0]->nama)}}</h3>
+            </div>
+              <div class="box-body">
+                <div class="col-md-7 text-center">
+                  <div id="map1"></div>
+                </div>
+                <div class="col-md-5">
+                  <strong>
+                    JUMLAH PENDUDUK : <BR/>
+                    {{number_format((int)$kelurahan_id[0]->jp)}} JIWA
+                  </strong>
+                  <h4>PERSENTASE {{strtoupper($datayangdibandingkan)}}</h4>
+                  <div id="chartContainer1" style="height: 200px; width: 100%;"></div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title" style="font-size: 24px; font-weight:bold">{{strtoupper($kelurahan_id[1]->nama)}}</h3>
+            </div>
+              <div class="box-body">
+                <div class="col-md-7">
+                  <div id="map2"></div>
+                </div>
+                <div class="col-md-5">
+
+                  <strong>
+                    JUMLAH PENDUDUK : <BR/>
+                    {{number_format((int)$kelurahan_id[1]->jp)}} JIWA
+                  </strong>
+                  <h4>PERSENTASE {{strtoupper($datayangdibandingkan)}}</h4>
+
+                  <div id="chartContainer2" style="height: 200px; width: 100%;"></div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
       <div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Geospasial</h3>
@@ -254,7 +313,76 @@ crossorigin=""></script>
 
 <script>
  
-  var mapkec = L.map('map', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 12);
+ const selectedKelurahan = {!!json_encode($kelurahan_id)!!}
+
+ console.log(['sdfsdf',selectedKelurahan])
+ 
+var peta1 = selectedKelurahan[0].kecamatan.nama;
+var peta2 = selectedKelurahan[1].kecamatan.nama;
+
+ if(peta1 === 'Banjarmasin Tengah'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText).data; 
+  }
+  if(peta1 === 'Banjarmasin Timur'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 12);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText).data; 
+  }
+  if(peta1 === 'Banjarmasin Barat'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText).data;
+  }
+  if(peta1 === 'Banjarmasin Selatan'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText).data; 
+  }
+  if(peta1 === 'Banjarmasin Utara'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 12);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText).data; 
+  }
+
+  if(peta2 === 'Banjarmasin Tengah'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText).data; 
+  }
+  if(peta2 === 'Banjarmasin Timur'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 12);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText).data; 
+  }
+  if(peta2 === 'Banjarmasin Barat'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText).data;
+  }
+  if(peta2 === 'Banjarmasin Selatan'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText).data; 
+  }
+  if(peta2 === 'Banjarmasin Utara'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 12);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText).data; 
+  }
+
+  L.geoJson(jsonkec1,{
+    style:function(feature){
+      return{
+        fillColor: 'orange',
+        fillOpacity:10,
+        weight: 5,
+      }
+    }
+  }).addTo(mapkec1);
+
+  L.geoJson(jsonkec2,{
+    style:function(feature){
+      return{
+        fillColor: 'orange',
+        fillOpacity:10,
+        weight: 5,
+      }
+    }
+  }).addTo(mapkec2);
+
+  var mapkec = L.map('map', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
   var jsonkec = JSON.parse($.ajax({'url': "/geojson/kelurahan.json", 'async': false}).responseText); 
  
   var layerMapkec = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
@@ -263,14 +391,12 @@ crossorigin=""></script>
      maxZoom: 22,
      subdomains: 'abcd',
      accessToken: 'eRFCsGIiHUoMtLKDSNdmhI2pONyzAYl0mH7qe2PtDlC6gYUR3teEbt9GaQCHjq1r'
-   });
-   //.addTo(mapkec);
+   }).addTo(mapkec);
  
  
-   const selectedKelurahan = {!!json_encode($kelurahan_id)!!}
  
    const data = {!!json_encode($data)!!}
-   console.log({data, selectedKelurahan});
+   //console.log({data, selectedKelurahan});
    
   const total = selectedKelurahan.reduce((current, newData) => current += Number(newData?.value || 0), 0)
    L.geoJson(jsonkec.data,{
@@ -281,12 +407,13 @@ crossorigin=""></script>
        const findData = selectedKelurahan.find(k => k.nama === name)
       const value = Number(findData?.value||1);
       const opacity = value/total;
+      
 
- 
+      console.log(['findata',findData, opacity])
        return{
-         fillColor:findData ? 'red' : 'white',
-         fillOpacity:opacity,
-        weight: .5
+        fillColor:findData ? 'red' : 'white',
+        fillOpacity:opacity,
+        weight: 4
        }
      },
      onEachFeature:function(feature, layer){
@@ -300,4 +427,7 @@ crossorigin=""></script>
 </script>
 </body>
 
+<script>
+  @include('layouts.notif')
+  </script>
 </html>
