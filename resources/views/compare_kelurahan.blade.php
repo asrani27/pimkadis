@@ -426,12 +426,6 @@ var peta2 = selectedKelurahan[1].kecamatan.nama;
         fillOpacity:10,
         weight: 4,
       }
-    }, onEachFeature:function(feature, layer){
-      const title = feature.properties.Nama
-      const value = feature.properties?.kelurahan?.jumlahpenduduk
-      const stringValue = Number.parseFloat(value).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-
-      layer.bindPopup(`<h4>${title} <br/></h4>`);
     }
   }).addTo(mapkec2);
 
