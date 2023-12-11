@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\AttributKelurahan;
 use App\Models\Attribut_Kecamatan;
 use Spatie\Browsershot\Browsershot;
+use Illuminate\Support\Facades\Session;
 
 class FrontController extends Controller
 {
@@ -170,7 +171,6 @@ class FrontController extends Controller
     }
     public function chart()
     {
-
         $data = array();
         $attribut = Attribut::where('profil', 'Y')->get()->map(function ($item) {
             $item->grafik = collect(Kecamatan::get()->toArray())->map(function ($item2) use ($item) {
@@ -248,37 +248,41 @@ class FrontController extends Controller
         }
 
         $oldkecamatan = collect($id);
-
-        $kecamatan = Kecamatan::get();
-        $kecamatan_id = Kecamatan::whereIn('id', $id)->get();
-        $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kecamatan_id) {
-            $item->kecamatan = $kecamatan_id->map(function ($item2) use ($item) {
-                $checkValue = Attribut_Kecamatan::where('kecamatan_id', $item2->id)->where('attribut_id', $item->id)->first();
-                if ($checkValue == null) {
-                    $item2->value = 0;
-                } else {
-                    $item2->value = $checkValue->value;
-                }
-                return $item2;
+        if (count($id) != 2) {
+            Session::flash('error', 'hanya bisa membandingkan 2 data');
+            return back();
+        } else {
+            $kecamatan = Kecamatan::get();
+            $kecamatan_id = Kecamatan::whereIn('id', $id)->get();
+            $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kecamatan_id) {
+                $item->kecamatan = $kecamatan_id->map(function ($item2) use ($item) {
+                    $checkValue = Attribut_Kecamatan::where('kecamatan_id', $item2->id)->where('attribut_id', $item->id)->first();
+                    if ($checkValue == null) {
+                        $item2->value = 0;
+                    } else {
+                        $item2->value = $checkValue->value;
+                    }
+                    return $item2;
+                });
+                return $item;
             });
-            return $item;
-        });
 
-        $dataPeta = Kecamatan::whereIn('id', $id)->get()->map(function ($item) use ($req) {
-            $item->jenis = $req->jenis;
-            $check = Attribut_Kecamatan::where('attribut_id', $req->jenis)->where('kecamatan_id', $item->id)->first();
-            if ($check == null) {
-                $item->value = 0;
-            } else {
-                $item->value = Attribut_Kecamatan::where('attribut_id', $req->jenis)->where('kecamatan_id', $item->id)->first()->value;
-            }
-            return $item;
-        });
+            $dataPeta = Kecamatan::whereIn('id', $id)->get()->map(function ($item) use ($req) {
+                $item->jenis = $req->jenis;
+                $check = Attribut_Kecamatan::where('attribut_id', $req->jenis)->where('kecamatan_id', $item->id)->first();
+                if ($check == null) {
+                    $item->value = 0;
+                } else {
+                    $item->value = Attribut_Kecamatan::where('attribut_id', $req->jenis)->where('kecamatan_id', $item->id)->first()->value;
+                }
+                return $item;
+            });
 
-        $compareKecamatan = 'ok';
-        $req->flash();
-        $attribut = Attribut::get();
-        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'kecamatan_id', 'attribut', 'oldkecamatan'));
+            $compareKecamatan = 'ok';
+            $req->flash();
+            $attribut = Attribut::get();
+            return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'kecamatan_id', 'attribut', 'oldkecamatan'));
+        }
     }
 
     public function compareKelurahan(Request $req)

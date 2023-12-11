@@ -33,6 +33,10 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
   crossorigin=""/>
+
+<!-- IziToast -->
+<link rel="stylesheet" href="/notif/dist/css/iziToast.min.css">
+<script src="/notif/dist/js/iziToast.min.js" type="text/javascript"></script>
 <style>
     body{
 
@@ -43,6 +47,17 @@
       background: #fff;
         height: 400px; 
         width: 90%; 
+        }
+    #map1 { 
+      background: #fff;
+        border:"1px solid black";
+        height: 400px; 
+        width: 100%; 
+        }
+    #map2 { 
+      background: #fff;
+        height: 400px; 
+        width: 100%; 
         }
 </style>
 </head>
@@ -198,10 +213,11 @@
         <div class="box-body text-center">
           <div class="row">
             <div class="col-md-6 text-center">
-              Peta 1
+              
+            <div id="map1"></div>
             </div>
             <div class="col-md-6 text-center">
-              Peta 2
+            <div id="map2"></div>
             </div>
           </div>
         </div>
@@ -275,6 +291,66 @@ crossorigin=""></script>
 </script>
 <script>
  
+ const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
+var peta1 = selectedKecamatan[0].nama;
+var peta2 = selectedKecamatan[1].nama;
+ if(peta1 === 'Banjarmasin Tengah'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText); 
+  }
+  if(peta1 === 'Banjarmasin Timur'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText); 
+  }
+  if(peta1 === 'Banjarmasin Barat'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText);
+  }
+  if(peta1 === 'Banjarmasin Selatan'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 13);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText); 
+  }
+  if(peta1 === 'Banjarmasin Utara'){
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText); 
+  }
+
+  if(peta2 === 'Banjarmasin Tengah'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText); 
+  }
+  if(peta2 === 'Banjarmasin Timur'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText); 
+  }
+  if(peta2 === 'Banjarmasin Barat'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText);
+  }
+  if(peta2 === 'Banjarmasin Selatan'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText); 
+  }
+  if(peta2 === 'Banjarmasin Utara'){
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText); 
+  }
+  L.geoJson(jsonkec1,{
+    style:function(feature){
+      return{
+        weight: 2
+      }
+    }
+  }).addTo(mapkec1);
+
+  L.geoJson(jsonkec2,{
+    style:function(feature){
+      return{
+        weight: 2
+      }
+    }
+  }).addTo(mapkec2);
+console.log(selectedKecamatan[0].nama);
  var mapkec = L.map('map', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 12);
  var jsonkec = JSON.parse($.ajax({'url': "/geojson/kecamatan.json", 'async': false}).responseText); 
 
@@ -288,7 +364,6 @@ crossorigin=""></script>
   //.addTo(mapkec);
 
 
-  const selectedKecamatan = {!!json_encode($kecamatan_id)!!}
 
   const data = {!!json_encode($data)!!}
   console.log({data, selectedKecamatan});
@@ -322,5 +397,8 @@ crossorigin=""></script>
   }).addTo(mapkec);
   </script>
 </body>
+<script>
+  @include('layouts.notif')
+  </script>
 
 </html>
