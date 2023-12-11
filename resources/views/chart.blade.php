@@ -153,7 +153,7 @@
 
 <!-- AdminLTE for demo purposes -->
 
-<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script src="/js/canvasjs.min.js"></script>
 
 <script>
   $(function () {
