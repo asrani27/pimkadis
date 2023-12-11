@@ -227,7 +227,7 @@ class FrontController extends Controller
     public function pdf($id)
     {
 
-        $filename = 'tdb' . Carbon::now()->format('Y-m-d') . '.jpg';
+        $filename = 'tdb' . Carbon::now()->format('Y-m-d H:i:s') . '.jpg';
         Browsershot::url('https://tdb.banjarmasinkota.go.id/profilwilayah/' . $id)
             ->setOption('landscape', true)
             ->windowSize(1840, 2160)
