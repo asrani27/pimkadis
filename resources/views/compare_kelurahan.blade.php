@@ -303,7 +303,7 @@
 
 <!-- AdminLTE for demo purposes -->
 
-<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script src="/js/canvasjs.min.js"></script>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -357,7 +357,6 @@ crossorigin=""></script>
  
  const selectedKelurahan = {!!json_encode($kelurahan_id)!!}
 
- console.log(['sdfsdf',selectedKelurahan])
  
 var peta1 = selectedKelurahan[0].kecamatan.nama;
 var peta2 = selectedKelurahan[1].kecamatan.nama;
