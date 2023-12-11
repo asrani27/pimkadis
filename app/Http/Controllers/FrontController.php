@@ -50,8 +50,8 @@ class FrontController extends Controller
         $attribut = Attribut::get();
         $oldkecamatan = null;
         $kecamatan_id = [];
-
-        return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'attribut', 'oldkecamatan', 'kecamatan_id'));
+        $grafik1 = null;
+        return view('compare_kecamatan', compact('grafik1', 'kecamatan', 'compareKecamatan', 'data', 'attribut', 'oldkecamatan', 'kecamatan_id'));
     }
 
     public function byKelurahan()
@@ -267,7 +267,7 @@ class FrontController extends Controller
                     if ($jp == null) {
                         $item2->jp = 0;
                     } else {
-                        $item2->jp = format_number($jp->value);
+                        $item2->jp = $jp->value;
                     }
                     if ($lw == null) {
                         $item2->lw = 0;

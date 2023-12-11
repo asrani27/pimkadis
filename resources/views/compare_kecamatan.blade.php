@@ -160,6 +160,7 @@
 
       @if ($compareKecamatan != null)
 
+      
       <div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Hasil</h3>
@@ -206,7 +207,7 @@
         </div>
         
       </div>
-      {{dd($kecamatan_id)}}
+      
       <div class="row">
         <div class="col-md-6">
           <div class="box box-default">
@@ -220,9 +221,9 @@
                 <div class="col-md-5">
                   <strong>
                     LUAS WILAYAH :<BR/>
-                    21321 KM/M2<BR/><BR/>
+                    {{$kecamatan_id[0]->lw}} Km2<BR/><BR/>
                     JUMLAH PENDUDUK : <BR/>
-                    123123 JIWA
+                    {{number_format((int)$kecamatan_id[0]->jp)}} JIWA
                   </strong>
                   <h4>PERSENTASE {{strtoupper($datayangdibandingkan)}}</h4>
                   <div id="chartContainer1" style="height: 200px; width: 100%;"></div>
@@ -243,9 +244,9 @@
 
                   <strong>
                     LUAS WILAYAH :<BR/>
-                    21321 KM/M2<BR/><BR/>
+                    {{$kecamatan_id[1]->lw}} Km2<BR/><BR/>
                     JUMLAH PENDUDUK : <BR/>
-                    123123 JIWA
+                    {{number_format((int)$kecamatan_id[1]->jp)}} JIWA
                   </strong>
                   <h4>PERSENTASE {{strtoupper($datayangdibandingkan)}}</h4>
 
