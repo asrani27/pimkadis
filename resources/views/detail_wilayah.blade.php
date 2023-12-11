@@ -200,7 +200,7 @@
                     </div>
                   </div>
                   <div class="col-md-5 text-left">
-                    PERSENTASE {{strtoupper($item->singkatan)}} DI KELURAHAN<br/>
+                    PERSENTASE {{strtoupper($item->singkatan)}}<br/>
                     <strong style="font-size:14px;">{{number_format($item->persen)}}% {{strtoupper($item->max['label'])}} <br/>{{strtoupper($item->max['y'])}} {{strtoupper($item->singkatan)}}</strong>
                     <hr style="border:2px solid black">
                     RINCIAN {{strtoupper($item->singkatan)}}
@@ -220,6 +220,7 @@
         @else
             
         @endif
+        
         
       </section>
       <!-- /.content -->
@@ -285,32 +286,32 @@ crossorigin=""></script>
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
-    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText).data;
+    //var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Timur'){
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
-    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText).data;
+    //var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Barat'){
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText);
-    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText).data;
+    //var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText).data;
     //console.log(['batas',jsonkec, jsonkecline]); 
   }
   if(kecamatan.nama === 'Banjarmasin Selatan'){
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 13);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
-    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText).data;
+    //var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText).data;
   }
   if(kecamatan.nama === 'Banjarmasin Utara'){
     var mapkec = L.map('mapkecamatan', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
     var mapkec2 = L.map('mapkecamatan2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
     var jsonkec = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
-    var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data;
+    //var jsonkecline = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data;
   }
 
   const features = jsonkec?.features || []
@@ -321,18 +322,7 @@ crossorigin=""></script>
 
   jsonkec.features = features
 
-  L.geoJson(jsonkecline,{
-    style:function(feature){
-      return{
-        fillOpacity:0,
-        weight:5
-      }
-    },
-    onEachFeature:function(feature, layer){
-      layer.bindPopup(feature.properties.Nama);
-    }
-  }).addTo(mapkec2);
-  
+ 
 
   L.geoJson(jsonkec,{
     style:function(feature){
@@ -352,7 +342,7 @@ crossorigin=""></script>
 
       return{
         fillOpacity: percentage,
-        weight: .5
+        weight: 2
       }
     },
     onEachFeature:function(feature, layer){
@@ -444,17 +434,7 @@ crossorigin=""></script>
     })
     json.features = features
     
-    L.geoJson(jsonkecline,{
-      style:function(feature){
-        return{
-          fillOpacity:0,
-          weight:3
-        }
-      },
-      onEachFeature:function(feature, layer){
-        layer.bindPopup(feature.properties.Nama);
-      }
-    }).addTo(map);
+    
     L.geoJson(json,{
       style:function(feature){
 
@@ -465,7 +445,7 @@ crossorigin=""></script>
 
         return{
           fillOpacity: percentage,
-          weight: .5
+          weight: 2
         }
       },
       onEachFeature:function(feature, layer){
