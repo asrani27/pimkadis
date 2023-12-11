@@ -456,10 +456,16 @@ var peta2 = selectedKelurahan[1].kecamatan.nama;
       const opacity = value/total;
       
 
-      console.log(['findata',findData, opacity])
+      if(opacity === 0){
+        opacity2 = 0.1
+      }else{
+        opacity2 = opacity
+      }
+      //console.log(['findata',findData ? 'red' : 'white', opacity2])
+      
        return{
         fillColor:findData ? 'red' : 'white',
-        fillOpacity:opacity,
+        fillOpacity:opacity2,
         weight: 4
        }
      },

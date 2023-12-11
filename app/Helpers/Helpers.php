@@ -33,7 +33,11 @@ function nilai2($attribut_id, $kelurahan_id)
         $hasil = $data->value;
     }
 
-    return number_format($hasil);
+    if (substr($hasil, -2) == '00') {
+        return number_format($hasil);
+    } else {
+        return $hasil;
+    }
 }
 function penyebut($nilai)
 {
