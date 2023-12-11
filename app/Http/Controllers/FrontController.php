@@ -352,9 +352,17 @@ class FrontController extends Controller
             $req->flash();
             $attribut = Attribut::get();
 
+            $grafik1 = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($id) {
+                $item->grafik = collect(Kelurahan::whereIn('id', $id)->get()->toArray())->map(function ($item2) use ($item) {
+                    $data['y'] = AttributKelurahan::where('kelurahan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : (int)AttributKelurahan::where('kelurahan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
+                    $data['label'] = $item2['nama'];
+                    return $data;
+                })->toArray();
+                return $item;
+            });
 
             $datayangdibandingkan = Attribut::find($req->jenis)->nama;
-            return view('compare_kelurahan', compact('datayangdibandingkan', 'kelurahan', 'compareKelurahan', 'data', 'kelurahan_id', 'oldkelurahan', 'attribut'));
+            return view('compare_kelurahan', compact('grafik1', 'datayangdibandingkan', 'kelurahan', 'compareKelurahan', 'data', 'kelurahan_id', 'oldkelurahan', 'attribut'));
         }
     }
 }

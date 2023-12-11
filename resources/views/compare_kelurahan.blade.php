@@ -308,6 +308,44 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 crossorigin=""></script>
+@if ($grafik1 == null)
+    
+@else
+    
+<script type="text/javascript">
+  var attribut = {!!json_encode($grafik1)!!}
+    attribut.forEach(element => {
+        console.log(element);
+        var chart = new CanvasJS.Chart("chartContainer1", {
+        animationEnabled: true,
+        data: [{
+          type: "column",  
+          toolTipContent: "<b>{label}</b><br>{y} "+element.satuan+"<br>",
+          showInLegend: true, 
+          legendMarkerColor: "grey",
+          legendText: "Data",
+          dataPoints: element.grafik
+        }]
+      });
+        var chart2 = new CanvasJS.Chart("chartContainer2", {
+        animationEnabled: true,
+        data: [{
+          type: "column",  
+          toolTipContent: "<b>{label}</b><br>{y} "+element.satuan+"<br>",
+          showInLegend: true, 
+          legendMarkerColor: "grey",
+          legendText: "Data",
+          dataPoints: element.grafik
+        }]
+      });
+      chart.render()
+      chart2.render()
+    });
+   
+    
+</script>
+@endif
+
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -388,6 +426,12 @@ var peta2 = selectedKelurahan[1].kecamatan.nama;
         fillOpacity:10,
         weight: 4,
       }
+    }, onEachFeature:function(feature, layer){
+      const title = feature.properties.Nama
+      const value = feature.properties?.kelurahan?.jumlahpenduduk
+      const stringValue = Number.parseFloat(value).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+
+      layer.bindPopup(`<h4>${title} <br/></h4>`);
     }
   }).addTo(mapkec2);
 

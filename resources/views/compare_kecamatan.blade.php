@@ -357,6 +357,7 @@ crossorigin=""></script>
     
 </script>
 @endif
+
 <script>
   $(function () {
     //Initialize Select2 Elements
