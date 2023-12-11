@@ -161,7 +161,7 @@
                   <div class="row">
                   <div class="col-md-7">
 
-                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:14px;font-weight:bold;">{{strtoupper($item->nama)}} {{$item->value == 0 ? '0' : number_format($item->value)}} {{strtoupper($item->satuan)}}</h3>
+                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:14px;font-weight:bold;"> {{$item->value == 0 ? '0' : number_format($item->value)}} {{strtoupper($item->satuan)}}</h3>
                     <div id="map{{$item->id}}" class="map"></div>
                     <div class="row">
                       <div class="col-sm-6">
