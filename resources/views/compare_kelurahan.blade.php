@@ -206,7 +206,7 @@
         <div class="col-md-6">
           <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title" style="font-size: 24px; font-weight:bold">{{strtoupper($kelurahan_id[0]->nama)}}</h3>
+              <h3 class="box-title" style="font-size: 24px; font-weight:bold">{{strtoupper($kelurahan_id[0]->nama)}}, KEC : {{strtoupper($kelurahan_id[0]->kecamatan)}} </h3>
             </div>
               <div class="box-body">
                 <div class="col-md-7 text-center">
@@ -214,6 +214,8 @@
                 </div>
                 <div class="col-md-5">
                   <strong>
+                    LUAS WILAYAH :<BR/>
+                    {{$kelurahan_id[0]->lw}} Km2<BR/><BR/>
                     JUMLAH PENDUDUK : <BR/>
                     {{number_format((int)$kelurahan_id[0]->jp)}} JIWA
                   </strong>
@@ -226,7 +228,7 @@
         <div class="col-md-6">
           <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title" style="font-size: 24px; font-weight:bold">{{strtoupper($kelurahan_id[1]->nama)}}</h3>
+              <h3 class="box-title" style="font-size: 24px; font-weight:bold">{{strtoupper($kelurahan_id[1]->nama)}}, KEC : {{strtoupper($kelurahan_id[1]->kecamatan)}}</h3>
             </div>
               <div class="box-body">
                 <div class="col-md-7">
@@ -235,6 +237,8 @@
                 <div class="col-md-5">
 
                   <strong>
+                    LUAS WILAYAH :<BR/>
+                    {{$kelurahan_id[1]->lw}} Km2<BR/><BR/>
                     JUMLAH PENDUDUK : <BR/>
                     {{number_format((int)$kelurahan_id[1]->jp)}} JIWA
                   </strong>
@@ -322,62 +326,67 @@ var peta2 = selectedKelurahan[1].kecamatan.nama;
 
  if(peta1 === 'Banjarmasin Tengah'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText).data; 
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
   }
   if(peta1 === 'Banjarmasin Timur'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 12);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText).data; 
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
   }
   if(peta1 === 'Banjarmasin Barat'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText).data;
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText);
   }
   if(peta1 === 'Banjarmasin Selatan'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText).data; 
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
   }
   if(peta1 === 'Banjarmasin Utara'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 12);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText).data; 
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
   }
 
   if(peta2 === 'Banjarmasin Tengah'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText).data; 
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtengah.json", 'async': false}).responseText); 
   }
   if(peta2 === 'Banjarmasin Timur'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 12);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText).data; 
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtimur.json", 'async': false}).responseText); 
   }
   if(peta2 === 'Banjarmasin Barat'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText).data;
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmbarat.json", 'async': false}).responseText);
   }
   if(peta2 === 'Banjarmasin Selatan'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText).data; 
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmselatan.json", 'async': false}).responseText); 
   }
   if(peta2 === 'Banjarmasin Utara'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 12);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText).data; 
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmutara.json", 'async': false}).responseText); 
   }
 
+  console.log(['kel',selectedKelurahan[0].nama]);
   L.geoJson(jsonkec1,{
     style:function(feature){
+       const name = feature.properties.NAMA_KELUR
+       const findData = selectedKelurahan[0].nama.toUpperCase() === name
       return{
-        fillColor: 'orange',
+        fillColor: findData ? 'orange':'white',
         fillOpacity:10,
-        weight: 5,
+        weight: 4,
       }
     }
   }).addTo(mapkec1);
 
   L.geoJson(jsonkec2,{
     style:function(feature){
+       const name = feature.properties.NAMA_KELUR
+       const findData = selectedKelurahan[1].nama.toUpperCase() === name
       return{
-        fillColor: 'orange',
+        fillColor: findData ? 'orange':'white',
         fillOpacity:10,
-        weight: 5,
+        weight: 4,
       }
     }
   }).addTo(mapkec2);

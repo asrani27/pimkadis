@@ -323,12 +323,22 @@ class FrontController extends Controller
             $kelurahan = Kelurahan::get();
             $kelurahan_id = Kelurahan::whereIn('id', $id)->get()->map(function ($item) {
                 $item->kecamatan = $item->kecamatan->nama;
+
+                $jp = AttributKelurahan::where('kelurahan_id', $item->id)->where('attribut_id', 6)->first();
+                $lw = AttributKelurahan::where('kelurahan_id', $item->id)->where('attribut_id', 21)->first();
+                if ($jp == null) {
+                    $item->jp = 0;
+                } else {
+                    $item->jp = $jp->value;
+                }
+                if ($lw == null) {
+                    $item->lw = 0;
+                } else {
+                    $item->lw = $lw->value;
+                }
                 return $item;
             });
-            // $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kelurahan_id) {
-            //     $item->kelurahan = $kelurahan_id;
-            //     return $item;
-            // });
+
             $data = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($kelurahan_id) {
                 $item->kelurahan = $kelurahan_id->map(function ($item2) use ($item) {
                     $item2->value = AttributKelurahan::where('kelurahan_id', $item2->id)->where('attribut_id', $item->id)->first()->value;
@@ -336,7 +346,7 @@ class FrontController extends Controller
                 });
                 return $item;
             });
-
+            //dd($kelurahan_id);
             //dd($data, $kelurahan, $kelurahan_id);
             $compareKelurahan = 'ok';
             $req->flash();
