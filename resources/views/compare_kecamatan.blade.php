@@ -46,7 +46,7 @@
     #map { 
       background: #fff;
         height: 600px; 
-        width: 90%; 
+        width: 100%; 
         }
     #map1 { 
       background: #fff;
@@ -206,34 +206,48 @@
         </div>
         
       </div>
+      {{dd($kecamatan_id)}}
       <div class="row">
-        <div class="col-md-6 text-center">
+        <div class="col-md-6">
           <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">{{strtoupper($kecamatan_id[0]->nama)}}</h3>
+              <h3 class="box-title" style="font-size: 24px; font-weight:bold">{{strtoupper($kecamatan_id[0]->nama)}}</h3>
             </div>
-              <div class="box-body text-center">
-                <div class="col-md-8 text-center">
+              <div class="box-body">
+                <div class="col-md-7 text-center">
                   <div id="map1"></div>
                 </div>
-                <div class="col-md-4 text-center">
-                  <H3>PERSENTASE</H3>
+                <div class="col-md-5">
+                  <strong>
+                    LUAS WILAYAH :<BR/>
+                    21321 KM/M2<BR/><BR/>
+                    JUMLAH PENDUDUK : <BR/>
+                    123123 JIWA
+                  </strong>
+                  <h4>PERSENTASE {{strtoupper($datayangdibandingkan)}}</h4>
                   <div id="chartContainer1" style="height: 200px; width: 100%;"></div>
                 </div>
               </div>
           </div>
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-md-6">
           <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">{{strtoupper($kecamatan_id[1]->nama)}}</h3>
+              <h3 class="box-title" style="font-size: 24px; font-weight:bold">{{strtoupper($kecamatan_id[1]->nama)}}</h3>
             </div>
-              <div class="box-body text-center">
-                <div class="col-md-8 text-center">
+              <div class="box-body">
+                <div class="col-md-7">
                   <div id="map2"></div>
                 </div>
-                <div class="col-md-4 text-center">
-                  <H3>PERSENTASE</H3>
+                <div class="col-md-5">
+
+                  <strong>
+                    LUAS WILAYAH :<BR/>
+                    21321 KM/M2<BR/><BR/>
+                    JUMLAH PENDUDUK : <BR/>
+                    123123 JIWA
+                  </strong>
+                  <h4>PERSENTASE {{strtoupper($datayangdibandingkan)}}</h4>
 
                   <div id="chartContainer2" style="height: 200px; width: 100%;"></div>
                 </div>
@@ -246,8 +260,11 @@
           <h3 class="box-title">Geospasial</h3>
         </div>
         <div class="box-body text-center">
-          <div class="col-md-12 text-center">
-            <div id="map"></div>
+          <div class="row">
+
+            <div class="col-md-12 text-center">
+              <div id="map"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -317,10 +334,22 @@ crossorigin=""></script>
           dataPoints: element.grafik
         }]
       });
+        var chart2 = new CanvasJS.Chart("chartContainer2", {
+        animationEnabled: true,
+        data: [{
+          type: "column",  
+          toolTipContent: "<b>{label}</b><br>{y} "+element.satuan+"<br>",
+          showInLegend: true, 
+          legendMarkerColor: "grey",
+          legendText: "Data",
+          dataPoints: element.grafik
+        }]
+      });
       chart.render()
+      chart2.render()
     });
     
-    </script>
+</script>
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -333,11 +362,11 @@ crossorigin=""></script>
 var peta1 = selectedKecamatan[0].nama;
 var peta2 = selectedKecamatan[1].nama;
  if(peta1 === 'Banjarmasin Tengah'){
-    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
     var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText).data; 
   }
   if(peta1 === 'Banjarmasin Timur'){
-    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 12);
     var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText).data; 
   }
   if(peta1 === 'Banjarmasin Barat'){
@@ -345,20 +374,20 @@ var peta2 = selectedKecamatan[1].nama;
     var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText).data;
   }
   if(peta1 === 'Banjarmasin Selatan'){
-    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 13);
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
     var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText).data; 
   }
   if(peta1 === 'Banjarmasin Utara'){
-    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
+    var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 12);
     var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data; 
   }
 
   if(peta2 === 'Banjarmasin Tengah'){
-    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
     var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText).data; 
   }
   if(peta2 === 'Banjarmasin Timur'){
-    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 12);
     var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText).data; 
   }
   if(peta2 === 'Banjarmasin Barat'){
@@ -370,7 +399,7 @@ var peta2 = selectedKecamatan[1].nama;
     var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText).data; 
   }
   if(peta2 === 'Banjarmasin Utara'){
-    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
+    var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 12);
     var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data; 
   }
 
@@ -405,8 +434,7 @@ console.log(selectedKecamatan[0].nama);
     maxZoom: 22,
     subdomains: 'abcd',
     accessToken: 'eRFCsGIiHUoMtLKDSNdmhI2pONyzAYl0mH7qe2PtDlC6gYUR3teEbt9GaQCHjq1r'
-  });
-  //.addTo(mapkec);
+  }).addTo(mapkec);
 
 
 

@@ -262,6 +262,18 @@ class FrontController extends Controller
                     } else {
                         $item2->value = $checkValue->value;
                     }
+                    $jp = Attribut_Kecamatan::where('kecamatan_id', $item2->id)->where('attribut_id', 6)->first();
+                    $lw = Attribut_Kecamatan::where('kecamatan_id', $item2->id)->where('attribut_id', 21)->first();
+                    if ($jp == null) {
+                        $item2->jp = 0;
+                    } else {
+                        $item2->jp = format_number($jp->value);
+                    }
+                    if ($lw == null) {
+                        $item2->lw = 0;
+                    } else {
+                        $item2->lw = $lw->value;
+                    }
                     return $item2;
                 });
                 return $item;
@@ -282,8 +294,8 @@ class FrontController extends Controller
             $req->flash();
             $attribut = Attribut::get();
 
-            $grafik1 = Attribut::where('id', $req->jenis)->get()->map(function ($item) {
-                $item->grafik = collect(Kecamatan::get()->toArray())->map(function ($item2) use ($item) {
+            $grafik1 = Attribut::where('id', $req->jenis)->get()->map(function ($item) use ($id) {
+                $item->grafik = collect(Kecamatan::whereIn('id', $id)->get()->toArray())->map(function ($item2) use ($item) {
                     $data['y'] = Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : (int)Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
                     $data['label'] = $item2['nama'];
                     return $data;
@@ -293,7 +305,6 @@ class FrontController extends Controller
 
             $datayangdibandingkan = Attribut::find($req->jenis)->nama;
 
-            dd($datayangdibandingkan);
             return view('compare_kecamatan', compact('grafik1', 'datayangdibandingkan', 'kecamatan', 'compareKecamatan', 'data', 'kecamatan_id', 'attribut', 'oldkecamatan'));
         }
     }
