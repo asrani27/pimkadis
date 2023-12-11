@@ -45,7 +45,7 @@
     }
     #map { 
       background: #fff;
-        height: 400px; 
+        height: 600px; 
         width: 90%; 
         }
     #map1 { 
@@ -206,19 +206,38 @@
         </div>
         
       </div>
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Perbandingan Data</h3>
+      <div class="row">
+        <div class="col-md-6 text-center">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">{{strtoupper($kecamatan_id[0]->nama)}}</h3>
+            </div>
+              <div class="box-body text-center">
+                <div class="col-md-8 text-center">
+                  <div id="map1"></div>
+                </div>
+                <div class="col-md-4 text-center">
+                  <H3>PERSENTASE</H3>
+                  <div id="chartContainer1" style="height: 200px; width: 100%;"></div>
+                </div>
+              </div>
+          </div>
         </div>
-        <div class="box-body text-center">
-          <div class="row">
-            <div class="col-md-6 text-center">
-              
-            <div id="map1"></div>
+        <div class="col-md-6 text-center">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">{{strtoupper($kecamatan_id[1]->nama)}}</h3>
             </div>
-            <div class="col-md-6 text-center">
-            <div id="map2"></div>
-            </div>
+              <div class="box-body text-center">
+                <div class="col-md-8 text-center">
+                  <div id="map2"></div>
+                </div>
+                <div class="col-md-4 text-center">
+                  <H3>PERSENTASE</H3>
+
+                  <div id="chartContainer2" style="height: 200px; width: 100%;"></div>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -283,6 +302,25 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 crossorigin=""></script>
+<script type="text/javascript">
+  var attribut = {!!json_encode($grafik1)!!}
+    attribut.forEach(element => {
+        console.log(element);
+        var chart = new CanvasJS.Chart("chartContainer1", {
+        animationEnabled: true,
+        data: [{
+          type: "column",  
+          toolTipContent: "<b>{label}</b><br>{y} "+element.satuan+"<br>",
+          showInLegend: true, 
+          legendMarkerColor: "grey",
+          legendText: "Data",
+          dataPoints: element.grafik
+        }]
+      });
+      chart.render()
+    });
+    
+    </script>
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -296,49 +334,54 @@ var peta1 = selectedKecamatan[0].nama;
 var peta2 = selectedKecamatan[1].nama;
  if(peta1 === 'Banjarmasin Tengah'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText); 
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText).data; 
   }
   if(peta1 === 'Banjarmasin Timur'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText); 
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText).data; 
   }
   if(peta1 === 'Banjarmasin Barat'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText);
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText).data;
   }
   if(peta1 === 'Banjarmasin Selatan'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 13);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText); 
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText).data; 
   }
   if(peta1 === 'Banjarmasin Utara'){
     var mapkec1 = L.map('map1', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
-    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText); 
+    var jsonkec1 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data; 
   }
 
   if(peta2 === 'Banjarmasin Tengah'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 14);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText); 
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtengahline.json", 'async': false}).responseText).data; 
   }
   if(peta2 === 'Banjarmasin Timur'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.323640, 114.623513], 13);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText); 
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmtimurline.json", 'async': false}).responseText).data; 
   }
   if(peta2 === 'Banjarmasin Barat'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.317251, 114.573746], 13);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText);
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmbaratline.json", 'async': false}).responseText).data;
   }
   if(peta2 === 'Banjarmasin Selatan'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.346411, 114.583815], 12);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText); 
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmselatanline.json", 'async': false}).responseText).data; 
   }
   if(peta2 === 'Banjarmasin Utara'){
     var mapkec2 = L.map('map2', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.291572, 114.598542], 13);
-    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText); 
+    var jsonkec2 = JSON.parse($.ajax({'url': "/geojson/bjmutaraline.json", 'async': false}).responseText).data; 
   }
+
+  console.log(jsonkec1);
+  console.log(jsonkec2);
   L.geoJson(jsonkec1,{
     style:function(feature){
       return{
-        weight: 2
+        fillColor: 'orange',
+        fillOpacity:10,
+        weight: 5,
       }
     }
   }).addTo(mapkec1);
@@ -346,12 +389,14 @@ var peta2 = selectedKecamatan[1].nama;
   L.geoJson(jsonkec2,{
     style:function(feature){
       return{
-        weight: 2
+        fillColor: 'orange',
+        fillOpacity:10,
+        weight: 5,
       }
     }
   }).addTo(mapkec2);
 console.log(selectedKecamatan[0].nama);
- var mapkec = L.map('map', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 12);
+ var mapkec = L.map('map', {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView([-3.318060, 114.589410], 13);
  var jsonkec = JSON.parse($.ajax({'url': "/geojson/kecamatan.json", 'async': false}).responseText); 
 
  var layerMapkec = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
@@ -384,7 +429,7 @@ console.log(selectedKecamatan[0].nama);
       return{
         fillColor:findData ? 'red' : 'white',
         fillOpacity:opacity,
-        weight:1
+        weight:4
       }
     },
     onEachFeature:function(feature, layer){

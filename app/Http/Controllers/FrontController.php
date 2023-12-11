@@ -281,7 +281,20 @@ class FrontController extends Controller
             $compareKecamatan = 'ok';
             $req->flash();
             $attribut = Attribut::get();
-            return view('compare_kecamatan', compact('kecamatan', 'compareKecamatan', 'data', 'kecamatan_id', 'attribut', 'oldkecamatan'));
+
+            $grafik1 = Attribut::where('id', $req->jenis)->get()->map(function ($item) {
+                $item->grafik = collect(Kecamatan::get()->toArray())->map(function ($item2) use ($item) {
+                    $data['y'] = Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first() == null ? 1 : (int)Attribut_Kecamatan::where('kecamatan_id', $item2['id'])->where('attribut_id', $item->id)->first()->value;
+                    $data['label'] = $item2['nama'];
+                    return $data;
+                })->toArray();
+                return $item;
+            });
+
+            $datayangdibandingkan = Attribut::find($req->jenis)->nama;
+
+            dd($datayangdibandingkan);
+            return view('compare_kecamatan', compact('grafik1', 'datayangdibandingkan', 'kecamatan', 'compareKecamatan', 'data', 'kecamatan_id', 'attribut', 'oldkecamatan'));
         }
     }
 
