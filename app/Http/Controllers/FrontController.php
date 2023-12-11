@@ -103,7 +103,7 @@ class FrontController extends Controller
         $izin_id = Attribut::where('nama', 'Izin Usaha')->first()->id;
         $stunting_id = Attribut::where('nama', 'Kasus Stunting')->first()->id;
         $tps_id = Attribut::where('nama', 'Jumlah Tempat Pembuangan Sampah (TPS)')->first()->id;
-        $rtlh_id = Attribut::where('nama', 'Rumah Tidak Layak huni')->first()->id;
+        $rtlh_id = Attribut::where('nama', 'Rumah Tidak Layak Huni')->first()->id;
 
         $laki_id = Attribut::where('nama', 'Jumlah Laki')->first()->id;
         $perempuan_id = Attribut::where('nama', 'Jumlah Perempuan')->first()->id;

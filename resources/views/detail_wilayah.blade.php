@@ -246,13 +246,13 @@
 
 <!-- AdminLTE for demo purposes -->
 
-<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script src="/js/canvasjs.min.js"></script>
 <script type="text/javascript">
 
 var attribut = {!!json_encode($attribut)!!}
   
   attribut.forEach(element => {
-      console.log(element);
+      // console.log(element);
       var chart = new CanvasJS.Chart("chartContainer"+element.id, {
       animationEnabled: true,
       data: [{
@@ -413,6 +413,7 @@ crossorigin=""></script>
   const attributTotal = {}
 
   dataAttribut.forEach(data => {
+    console.log(['as:',data])
     attributTotal[data.deskripsi] = 0
 
     // console.log({data});
@@ -420,7 +421,6 @@ crossorigin=""></script>
     const element = elements.find(e => e.name === kecamatan.nama)
     const map = L.map('map'+data.id, {scrollWheelZoom: false ,zoomControl: false,doubleClickZoom: false}).setView(element.view, element.zoom);
     const json = JSON.parse($.ajax({'url': element.geojson, 'async': false}).responseText); 
-
 
     const features = json.features
     features.map(f => {
@@ -443,6 +443,7 @@ crossorigin=""></script>
         const total = attributTotal[data.deskripsi]
         const percentage = (count / total) || 0
 
+        console.log([count, total, feature, dataKelurahan[data.deskripsi], data]);
         return{
           fillOpacity: percentage,
           weight: 2
