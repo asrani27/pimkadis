@@ -225,8 +225,9 @@ class FrontController extends Controller
     }
     public function pdf($id)
     {
+        $data = Kecamatan::find($id);
 
-        $filename = 'tdb' . Carbon::now()->format('Y-m-d') . '.jpg';
+        $filename = 'tdb_' . str_replace(" ", "_", $data->nama) . '.jpg';
         Browsershot::url('https://tdb.banjarmasinkota.go.id/profilwilayah/' . $id)
             ->setOption('landscape', true)
             ->windowSize(1840, 2160)
