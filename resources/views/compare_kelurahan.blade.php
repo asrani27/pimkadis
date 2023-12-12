@@ -219,7 +219,7 @@
                     JUMLAH PENDUDUK : <BR/>
                     {{number_format((int)$kelurahan_id[0]->jp)}} JIWA
                   </strong>
-                  <h4>PERSENTASE {{strtoupper($datayangdibandingkan)}}</h4>
+                  <h4>JUMLAH {{strtoupper($datayangdibandingkan)}}</h4>
                   <div id="chartContainer1" style="height: 200px; width: 100%;"></div>
                 </div>
               </div>
@@ -242,7 +242,7 @@
                     JUMLAH PENDUDUK : <BR/>
                     {{number_format((int)$kelurahan_id[1]->jp)}} JIWA
                   </strong>
-                  <h4>PERSENTASE {{strtoupper($datayangdibandingkan)}}</h4>
+                  <h4>JUMLAH {{strtoupper($datayangdibandingkan)}}</h4>
 
                   <div id="chartContainer2" style="height: 200px; width: 100%;"></div>
                 </div>
